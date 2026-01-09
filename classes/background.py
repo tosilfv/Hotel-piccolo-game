@@ -37,5 +37,5 @@ class Background:
         """
         Draw the background ground and sky sufraces to the screen.
         """
-        self.screen.display.blit(self.ground_surf, (GROUND_X, GROUND_Y))
-        self.screen.display.blit(self.sky_surf, (SKY_X, SKY_Y))
+        self.screen.screen.blit(self.ground_surf, (GROUND_X, GROUND_Y))
+        self.screen.screen.blit(self.sky_surf, (SKY_X, SKY_Y))

@@ -11,12 +11,12 @@ class Screen:
     Manages the game window and display settings.
 
     Attributes:
-        display: Pygame display surface (the game window).
+        screen: Pygame screen display surface (the game window).
         clock: Pygame Clock object for framerate control.
         framerate (int): Target grames per second.
     """
     def __init__(self) -> None:
-        self.display = pygame.display.set_mode(DISPLAY_SIZE)
+        self.screen = pygame.display.set_mode(DISPLAY_SIZE)
         self.clock = pygame.time.Clock()
         self.framerate = FRAMERATE
         pygame.display.set_caption(CAPTION)

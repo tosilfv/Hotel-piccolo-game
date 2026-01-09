@@ -1,6 +1,6 @@
 # Media Assets
 
-This directory contains all media assets used in the Piccolo2 game.
+This directory contains all media assets used in the Piccolo game.
 
 **Naming Convention:**
 - `*_normal.png` - Standard resolution images

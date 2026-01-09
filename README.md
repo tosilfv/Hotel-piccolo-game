@@ -1,4 +1,4 @@
-# Pygame Hotel Piccolo2 Game
+# Pygame Hotel Piccolo Game
 
 ## Video
 
@@ -20,24 +20,15 @@ where the Mediator is notified of any actions in the game by the game<br />
 objects. Mediator then notifies the relevant game objects in return to<br />
 react to these actions.<br />
 
-## Instructions
-
-TODO
-
-## Ohjeet
-
-TEE
-
-## N.B.
-
-This is the 2nd iteration to the Original Hotel Piccolo Pygame Game.<br />
-
 ## Testing
 
-Install pytest: pip install -r requirements-dev.txt<br />
+Install pytest>=7.0.0<br />
 Run all tests with verbose output: pytest -v<br />
 
 ## Changelog
 
 **[0.0.1] - Jan 6. 2026:**<br />
 _- Initial Upload._<br />
+
+**[0.0.2] - Jan 8. 2026:**<br />
+_- Added tests._<br />

@@ -24,6 +24,6 @@ DEFAULT_COLOR = (0, 255, 0)  # Green
 DEFAULT_SIZE = (100, 100)
 
 # Display
-CAPTION = "Piccolo2"
+CAPTION = "Piccolo"
 DISPLAY_SIZE = (800, 400)
 FRAMERATE = 60

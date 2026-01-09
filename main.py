@@ -1,5 +1,5 @@
 """
-Main entry point for the Piccolo2 game.
+Main entry point for the Piccolo game.
 
 This module initializes and runs the game loop and delegates game logic
 to the Game class. The game continues running until the user closes the window.

@@ -2,5 +2,5 @@
 Game variables.
 """
 
-# Loop Variables
+# Boolean Variables
 running = True

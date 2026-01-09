@@ -25,7 +25,7 @@ class TestMain:
         import main
         from control.game import game
         assert hasattr(main, 'game')
-
+        
     def test_main_has_running_import(self):
         """Test that main.py imports running variable"""
         import main
