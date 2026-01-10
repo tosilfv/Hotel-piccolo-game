@@ -1,4 +1,5 @@
 """Unit tests for Background class"""
+from classes.background import Background
 from unittest.mock import Mock
 
 class TestBackground:
@@ -6,8 +7,6 @@ class TestBackground:
 
     def test_background_initialization(self):
         """Test Background initialization"""
-        from classes.background import Background
-
         mock_screen = Mock()
         background = Background(mock_screen)
 
@@ -17,8 +16,6 @@ class TestBackground:
     
     def test_background_draw(self):
         """Test background draw method"""
-        from classes.background import Background
-
         mock_screen = Mock()
         background = Background(mock_screen)
         background.draw()

@@ -1,7 +1,6 @@
 """
 Background for the game.
 """
-
 import os
 from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, SKY_X, SKY_Y)
 from utils.helpers import load_image

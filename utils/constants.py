@@ -5,6 +5,7 @@ Game constants and configuration values.
 import os
 
 # Numeric
+FIVE = 5
 ZERO = 0
 
 # Background
@@ -27,3 +28,7 @@ DEFAULT_SIZE = (100, 100)
 CAPTION = "Piccolo"
 DISPLAY_SIZE = (800, 400)
 FRAMERATE = 60
+
+# Player
+PLAYER_X = 100
+PLAYER_Y = GROUND_Y + FIVE

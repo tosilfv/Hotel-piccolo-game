@@ -25,3 +25,7 @@ Contains all visual assets organized by category:
 Background images for different hotel scenes:
 - `entrance_normal.png` - Sky surface for entrance scene
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
+
+#### `player/`
+Player character sprites for different states and directions:
+- `piccolo_stand_normal.png` - Standing (right-facing)

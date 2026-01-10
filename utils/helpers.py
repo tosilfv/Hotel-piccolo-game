@@ -8,7 +8,7 @@ from utils.constants import (DEFAULT_COLOR, DEFAULT_SIZE)
 # Load Image
 def load_image(path, default_color=DEFAULT_COLOR, default_size=DEFAULT_SIZE) -> pygame.Surface:
     """
-    Loads an image file with error handling and placeholder fallback.
+    Load an image file with error handling and placeholder fallback.
     
     Args:
         path (str): File path to the image file.

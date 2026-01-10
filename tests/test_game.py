@@ -1,31 +1,31 @@
 """Unit tests for Game class"""
-from unittest.mock import patch
+from classes.background import Background
+from classes.player import Player
+from classes.user import User
+from control.game import Game
+from unittest.mock import Mock, patch
 
 class TestGame:
     """Test Game class"""
 
     def test_game_initialization(self):
         """Test Game initialization"""
-        from classes.background import Background
-        from control.game import Game
-        from unittest.mock import Mock
-
         mock_screen = Mock()
         background = Background(mock_screen)
-        game = Game(mock_screen, background)
+        player = Player(mock_screen)
+        user = User()
+        game = Game(mock_screen, background, player, user)
 
         assert game.screen == mock_screen
         assert game.background == background
 
     def test_game_run(self, monkeypatch):
         """Test Game run method"""
-        from classes.background import Background
-        from control.game import Game
-        from unittest.mock import Mock
-
         mock_screen = Mock()
         background = Background(mock_screen)
-        game = Game(mock_screen, background)
+        player = Player(mock_screen)
+        user = User()
+        game = Game(mock_screen, background, player, user)
 
 
         # Mock pygame.display.update
@@ -47,13 +47,11 @@ class TestGame:
 
     def test_game_run_calls_background_draw(self, monkeypatch):
         """Test that game.run calls background.draw"""
-        from classes.background import Background
-        from control.game import Game
-        from unittest.mock import Mock
-
         mock_screen = Mock()
         background = Background(mock_screen)
-        game = Game(mock_screen, background)
+        player = Player(mock_screen)
+        user = User()
+        game = Game(mock_screen, background, player, user)
 
         # Mock pygame.display.update
         mock_update = Mock()

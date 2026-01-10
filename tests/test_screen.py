@@ -1,4 +1,6 @@
 """Unit tests for Screen class"""
+from classes.screen import Screen
+from utils.constants import (CAPTION, FRAMERATE)
 from unittest.mock import Mock
 
 class TestScreen:
@@ -6,9 +8,7 @@ class TestScreen:
 
     def test_screen_initialization(self, monkeypatch):
         """Test Screen initialization"""
-        from classes.screen import Screen
-        from utils.constants import (FRAMERATE)
-
+        
         # Mock pygame display functions
         mock_display = Mock()
         mock_clock = Mock()
@@ -26,9 +26,6 @@ class TestScreen:
 
     def test_screen_set_caption(self, monkeypatch):
         """Test that screen sets caption correctly"""
-        from classes.screen import Screen
-        from utils.constants import (CAPTION)
-
         set_caption_called = []
 
         def mock_set_caption(caption):

@@ -6,7 +6,8 @@ class TestConstants:
 
     def test_numeric_constants(self):
         """Test numeric constants"""
-        from utils.constants import (ZERO)
+        from utils.constants import (FIVE, ZERO)
+        assert FIVE == 5
         assert ZERO == 0
 
     def test_background_constants(self):
@@ -37,6 +38,12 @@ class TestConstants:
         assert CAPTION == "Piccolo"
         assert DISPLAY_SIZE == (800, 400)
         assert FRAMERATE == 60
+
+    def test_player_constants(self):
+        """Test player constants"""
+        from utils.constants import (PLAYER_X, PLAYER_Y)
+        assert PLAYER_X == 100
+        assert PLAYER_Y == 325
 
 class TestHelpers:
     """Test helper functions"""

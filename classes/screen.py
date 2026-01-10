@@ -1,7 +1,6 @@
 """
 Screen management for the game.
 """
-
 import pygame
 from utils.constants import (CAPTION, DISPLAY_SIZE, FRAMERATE)
 

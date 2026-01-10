@@ -2,7 +2,7 @@
 
 ## Video
 
-![Video](video_1.gif)
+![Video](video_1.gif)<br />
 
 ## Description
 
@@ -32,3 +32,6 @@ _- Initial Upload._<br />
 
 **[0.0.2] - Jan 8. 2026:**<br />
 _- Added tests._<br />
+
+**[0.0.3] - Jan 8. 2026:**<br />
+_- Added Player and User classes._<br />
