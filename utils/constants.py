@@ -1,7 +1,6 @@
 """
 Game constants and configuration values.
 """
-
 import os
 
 # Numeric
@@ -28,6 +27,10 @@ DEFAULT_SIZE = (100, 100)
 CAPTION = "Piccolo"
 DISPLAY_SIZE = (800, 400)
 FRAMERATE = 60
+
+# Input
+CMD_MOVE_LEFT = "MOVE_LEFT"
+CMD_MOVE_RIGHT = "MOVE_RIGHT"
 
 # Player
 PLAYER_X = 100

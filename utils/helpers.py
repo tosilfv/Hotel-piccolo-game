@@ -1,7 +1,6 @@
 """
 Helper functions for game utilities.
 """
-
 import pygame
 from utils.constants import (DEFAULT_COLOR, DEFAULT_SIZE)
 

@@ -4,11 +4,15 @@ Main entry point for the Piccolo game.
 This module initializes and runs the game loop and delegates game logic
 to the Game class. The game continues running until the user closes the window.
 """
-
 import pygame
 from sys import exit
-from control.game import game
-from utils.variables import (running)
+from control.game_factory import create_game
+
+# Variables
+running = True
+
+# Objects
+game = create_game()
 
 # Game Loop
 if __name__ == "__main__":

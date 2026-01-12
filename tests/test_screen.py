@@ -38,4 +38,3 @@ class TestScreen:
         Screen()
 
         assert CAPTION in set_caption_called
-        

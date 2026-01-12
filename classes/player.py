@@ -2,7 +2,7 @@
 Player character implementation for the Piccolo game.
 """
 import os
-from utils.constants import (GRAPHICS_PATH, PLAYER_X, PLAYER_Y)
+from utils.constants import (FIVE, GRAPHICS_PATH, PLAYER_X, PLAYER_Y)
 from utils.helpers import load_image
 
 # Player
@@ -20,8 +20,6 @@ class Player:
     """
     def __init__(self, screen) -> None:
         self.screen = screen
-        self.player_x = PLAYER_X
-        self.player_y = PLAYER_Y
 
         # Normal (right-facing) images
         self.stand_image_normal = load_image(
@@ -33,7 +31,19 @@ class Player:
         self.image = self.stand_image_normal
 
         # Set initial rectangle object over surface and place it from midbottom
-        self.rect = self.image.get_rect(midbottom = (self.player_x, self.player_y))
+        self.rect = self.image.get_rect(midbottom = (PLAYER_X, PLAYER_Y))
+
+    def move_left(self) -> None:
+        """
+        Move the player to the left.
+        """
+        self.rect.x -= FIVE
+
+    def move_right(self) -> None:
+        """
+        Move the player to the right.
+        """
+        self.rect.x += FIVE
 
     def draw(self) -> None:
         """

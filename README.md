@@ -34,4 +34,7 @@ _- Initial Upload._<br />
 _- Added tests._<br />
 
 **[0.0.3] - Jan 8. 2026:**<br />
-_- Added Player and User classes._<br />
+_- Added Player class._<br />
+
+**[0.0.4] - Jan 11. 2026:**<br />
+_- Added piccolo left and right movement._<br />
