@@ -34,6 +34,16 @@ class TestPlayer:
 
         assert player.rect.x == start_x + 5
 
+    def test_player_jump(self):
+        """Test player jump method"""
+        mock_screen = Mock()
+        mock_screen.screen = Mock()
+        player = Player(mock_screen)
+        start_y = player.rect.y
+        player.jump()
+
+        assert player.rect.y == start_y
+
     def test_player_draw(self):
         """Test player draw method"""
         mock_screen = Mock()

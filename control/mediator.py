@@ -1,7 +1,7 @@
 """
 Mediator pattern implementation for game object communication.
 """
-from utils.constants import (CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
+from utils.constants import (CMD_JUMP, CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
 
 # Mediator
 class Mediator:
@@ -14,6 +14,7 @@ class Mediator:
     def __init__(self, player) -> None:
         self.player = player
         self._commands = {
+            CMD_JUMP: self.player.jump,
             CMD_MOVE_LEFT: self.player.move_left,
             CMD_MOVE_RIGHT: self.player.move_right
         }

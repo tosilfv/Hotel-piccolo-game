@@ -30,8 +30,9 @@ class Game:
         1. Transform input to handler
         2. Draw background
         3. Draw player
-        4. Update pygame display
-        5. Tick the game clock to maintain framerate
+        4. Update player
+        5. Update pygame display
+        6. Tick the game clock to maintain framerate
 
         Should be called continuously in the main.py Game Loop.
         """
@@ -42,7 +43,8 @@ class Game:
         self.player.draw()
 
         # Update
-        pygame.display.update()
+        self.player.update()
+        pygame.display.update()  # (Screen Flip)
 
-        # Clock
+        # Clock (Slow the Game to framerate speed)
         self.screen.clock.tick(self.screen.framerate)

@@ -43,7 +43,7 @@ class TestConstants:
         """Test player constants"""
         from utils.constants import (PLAYER_X, PLAYER_Y)
         assert PLAYER_X == 100
-        assert PLAYER_Y == 325
+        assert PLAYER_Y == 241
 
 class TestHelpers:
     """Test helper functions"""

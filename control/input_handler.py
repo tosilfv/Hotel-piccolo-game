@@ -2,7 +2,7 @@
 Input handler for separating user input from other game operations.
 """
 import pygame
-from utils.constants import (CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
+from utils.constants import (CMD_JUMP, CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
 
 # Input Handler
 class InputHandler:
@@ -26,3 +26,6 @@ class InputHandler:
 
         if keys[pygame.K_RIGHT]:
             self.mediator.handle_command(CMD_MOVE_RIGHT)
+
+        if keys[pygame.K_SPACE]:
+            self.mediator.handle_command(CMD_JUMP)

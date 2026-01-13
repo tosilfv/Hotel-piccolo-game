@@ -38,3 +38,6 @@ _- Added Player class._<br />
 
 **[0.0.4] - Jan 11. 2026:**<br />
 _- Added piccolo left and right movement._<br />
+
+**[0.0.5] - Jan 12. 2026:**<br />
+_- Added piccolo jump._<br />
