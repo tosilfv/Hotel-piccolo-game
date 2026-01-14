@@ -1,58 +1,120 @@
 """Unit tests for Player class"""
-from classes.player import Player
+from game_objects.player import Player
 from unittest.mock import Mock
+from utils.constants import (GROUND_LEVEL)
+
 
 class TestPlayer:
     """Test Player class"""
 
+    def setup_method(self):
+        """Setup tests"""
+        self.screen = Mock()
+        self.screen.screen = Mock()
+        self.player = Player(self.screen)
+
     def test_player_initialization(self):
         """Test player initialization"""
-        mock_screen = Mock()
-        player = Player(mock_screen)
-
-        assert player.screen == mock_screen
-        assert player.image is not None
-        assert player.rect is not None
+        assert self.player.screen == self.screen
+        assert self.player.is_jumping is False
+        assert self.player.gravity == 1
+        assert self.player.jump_height == -15
+        assert self.player.jump_ceiling_y == 200
+        assert self.player.velocity_y == 0
+        assert self.player.image is not None
+        assert self.player.rect is not None
+        assert self.player.rect.y == 240
 
     def test_player_move_left(self):
         """Test player move_left method"""
-        mock_screen = Mock()
-        mock_screen.screen = Mock()
-        player = Player(mock_screen)
-        start_x = player.rect.x
-        player.move_left()
+        start_x = self.player.rect.x
+        self.player.move_left()
 
-        assert player.rect.x == start_x - 5
+        assert self.player.rect.x == start_x - 5
 
     def test_player_move_right(self):
         """Test player move_right method"""
-        mock_screen = Mock()
-        mock_screen.screen = Mock()
-        player = Player(mock_screen)
-        start_x = player.rect.x
-        player.move_right()
+        start_x = self.player.rect.x
+        self.player.move_right()
 
-        assert player.rect.x == start_x + 5
+        assert self.player.rect.x == start_x + 5
 
-    def test_player_jump(self):
+    def test_player_jump_sets_state(self):
         """Test player jump method"""
-        mock_screen = Mock()
-        mock_screen.screen = Mock()
-        player = Player(mock_screen)
-        start_y = player.rect.y
-        player.jump()
+        self.player.is_jumping = False
+        self.player.velocity_y = 0
 
-        assert player.rect.y == start_y
+        self.player.jump()
+
+        assert self.player.is_jumping is True
+        assert self.player.velocity_y == self.player.jump_height
+
+    def test_update_applies_gravity_when_jumping(self):
+        """Test player update method gravity"""
+        start_y = 220
+        self.player.is_jumping = True
+        self.player.gravity = 1
+        self.player.velocity_y = -5
+        self.player.rect.y = start_y
+        self.player.jump_ceiling_y = 100
+
+        self.player.update()
+
+        assert self.player.velocity_y == -4
+        assert self.player.rect.y == start_y - 4
+    
+    def test_update_caps_at_jump_ceiling_y(self):
+        """Test player update method jump ceiling y"""
+        self.player.is_jumping = True
+        self.player.gravity = 1
+        self.player.velocity_y = -10
+        self.player.rect.y = 190
+        self.player.jump_ceiling_y = 200
+
+        self.player.update()
+
+        assert self.player.velocity_y == 0
+        assert self.player.rect.y == 200
+    
+    def test_update_resets_state_on_ground(self):
+        """Test player update method reset"""
+        self.player.is_jumping = True
+        self.player.velocity_y = 5
+        self.player.rect.y = 250
+
+        self.player.update()
+
+        assert self.player.rect.y == GROUND_LEVEL
+        assert self.player.is_jumping is False
+        assert self.player.velocity_y == 0
+
+    def test_update_does_nothing_when_not_jumping(self):
+        """Test player update method no action"""
+        self.player.is_jumping = False
+        self.player.velocity_y = 0
+        self.player.rect.y = GROUND_LEVEL
+
+        self.player.update()
+
+        assert self.player.rect.y == GROUND_LEVEL
+        assert self.player.is_jumping is False
+        assert self.player.velocity_y == 0
+
+    def test_jump_then_update_moves_player_up(self):
+        """Test player update method that after jump moves player up"""
+        start_y = self.player.rect.y
+
+        self.player.jump()
+        self.player.update()
+
+        assert self.player.rect.y < start_y
 
     def test_player_draw(self):
         """Test player draw method"""
-        mock_screen = Mock()
-        mock_screen.screen = Mock()
-        player = Player(mock_screen)
-        player.draw()
+        self.player.draw()
 
         # Verify blit was called
-        mock_screen.screen.blit.assert_called_once_with(
-            player.image,
-            player.rect
+        self.screen.screen.blit.assert_called_once_with(
+            self.player.image,
+            self.player.rect
         )

@@ -3,19 +3,21 @@ Game loop management.
 """
 import pygame
 
+
 # Game
 class Game:
     """
-    Game loop manager.
+    Manages game loop.
 
     Attributes:
         screen: Screen instance for display operations.
         background: Background instance for scene rendering.
         player: Player instance for character management.
         mediator: Mediator instance for game internal communication.
-        input_handler: InputHandle instance for separating user input.
+        input_handler: InputHandler instance for separating user input.
     """
-    def __init__(self, screen, background, player, mediator, input_handler) -> None:
+    
+    def __init__(self, screen, background, player, mediator, input_handler):
         self.screen = screen
         self.background = background
         self.player = player
@@ -24,7 +26,7 @@ class Game:
 
     def run(self) -> None:
         """
-        Executes one frame of the game loop.
+        Execute one frame of the game loop.
 
         Performs the following operations in order:
         1. Transform input to handler
@@ -34,7 +36,10 @@ class Game:
         5. Update pygame display
         6. Tick the game clock to maintain framerate
 
-        Should be called continuously in the main.py Game Loop.
+        Should be called continuously in the main.py game loop.
+
+        Returns:
+            None
         """
         self.input_handler.process_input()
 
@@ -44,7 +49,9 @@ class Game:
 
         # Update
         self.player.update()
-        pygame.display.update()  # (Screen Flip)
+        pygame.display.update()  # Screen flip
 
-        # Clock (Slow the Game to framerate speed)
-        self.screen.clock.tick(self.screen.framerate)
+        # Clock
+        self.screen.clock.tick(self.screen.framerate)  # slows the game to framerate speed
+
+        return None

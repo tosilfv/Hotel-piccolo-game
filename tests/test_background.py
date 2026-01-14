@@ -1,24 +1,25 @@
 """Unit tests for Background class"""
-from classes.background import Background
+from game_objects.background import Background
 from unittest.mock import Mock
+
 
 class TestBackground:
     """Test Background class"""
 
+    def setup_method(self):
+        """Setup tests"""
+        self.screen = Mock()
+        self.background = Background(self.screen)
+
     def test_background_initialization(self):
         """Test Background initialization"""
-        mock_screen = Mock()
-        background = Background(mock_screen)
-
-        assert background.screen == mock_screen
-        assert background.ground_surf is not None
-        assert background.sky_surf is not None
+        assert self.background.screen == self.screen
+        assert self.background.ground_surf is not None
+        assert self.background.sky_surf is not None
     
     def test_background_draw(self):
         """Test background draw method"""
-        mock_screen = Mock()
-        background = Background(mock_screen)
-        background.draw()
+        self.background.draw()
 
-        # Verify blit was called twice (once for groud and sky)
-        assert mock_screen.screen.blit.call_count == 2
+        # Verify blit was called twice (once for ground and once for sky)
+        assert self.screen.screen.blit.call_count == 2

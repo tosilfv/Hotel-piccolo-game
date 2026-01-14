@@ -3,6 +3,7 @@ Mediator pattern implementation for game object communication.
 """
 from utils.constants import (CMD_JUMP, CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
 
+
 # Mediator
 class Mediator:
     """
@@ -10,8 +11,10 @@ class Mediator:
 
     Attributes:
         player: Player instance for character management.
+        _commands (dict): Dictionary for player methods.
     """
-    def __init__(self, player) -> None:
+    
+    def __init__(self, player):
         self.player = player
         self._commands = {
             CMD_JUMP: self.player.jump,
@@ -22,7 +25,18 @@ class Mediator:
     def handle_command(self, command: str) -> None:
         """
         Handle command communication of game objects.
+
+        Args:
+            command (str): command key for _commands dictionary.
+        
+        Attributes:
+            action: _commands dictionary value that contains a player method.
+        
+        Returns:
+            None
         """
         action = self._commands.get(command)
         if action:
             action()
+        
+        return None

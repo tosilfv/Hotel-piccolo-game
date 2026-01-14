@@ -1,41 +1,32 @@
 """Unit tests for main.py"""
-from unittest.mock import patch
+import pygame
+from unittest.mock import patch, MagicMock
+
 
 class TestMain:
     """Test main.py module"""
+    
     def test_main_import(self):
-        with patch('pygame.event.get', return_value=[]), \
-            patch('pygame.quit'), \
-            patch('sys.exit'):
+        """Test that main.py is imported"""
+        with (patch('pygame.event.get', return_value=[]), 
+                patch('pygame.quit'), 
+                    patch('sys.exit')):
             import main
-
-    # def test_main_import(self):
-    #     """Test that main.py can be imported without running the game loop"""
-    #     import sys
-
-    #     # Remove main from cache if it is already imported
-    #     if 'main' in sys.modules:
-    #         del sys.modules['main']
-
-    #     # Mock pygame to avoid initialization
-    #     with (patch('pygame.event.get', return_value=[]),
-    #         patch('pygame.quit'),
-    #         patch('sys.exit')):
-    #         # Import should work without running the loop
-    #         import main
-    #         assert main is not None
+        
+        assert main is not None
 
     def test_main_creates_game(self):
+        """Test that main.py creates and runs a game"""
         import main
-        assert hasattr(main, 'game')
 
-    # def test_main_has_game_import(self):
-    #     """Test that main.py imports game"""
-    #     import main
-    #     from control.game import game
-    #     assert hasattr(main, 'game')
-        
-    def test_main_has_running_variable(self):
-        """Test that main.py has running variable"""
-        import main
-        assert hasattr(main, 'running')
+        fake_game = MagicMock()
+        fake_game.run = MagicMock()
+
+        with (patch.object(main, "create_game", return_value=fake_game) as mock_create_game,
+                patch("pygame.event.get", return_value=[pygame.event.Event(pygame.QUIT)]),
+                    patch("pygame.quit"),
+                        patch("sys.exit")):
+            main.run_game()
+
+        mock_create_game.assert_called_once()
+        fake_game.run.assert_called_once()

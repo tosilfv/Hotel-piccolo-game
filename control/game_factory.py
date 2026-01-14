@@ -1,21 +1,23 @@
 """
-Build and return a Game instance.
+Build and return a game instance.
 """
-from classes.background import Background
-from classes.player import Player
-from classes.screen import Screen
+from game_objects.background import Background
+from game_objects.player import Player
+from game_objects.screen import Screen
 from control.game import Game
 from control.input_handler import InputHandler
 from control.mediator import Mediator
 
+
 # Create Game
 def create_game() -> Game:
     """
-    Build a Game instance.
+    Build a Game class instance.
 
     Returns:
-        Game(screen, background, player, mediator, input_handler): Built Game instance.
+        Game(screen, background, player, mediator, input_handler): Built game instance.
     """
+    
     screen = Screen()
     background = Background(screen)
     player = Player(screen)

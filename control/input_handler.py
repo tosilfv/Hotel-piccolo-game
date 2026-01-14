@@ -4,7 +4,8 @@ Input handler for separating user input from other game operations.
 import pygame
 from utils.constants import (CMD_JUMP, CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
 
-# Input Handler
+
+# Input handler
 class InputHandler:
     """
     Handles user input and translates it into mediator commands.
@@ -12,12 +13,19 @@ class InputHandler:
     Attributes:
         mediator: Mediator instance for game internal communication.
     """
-    def __init__(self, mediator) -> None:
+    
+    def __init__(self, mediator):
         self.mediator = mediator
 
     def process_input(self) -> None:
         """
         Process user input for mediator commands.
+        
+        Attributes:
+            keys: Pygame key method.
+        
+        Returns:
+            None
         """
         keys = pygame.key.get_pressed()
 
@@ -29,3 +37,5 @@ class InputHandler:
 
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(CMD_JUMP)
+        
+        return None
