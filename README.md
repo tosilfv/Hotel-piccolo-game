@@ -5,7 +5,7 @@ A small Pygame-based platform game demonstrating the Mediator design pattern.
 ## Video
 
 ![Video](video_1.gif)
-Gameplay preview
+Gameplay preview.
 
 ## Description
 
