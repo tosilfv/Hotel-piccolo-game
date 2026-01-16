@@ -8,6 +8,8 @@ FIVE = 5
 ZERO = 0
 
 # Background
+CHANGE_TO_ENTRANCE = "CHANGE_TO_ENTRANCE"
+CHANGE_TO_YARD = "CHANGE_TO_YARD"
 GRAPHICS_PATH = os.path.join(
                     os.path.dirname(
                         os.path.dirname(
@@ -29,6 +31,7 @@ DEFAULT_TEXT_SURFACE_SIZE = (10, 10)
 # Display
 CAPTION = "Piccolo"
 DISPLAY_SIZE = (800, 400)
+SCREEN_LEFT = 0
 FRAMERATE = 60
 
 # Input

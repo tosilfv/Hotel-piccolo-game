@@ -31,10 +31,32 @@ class Background:
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "entrance_normal.png"))
+        
+        # Other surfaces
+        self.yard_sky_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "yard_normal.png"))
 
         # Set initial surfaces
         self.ground_surf = self.entrance_ground_surf
         self.sky_surf = self.entrance_sky_surf
+
+    def change_background(self, scene) -> None:
+        """
+        Change the background ground and sky sufraces.
+        
+        Returns:
+            None
+        """
+        if scene == "entrance":
+            self.ground_surf = self.entrance_ground_surf
+            self.sky_surf = self.entrance_sky_surf
+        elif scene == "yard":
+            self.ground_surf = self.entrance_ground_surf
+            self.sky_surf = self.yard_sky_surf
+
+        return None
 
     def draw(self) -> None:
         """

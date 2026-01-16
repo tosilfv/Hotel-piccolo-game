@@ -2,6 +2,7 @@
 Game loop management.
 """
 import pygame
+from utils.constants import (CHANGE_TO_ENTRANCE, CHANGE_TO_YARD)
 
 
 # Game
@@ -41,17 +42,72 @@ class Game:
         Returns:
             None
         """
+        # Input
         self.input_handler.process_input()
 
         # Draw
         self.background.draw()
         self.player.draw()
 
-        # Update
+        # Update game state before rendering
         self.player.update()
-        pygame.display.update()  # Screen flip
+        self._handle_edge_transition()
+
+        # Render current frame
+        pygame.display.update()
 
         # Clock
         self.screen.clock.tick(self.screen.framerate)  # slows the game to framerate speed
 
         return None
+
+    def _handle_edge_transition(self) -> None:
+        """
+        Handles edge transition.
+
+        Returns:
+            None
+        """
+        screen_width = self.screen.screen.get_width()
+        margin = 10
+
+        at_right_edge = self.player.rect.right >= screen_width - margin
+        at_left_edge = self.player.rect.left <= margin
+        scene = self.mediator.current_scene
+
+        if at_right_edge:
+            self._transition_scene(scene, spawn_on_left=True, screen_width=screen_width, margin=margin)
+        elif at_left_edge:
+            self._transition_scene(scene, spawn_on_left=False, screen_width=screen_width, margin=margin)
+
+    def _transition_scene(
+        self,
+        scene: str,
+        *,
+        spawn_on_left: bool,
+        screen_width: int,
+        margin: int
+    ) -> None:
+        """
+        Handles screen transition.
+
+        Attributes:
+            scene (str): Current background.
+            spawn_on_left (bool): Is player going to spawn to left.
+            spawn_on_left (int): The screen width.
+            margin (int): The margin between player and screen edge.
+
+        Returns:
+            None
+        """
+        if scene == "entrance":
+            self.mediator.handle_command(CHANGE_TO_YARD)
+        elif scene == "yard":
+            self.mediator.handle_command(CHANGE_TO_ENTRANCE)
+        else:
+            return
+
+        if spawn_on_left:
+            self.player.rect.left = margin
+        else:
+            self.player.rect.right = screen_width - margin

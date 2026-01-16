@@ -9,14 +9,31 @@ Gameplay preview.
 
 ## Description
 
-This is a small game built with Pygame.  
-You control a piccolo working in a hotel environment.
+Hotel Piccolo is a small Pygame-based platform game focused on learning clean game architecture and software design patterns in practice.
+
+The player controls a hotel piccolo navigating different areas of a hotel environment using simple movement and jump mechanics. While the current gameplay is intentionally minimal, the project is structured to support gradual expansion with new interactions, environments, and mechanics.
+
+From a technical perspective, the game emphasizes separation of responsibilities and testable design. User input is translated into semantic commands and routed through a Mediator, decoupling input handling from game object behavior. This makes the codebase easier to reason about, refactor, and extend as the project grows.
+
+The primary goal of the project is educational: to explore how design patterns, clean structure, and explicit communication between components can be applied in a real, working Pygame project.
 
 ## Background
 
-The game is developed in Python using Cursor, Visual Studio Code, and ChatGPT.  
-The architecture is based on the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern),  
-where game objects communicate indirectly through a central mediator.
+The game is developed in Python using Cursor, Visual Studio Code, and ChatGPT as development tools.
+The focus of the project is on learning software design patterns, code structure, and testable architecture. 
+The architecture is based on the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern), 
+where user input is translated into commands that are routed through a mediator,
+decoupling input handling from game object behavior.
+
+## Architecture overview
+
+The game loop is managed by a central Game class that orchestrates rendering, input handling, and updates.
+
+User input is processed by an InputHandler, which converts keyboard state into semantic commands.
+These commands are forwarded to a Mediator, which dispatches them to the appropriate game object methods.
+
+Game objects such as Player and Background encapsulate their own logic and rendering,
+while shared services like Screen provide display and timing functionality.
 
 ## Installation
 
@@ -61,6 +78,9 @@ pytest -v
 
 **[0.0.6] - Jan 13, 2026:**
 - Refactor.
+
+**[0.0.7] - Jan 15, 2026:**
+- Change of outdoor backgrounds.
 
 ## License
 

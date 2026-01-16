@@ -21,7 +21,7 @@ def create_game() -> Game:
     screen = Screen()
     background = Background(screen)
     player = Player(screen)
-    mediator = Mediator(player)
+    mediator = Mediator(background, player)
     input_handler = InputHandler(mediator)
 
     return Game(
