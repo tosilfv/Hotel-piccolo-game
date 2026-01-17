@@ -2,7 +2,8 @@
 Background for the game.
 """
 import os
-from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, SKY_X, SKY_Y)
+from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ENTRANCE,
+                             SKY_X, SKY_Y, YARD)
 from utils.helpers import load_image
 
 
@@ -49,10 +50,10 @@ class Background:
         Returns:
             None
         """
-        if scene == "entrance":
+        if scene == ENTRANCE:
             self.ground_surf = self.entrance_ground_surf
             self.sky_surf = self.entrance_sky_surf
-        elif scene == "yard":
+        elif scene == YARD:
             self.ground_surf = self.entrance_ground_surf
             self.sky_surf = self.yard_sky_surf
 

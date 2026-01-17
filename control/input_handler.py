@@ -27,14 +27,18 @@ class InputHandler:
         Returns:
             None
         """
+        # Returns a list of boolean values whether each key is pressed or not
         keys = pygame.key.get_pressed()
 
+        # Command to left
         if keys[pygame.K_LEFT]:
             self.mediator.handle_command(CMD_MOVE_LEFT)
 
+        # Command to right
         if keys[pygame.K_RIGHT]:
             self.mediator.handle_command(CMD_MOVE_RIGHT)
 
+        # Command to jump
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(CMD_JUMP)
         

@@ -17,7 +17,6 @@ def create_game() -> Game:
     Returns:
         Game(screen, background, player, mediator, input_handler): Built game instance.
     """
-    
     screen = Screen()
     background = Background(screen)
     player = Player(screen)

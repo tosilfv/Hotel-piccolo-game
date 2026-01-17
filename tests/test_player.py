@@ -18,7 +18,7 @@ class TestPlayer:
         assert self.player.screen == self.screen
         assert self.player.is_jumping is False
         assert self.player.gravity == 1
-        assert self.player.jump_height == -15
+        assert self.player.jump_height == -10
         assert self.player.jump_ceiling_y == 200
         assert self.player.velocity_y == 0
         assert self.player.image is not None

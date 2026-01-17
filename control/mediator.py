@@ -2,7 +2,7 @@
 Mediator pattern implementation for game object communication.
 """
 from utils.constants import (CHANGE_TO_ENTRANCE, CHANGE_TO_YARD, CMD_JUMP,
-                             CMD_MOVE_LEFT, CMD_MOVE_RIGHT)
+                             CMD_MOVE_LEFT, CMD_MOVE_RIGHT, ENTRANCE, YARD)
 
 
 # Mediator
@@ -11,13 +11,15 @@ class Mediator:
     Central communication hub for game objects.
 
     Attributes:
+        background: Background instance.
+        current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
         _commands (dict): Dictionary for player methods.
     """
     
     def __init__(self, background, player):
         self.background = background
-        self.current_scene = "entrance"
+        self.current_scene = ENTRANCE
         self.player = player
         self._commands = {
             CHANGE_TO_ENTRANCE: self.change_to_entrance,
@@ -34,10 +36,13 @@ class Mediator:
         Returns:
             None
         """
-        if self.current_scene == "entrance": return
+        # If player is already at entrance scene then return
+        if self.current_scene == ENTRANCE:
+            return
 
-        self.current_scene = "entrance"
-        self.background.change_background("entrance")
+        # Set and change current scene and background
+        self.current_scene = ENTRANCE
+        self.background.change_background(ENTRANCE)
     
     def change_to_yard(self):
         """
@@ -46,10 +51,13 @@ class Mediator:
         Returns:
             None
         """
-        if self.current_scene == "yard": return
+        # If player is already at yard scene then return
+        if self.current_scene == YARD:
+            return
         
-        self.current_scene = "yard"
-        self.background.change_background("yard")
+        # Set and change current scene and background
+        self.current_scene = YARD
+        self.background.change_background(YARD)
 
     def handle_command(self, command: str) -> None:
         """
@@ -64,7 +72,10 @@ class Mediator:
         Returns:
             None
         """
+        # Get the method for the command
         action = self._commands.get(command)
+
+        # Run the method
         if action:
             action()
         
