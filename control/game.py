@@ -87,21 +87,19 @@ class Game:
         # Set left and right edge values and save current scene
         at_left_edge = (left <= margin)
         at_right_edge = (right >= screen_width - margin)
-        scene = self.mediator.current_scene
 
         # Handle the transition when player exits scene to left
         if at_left_edge:
-            self._scene_transition(scene, spawn_on_left=False, screen_width=screen_width, margin=margin)
+            self._scene_transition(spawn_on_left=False, screen_width=screen_width, margin=margin)
         # Handle the transition when player exits scene to right
         elif at_right_edge:
-            self._scene_transition(scene, spawn_on_left=True, screen_width=screen_width, margin=margin)
+            self._scene_transition(spawn_on_left=True, screen_width=screen_width, margin=margin)
 
-    def _scene_transition(self, scene: str, *, spawn_on_left: bool, screen_width: int, margin: int) -> None:
+    def _scene_transition(self, *, spawn_on_left: bool, screen_width: int, margin: int) -> None:
         """
         Handle scene transition by player spawning and calling mediator for scene change.
 
         Attributes:
-            scene (str): Current background.
             *: Forces following attributes to be called with their name included.
             spawn_on_left (bool): Whether player is going to spawn to left.
             screen_width (int): The screen width.
@@ -110,10 +108,10 @@ class Game:
         Returns:
             None
         """
-        # Change scene
-        if scene == ENTRANCE:
+        # Change scene using mediator commands
+        if self.mediator.current_scene == ENTRANCE:
             self.mediator.handle_command(CHANGE_TO_YARD)
-        elif scene == YARD:
+        elif self.mediator.current_scene == YARD:
             self.mediator.handle_command(CHANGE_TO_ENTRANCE)
         else:
             return
