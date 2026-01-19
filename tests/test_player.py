@@ -11,6 +11,8 @@ class TestPlayer:
         """Setup tests"""
         self.screen = Mock()
         self.screen.screen = Mock()
+        self.mediator = Mock()
+        self.mediator.running = Mock()
         self.player = Player(self.screen)
 
     def test_player_initialization(self):
@@ -58,7 +60,7 @@ class TestPlayer:
         self.player.rect.y = start_y
         self.player.jump_ceiling_y = 100
 
-        self.player.update()
+        self.player.update(self.mediator.running)
 
         assert self.player.velocity_y == -4
         assert self.player.rect.y == start_y - 4
@@ -71,7 +73,7 @@ class TestPlayer:
         self.player.rect.y = 190
         self.player.jump_ceiling_y = 200
 
-        self.player.update()
+        self.player.update(self.mediator.running)
 
         assert self.player.velocity_y == 0
         assert self.player.rect.y == 200
@@ -82,7 +84,7 @@ class TestPlayer:
         self.player.velocity_y = 5
         self.player.rect.y = 250
 
-        self.player.update()
+        self.player.update(self.mediator.running)
 
         assert self.player.rect.y == GROUND_LEVEL
         assert self.player.is_jumping is False
@@ -94,7 +96,7 @@ class TestPlayer:
         self.player.velocity_y = 0
         self.player.rect.y = GROUND_LEVEL
 
-        self.player.update()
+        self.player.update(self.mediator.running)
 
         assert self.player.rect.y == GROUND_LEVEL
         assert self.player.is_jumping is False
@@ -105,7 +107,7 @@ class TestPlayer:
         start_y = self.player.rect.y
 
         self.player.jump()
-        self.player.update()
+        self.player.update(self.mediator.running)
 
         assert self.player.rect.y < start_y
 

@@ -13,12 +13,12 @@ from control.game_factory import create_game
 def run_game():
     """Main game loop"""
     game = create_game()
-    running = True
+    game_is_on = True
 
-    while running:
+    while game_is_on:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                game_is_on = False
         game.run()
 
     # Quit and exit

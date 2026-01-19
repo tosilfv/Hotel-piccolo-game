@@ -42,4 +42,8 @@ class InputHandler:
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(CMD_JUMP)
         
+        # Not moving reset command
+        if not any(keys):
+            self.mediator.handle_command(None)
+        
         return None

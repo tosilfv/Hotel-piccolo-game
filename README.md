@@ -82,6 +82,9 @@ pytest -v
 **[0.0.7] - Jan 15, 2026:**
 - Change of outdoor backgrounds.
 
+**[0.0.8] - Jan 18, 2026:**
+- Added piccolo run images.
+
 ## License
 
 This project is licensed under the MIT License.

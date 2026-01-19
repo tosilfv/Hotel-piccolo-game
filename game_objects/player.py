@@ -20,6 +20,8 @@ class Player:
         jump_ceiling_y (int): Maximum height of the player jump.
         velocity_y (int): Current Y velocity of the player.
         stand_image_normal: Surface for standing animation (right-facing) normal size.
+        running_images (list): List of piccolo running images for animation (right-facing) normal size.
+        running_frame (int): The frame which is either 0 or 1 for running_images list.
         image: Currently active image surface
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
         rect.y: Pygame rect object's Y position.
@@ -38,6 +40,19 @@ class Player:
             os.path.join(GRAPHICS_PATH,
                 "player",
                 "piccolo_stand_normal.png"))
+        self.running_images = [
+            load_image(
+                os.path.join(GRAPHICS_PATH,
+                    "player",
+                    "piccolo_run1_normal.png")),
+            load_image(
+                os.path.join(GRAPHICS_PATH,
+                    "player",
+                    "piccolo_run2_normal.png"))
+        ]
+
+        # Set running frame
+        self.running_frame = 0
 
         # Set initial surface (using normal size by default)
         self.image = self.stand_image_normal
@@ -85,13 +100,14 @@ class Player:
 
         return None
 
-    def update(self) -> None:
+    def update(self, running: bool) -> None:
         """
         Update player physics on every frame.
 
         Returns:
             None
         """
+        # Jumping
         if self.is_jumping:
             self.velocity_y += self.gravity
             self.rect.y += self.velocity_y
@@ -107,8 +123,24 @@ class Player:
             self.is_jumping = False
             self.velocity_y = 0
         
+        # Running
+        if running:
+            # Update running frame
+            self.running_frame += 1
+            # Slow down image change frequency by multiplying
+            if self.running_frame >= len(self.running_images) * 10:
+                # Reset running frame when all images have been cycled through
+                self.running_frame = 0
+            # Avoid list index out of range by dividing the frame index
+            self.image = self.running_images[self.running_frame // 10]
+        
+        # Standing
+        else:
+            # Use standing image when not running
+            self.image = self.stand_image_normal
+        
         # DEBUG
-        # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}")
+        # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")
 
         return None
 

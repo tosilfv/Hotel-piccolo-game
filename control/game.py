@@ -34,7 +34,7 @@ class Game:
         1. Transform input to handler
         2. Draw background
         3. Draw player
-        4. Update player
+        4. Save locally piccolo running status and update player
         5. Handle edge transition
         6. Update pygame display
         7. Tick the game clock to maintain framerate
@@ -52,7 +52,8 @@ class Game:
         self.player.draw()
 
         # 4.-5. Update game state before rendering
-        self.player.update()
+        running = self.mediator.running
+        self.player.update(running)
         self._handle_edge_transition()
 
         # 6. Render current frame

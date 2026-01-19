@@ -12,6 +12,7 @@ class Mediator:
 
     Attributes:
         background: Background instance.
+        running (bool): Whether player (piccolo) is running.
         current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
         _commands (dict): Dictionary for player methods.
@@ -19,6 +20,7 @@ class Mediator:
     
     def __init__(self, background, player):
         self.background = background
+        self.running = False
         self.current_scene = ENTRANCE
         self.player = player
         self._commands = {
@@ -75,8 +77,14 @@ class Mediator:
         # Get the method for the command
         action = self._commands.get(command)
 
-        # Run the method
+        # Call the method
         if action:
             action()
+        
+        # Player is running
+        if command == CMD_MOVE_LEFT or command == CMD_MOVE_RIGHT:
+            self.running = True
+        else:
+            self.running = False
         
         return None
