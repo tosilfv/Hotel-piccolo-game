@@ -7,11 +7,18 @@ to the Game class. The game continues running until the user closes the window.
 import sys
 import pygame
 from control.game_factory import create_game
+from utils.logging_config import configure_logging
 
+# Logging
+configure_logging()
 
 # This function starts the game
 def run_game():
     """Main game loop"""
+    # Initialize all required Pygame modules before creating the game
+    pygame.init()
+    pygame.font.init()
+
     game = create_game()
     game_is_on = True
 

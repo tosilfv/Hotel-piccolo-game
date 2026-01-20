@@ -1,11 +1,10 @@
 # Pygame Hotel Piccolo Game
 
-A small Pygame-based platform game demonstrating the Mediator design pattern.
+A small Pygame-based platform game demonstrating the [Mediator design pattern](https://en.wikipedia.org/wiki/Mediator_pattern).
 
 ## Video
 
-![Video](video_1.gif)
-Gameplay preview.
+![Gameplay preview](video_1.gif)
 
 ## Description
 
@@ -17,13 +16,7 @@ From a technical perspective, the game emphasizes separation of responsibilities
 
 The primary goal of the project is educational: to explore how design patterns, clean structure, and explicit communication between components can be applied in a real, working Pygame project.
 
-## Background
-
-The game is developed in Python using Cursor, Visual Studio Code, and ChatGPT as development tools.
-The focus of the project is on learning software design patterns, code structure, and testable architecture. 
-The architecture is based on the [Mediator Pattern](https://en.wikipedia.org/wiki/Mediator_pattern), 
-where user input is translated into commands that are routed through a mediator,
-decoupling input handling from game object behavior.
+The game is developed in Python using Pygame, with modern development tools such as Visual Studio Code, Cursor, and ChatGPT used to support iterative design and refactoring. The primary focus of the project is learning software design patterns, clean code structure, and testable architecture rather than building a feature-complete game.
 
 ## Architecture overview
 

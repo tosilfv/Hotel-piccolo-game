@@ -7,8 +7,6 @@ from utils.constants import (DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              WHITE)
 
-# Set up logging
-logging.basicConfig(filename='piccolo_game_errors.log', level=logging.ERROR)
 
 def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFAULT_SURFACE_SIZE) -> pygame.Surface:
     """
@@ -24,6 +22,11 @@ def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFA
     
     If an image fails to load (e.g. file not found, invalid format), a placeholder image
     with a default color and size will be returned instead.
+
+    Note:
+        Assumes that pygame and pygame.font have been initialized
+        before this function is called.
+
     """
     try:
         # Attempt to load the image
@@ -41,9 +44,6 @@ def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFA
     # If loading fails, return a placeholder surface
     placeholder = pygame.Surface(default_size)
     placeholder.fill(default_color)
-
-    # Ensure fonts are initialized before using them
-    pygame.font.init()
 
     # Draw a "placeholder" message on the image
     font = pygame.font.Font(None, DEFAULT_FONT_SIZE)
