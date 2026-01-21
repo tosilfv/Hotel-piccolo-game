@@ -2,6 +2,7 @@
 Background for the game.
 """
 import os
+from game_objects.screen import Screen
 from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ENTRANCE,
                              SKY_X, SKY_Y, YARD)
 from utils.helpers import load_image
@@ -20,7 +21,7 @@ class Background:
         sky_surf: Currently active sky surface.
     """
     
-    def __init__(self, screen) -> None:
+    def __init__(self, screen: Screen) -> None:
         self.screen = screen
 
         # Initial background ground and sky surfaces (hotel entrance)
@@ -43,12 +44,12 @@ class Background:
         self.ground_surf = self.entrance_ground_surf
         self.sky_surf = self.entrance_sky_surf
 
-    def change_background(self, scene) -> None:
+    def change_background(self, scene: str) -> None:
         """
         Change the background ground and sky sufraces.
-        
-        Returns:
-            None
+
+        Args:
+            scene (str): Scene string representing background surface.
         """
         if scene == ENTRANCE:
             self.ground_surf = self.entrance_ground_surf
@@ -57,16 +58,9 @@ class Background:
             self.ground_surf = self.entrance_ground_surf
             self.sky_surf = self.yard_sky_surf
 
-        return None
-
     def draw(self) -> None:
         """
         Draw the background ground and sky sufraces to the screen.
-
-        Returns:
-            None
         """
         self.screen.screen.blit(self.ground_surf, (GROUND_X, GROUND_Y))
         self.screen.screen.blit(self.sky_surf, (SKY_X, SKY_Y))
-
-        return None

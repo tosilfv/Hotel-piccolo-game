@@ -1,6 +1,5 @@
 """Unit tests for constants.py"""
 from utils.constants import (CAPTION, CHANGE_TO_ENTRANCE, CHANGE_TO_YARD,
-                             CMD_JUMP, CMD_MOVE_LEFT, CMD_MOVE_RIGHT,
                              DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              ENTRANCE, DISPLAY_SIZE, FIVE, FRAMERATE,
@@ -57,12 +56,6 @@ class TestConstants:
         assert DISPLAY_SIZE == (800, 400)
         assert FRAMERATE == 60
         assert SCREEN_LEFT == 0
-    
-    def test_input_constants(self):
-        """Test input constants"""
-        assert CMD_JUMP == "JUMP"
-        assert CMD_MOVE_LEFT == "MOVE_LEFT"
-        assert CMD_MOVE_RIGHT == "MOVE_RIGHT"
 
     def test_player_constants(self):
         """Test player constants"""

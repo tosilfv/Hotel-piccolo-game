@@ -13,8 +13,10 @@ from utils.logging_config import configure_logging
 configure_logging()
 
 # This function starts the game
-def run_game():
-    """Main game loop"""
+def run_game() -> None:
+    """
+    Main game loop
+    """
     # Initialize all required Pygame modules before creating the game
     pygame.init()
     pygame.font.init()

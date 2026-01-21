@@ -4,7 +4,7 @@ Logging configuration for the game.
 import logging
 
 # Logging
-def configure_logging():
+def configure_logging() -> None:
     """
     Configure global logging settings for the Piccolo game.
 
@@ -19,3 +19,4 @@ def configure_logging():
         level=logging.ERROR,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
+    logging.getLogger("piccolo").setLevel(logging.ERROR)

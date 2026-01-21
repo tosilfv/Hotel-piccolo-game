@@ -1,8 +1,8 @@
 """
 Mediator pattern implementation for game object communication.
 """
-from utils.constants import (CHANGE_TO_ENTRANCE, CHANGE_TO_YARD, CMD_JUMP,
-                             CMD_MOVE_LEFT, CMD_MOVE_RIGHT, ENTRANCE, YARD)
+from utils.commands import Command
+from utils.constants import (ENTRANCE, YARD)
 
 
 # Mediator
@@ -17,26 +17,23 @@ class Mediator:
         player: Player instance for character management.
         _commands (dict): Dictionary for player methods.
     """
-    
+
     def __init__(self, background, player):
         self.background = background
         self.running = False
         self.current_scene = ENTRANCE
         self.player = player
         self._commands = {
-            CHANGE_TO_ENTRANCE: self.change_to_entrance,
-            CHANGE_TO_YARD: self.change_to_yard,
-            CMD_JUMP: self.player.jump,
-            CMD_MOVE_LEFT: self.player.move_left,
-            CMD_MOVE_RIGHT: self.player.move_right
+            Command.CHANGE_TO_ENTRANCE: self.change_to_entrance,
+            Command.CHANGE_TO_YARD: self.change_to_yard,
+            Command.JUMP: self.player.jump,
+            Command.MOVE_LEFT: self.player.move_left,
+            Command.MOVE_RIGHT: self.player.move_right
         }
-    
+
     def change_to_entrance(self) -> None:
         """
         Changes background to entrance scene.
-
-        Returns:
-            None
         """
         # If player is already at entrance scene then return
         if self.current_scene == ENTRANCE:
@@ -45,13 +42,10 @@ class Mediator:
         # Set and change current scene and background
         self.current_scene = ENTRANCE
         self.background.change_background(ENTRANCE)
-    
-    def change_to_yard(self):
+
+    def change_to_yard(self) -> None:
         """
         Changes background to yard scene.
-
-        Returns:
-            None
         """
         # If player is already at yard scene then return
         if self.current_scene == YARD:
@@ -61,18 +55,15 @@ class Mediator:
         self.current_scene = YARD
         self.background.change_background(YARD)
 
-    def handle_command(self, command: str) -> None:
+    def handle_command(self, command: Command) -> None:
         """
         Handle command communication of game objects.
 
         Args:
-            command (str): key for _commands dictionary.
+            command (Command): Enum key for _commands dictionary.
         
         Attributes:
             action: _commands dictionary value that contains a player method.
-        
-        Returns:
-            None
         """
         # Get the method for the command
         action = self._commands.get(command)
@@ -81,10 +72,15 @@ class Mediator:
         if action:
             action()
         
+        # Player stops
+        if command == Command.STOP:
+            self.running = False
+            return
+        
         # Player is running
-        if command == CMD_MOVE_LEFT or command == CMD_MOVE_RIGHT:
+        if command == Command.MOVE_LEFT or command == Command.MOVE_RIGHT:
             self.running = True
+
+        # Signature move: Piccolo's legendary two-foot boing 🐸
         else:
             self.running = False
-        
-        return None

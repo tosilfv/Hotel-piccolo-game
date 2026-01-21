@@ -2,6 +2,7 @@
 Player character implementation for the Piccolo game.
 """
 import os
+from game_objects.screen import Screen
 from utils.constants import (FIVE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
                              JUMP_CEILING_Y, JUMP_HEIGHT, PLAYER_X, ZERO)
 from utils.helpers import load_image
@@ -27,7 +28,7 @@ class Player:
         rect.y: Pygame rect object's Y position.
     """
     
-    def __init__(self, screen) -> None:
+    def __init__(self, screen: Screen) -> None:
         self.screen = screen
         self.is_jumping = False
         self.gravity = GRAVITY
@@ -66,31 +67,18 @@ class Player:
     def move_left(self) -> None:
         """
         Move the player to the left.
-
-        Returns:
-            None
         """
         self.rect.x -= FIVE
-
-        return None
 
     def move_right(self) -> None:
         """
         Move the player to the right.
-
-        Returns:
-            None
         """
         self.rect.x += FIVE
-
-        return None
 
     def jump(self) -> None:
         """
         Start player jump.
-
-        Returns:
-            None
         """
         if not self.is_jumping:
             self.is_jumping = True
@@ -98,14 +86,9 @@ class Player:
             # Start jump
             self.velocity_y = self.jump_height
 
-        return None
-
     def update(self, running: bool) -> None:
         """
         Update player physics on every frame.
-
-        Returns:
-            None
         """
         # Jumping
         if self.is_jumping:
@@ -142,15 +125,8 @@ class Player:
         # DEBUG
         # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")
 
-        return None
-
     def draw(self) -> None:
         """
         Draw the player to the screen.
-
-        Returns:
-            None
         """
         self.screen.screen.blit(self.image, self.rect)
-
-        return None
