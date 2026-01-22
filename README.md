@@ -1,12 +1,12 @@
 # Pygame Hotel Piccolo Game
 
-Kaikki sankarit ei juokse ilmassa.
-Jotkut boingaa arvokkaasti tasajalkaa 🐸
+A small Pygame-based platform game demonstrating the [Mediator design pattern](https://en.wikipedia.org/wiki/Mediator_pattern).
+
+“Kaikki sankarit ei juokse ilmassa.
+Jotkut boingaa arvokkaasti tasajalkaa.” 🐸
 
 Tervetuloa Piccolon maailmaan - hotellin pikkoloon, jonka tavaramerkki on legendaarinen tasajalkahyppy.
-“Legendan mukaan Tasajalka-Boing™ on muinainen taito, jonka Piccolo oppi Sifulta.” 🐸
-
-A small Pygame-based platform game demonstrating the [Mediator design pattern](https://en.wikipedia.org/wiki/Mediator_pattern).
+“Legendan mukaan Tasajalka-Boing™ on muinainen taito, jonka Piccolo oppi Sifulta.”
 
 ## Video
 

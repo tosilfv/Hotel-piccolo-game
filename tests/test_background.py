@@ -8,6 +8,10 @@ class TestBackground:
 
     def setup_method(self):
         """Setup tests"""
+        import pygame
+        pygame.init()
+        pygame.font.init()
+
         self.screen = Mock()
         self.background = Background(self.screen)
 

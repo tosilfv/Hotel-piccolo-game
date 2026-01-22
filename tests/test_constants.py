@@ -1,5 +1,6 @@
 """Unit tests for constants.py"""
-from utils.constants import (CAPTION, CHANGE_TO_ENTRANCE, CHANGE_TO_YARD,
+from utils.commands import Command
+from utils.constants import (CAPTION, 
                              DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              ENTRANCE, DISPLAY_SIZE, FIVE, FRAMERATE,
@@ -21,8 +22,8 @@ class TestConstants:
     def test_background_constants(self):
         """Test background constants"""
         import os
-        assert CHANGE_TO_ENTRANCE == "CHANGE_TO_ENTRANCE"
-        assert CHANGE_TO_YARD == "CHANGE_TO_YARD"
+        assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
+        assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
         assert ENTRANCE == "entrance"
         assert GRAPHICS_PATH == os.path.join(
                     os.path.dirname(
