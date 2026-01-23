@@ -8,6 +8,7 @@ from utils.constants import (DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              WHITE)
 
 
+# Load image
 def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFAULT_SURFACE_SIZE) -> pygame.Surface:
     """
     Load an image file with error handling and placeholder fallback.
