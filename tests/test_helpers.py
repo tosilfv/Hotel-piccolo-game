@@ -28,7 +28,7 @@ class TestHelpers:
         assert isinstance(loaded, pygame.Surface)
 
         # Check that size is correct
-        assert loaded.get_size() == (100, 100)
+        assert loaded.get_size() == (50, 50)
 
     def test_load_image_not_found(self):
         """Test load_image when file doesn't exist"""

@@ -7,7 +7,6 @@ from utils.constants import (DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              WHITE)
 
-
 # Load image
 def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFAULT_SURFACE_SIZE) -> pygame.Surface:
     """
