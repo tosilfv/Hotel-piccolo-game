@@ -11,7 +11,7 @@ from utils.constants import (CAPTION,
 
 
 class TestConstants:
-    """Test constants values"""
+    """Test constants class"""
 
     def test_numeric_constants(self):
         """Test numeric constants"""

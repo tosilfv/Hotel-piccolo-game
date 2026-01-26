@@ -3,7 +3,7 @@ import pygame
 
 
 class TestHelpers:
-    """Test helper functions"""
+    """Test helpers class"""
 
     def test_load_image_successful(self, tmp_path):
         """Test loading a valid image"""

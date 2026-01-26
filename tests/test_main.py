@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock
 
 
 class TestMain:
-    """Test main.py module"""
+    """Test Main class"""
     
     def test_main_import(self):
         """Test that main.py is imported"""

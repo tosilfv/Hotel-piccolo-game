@@ -64,7 +64,7 @@ class TestPlayer:
 
         assert self.player.velocity_y == -4
         assert self.player.rect.y == start_y - 4
-    
+
     def test_update_caps_at_jump_ceiling_y(self):
         """Test player update method jump ceiling y"""
         self.player.is_jumping = True
@@ -77,7 +77,7 @@ class TestPlayer:
 
         assert self.player.velocity_y == 0
         assert self.player.rect.y == 200
-    
+
     def test_update_resets_state_on_ground(self):
         """Test player update method reset"""
         self.player.is_jumping = True
