@@ -55,7 +55,7 @@ class Mediator:
         self.current_scene = YARD
         self.background.change_background(YARD)
 
-    def handle_command(self, command: Command) -> None:
+    def handle_command(self, command: Command | None) -> None:
         """
         Handle command communication of game objects.
 
@@ -65,6 +65,11 @@ class Mediator:
         Attributes:
             action: _commands dictionary value that contains a player method.
         """
+        # Handle unknown command
+        if command is None:
+            self.running = False
+            return
+
         # Get the method for the command
         action = self._commands.get(command)
 
