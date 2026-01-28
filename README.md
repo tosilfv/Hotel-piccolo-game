@@ -2,11 +2,11 @@
 
 A small Pygame-based platform game demonstrating the [Mediator design pattern](https://en.wikipedia.org/wiki/Mediator_pattern).
 
-“Kaikki sankarit ei juokse ilmassa.
-Jotkut boingaa arvokkaasti tasajalkaa.” 🐸
+“Kaikki sankarit ei juokse ilmassa,
+jotkut boingaa arvokkaasti tasajalkaa.” 🐸
 
 Tervetuloa Piccolon maailmaan - hotellin pikkoloon, jonka tavaramerkki on legendaarinen tasajalkahyppy.
-“Legendan mukaan Tasajalka-Boing™ on muinainen taito, jonka Piccolo oppi Sifulta.”
+“Legendan mukaan Tasajalka-Boing™ on muinainen taito, jonka pikkolo oppi Sifulta.”
 
 ## Video
 

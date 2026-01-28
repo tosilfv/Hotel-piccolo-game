@@ -6,7 +6,6 @@ from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, ENTRANCE, SCREEN_WIDTH, YARD)
 
 
-# Game
 class Game:
     """
     Manages game loop.
@@ -18,7 +17,7 @@ class Game:
         mediator: Mediator instance for game internal communication.
         input_handler: InputHandler instance for separating user input.
     """
-    
+
     def __init__(self, screen, background, player, mediator, input_handler):
         self.screen = screen
         self.background = background
@@ -34,7 +33,7 @@ class Game:
         1. Transform input to handler
         2. Draw background
         3. Draw player
-        4. Save locally piccolo running status and update player
+        4. Update player
         5. Handle edge transition
         6. Update pygame display
         7. Tick the game clock to maintain framerate
@@ -84,13 +83,14 @@ class Game:
         # Handle the transition when player exits scene to left
         if at_left_edge:
             self._scene_transition(spawn_on_left=False, screen_width=screen_width, margin=EDGE_MARGIN)
+
         # Handle the transition when player exits scene to right
         elif at_right_edge:
             self._scene_transition(spawn_on_left=True, screen_width=screen_width, margin=EDGE_MARGIN)
 
     def _scene_transition(self, *, spawn_on_left: bool, screen_width: int, margin: int) -> None:
         """
-        Handle scene transition by player spawning and calling mediator for scene change.
+        Handle scene transition and player spawning and call mediator for scene change.
 
         Attributes:
             *: Forces following attributes to be called with their name included.
@@ -108,6 +108,6 @@ class Game:
 
         # Spawn player
         if spawn_on_left:
-            self.player.rect.left = EDGE_MARGIN
+            self.player.rect.left = margin
         else:
-            self.player.rect.right = screen_width - EDGE_MARGIN
+            self.player.rect.right = screen_width - margin

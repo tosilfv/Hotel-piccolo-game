@@ -8,10 +8,9 @@ from utils.constants import (FIVE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
 from utils.helpers import load_image
 
 
-# Player
 class Player:
     """
-    Represents the player character (Piccolo) in the game.
+    Represents the player character (piccolo) in the game.
 
     Attributes:
         screen: Screen instance for drawing operations.
@@ -23,12 +22,12 @@ class Player:
         stand_image_normal: Surface for standing animation (right-facing) normal size.
         running_images (list): List of piccolo running images for animation (right-facing) normal size.
         running_frame (int): The frame which is either 0 or 1 for running_images list.
-        image: Currently active image surface
+        image: Currently active image surface.
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
         rect.y: Pygame rect object's Y position.
     """
     
-    def __init__(self, screen: Screen) -> None:
+    def __init__(self, screen: Screen):
         self.screen = screen
         self.is_jumping = False
         self.gravity = GRAVITY

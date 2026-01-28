@@ -8,7 +8,6 @@ from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ENTRANCE,
 from utils.helpers import load_image
 
 
-# Background
 class Background:
     """
     Represents the background of the game.
@@ -21,7 +20,7 @@ class Background:
         sky_surf: Currently active sky surface.
     """
     
-    def __init__(self, screen: Screen) -> None:
+    def __init__(self, screen: Screen):
         self.screen = screen
 
         # Initial background ground and sky surfaces (hotel entrance)

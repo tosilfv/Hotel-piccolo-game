@@ -3,7 +3,6 @@ Logging configuration for the game.
 """
 import logging
 
-# Logging
 def configure_logging() -> None:
     """
     Configure global logging settings for the Piccolo game.

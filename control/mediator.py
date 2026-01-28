@@ -5,7 +5,6 @@ from utils.commands import Command
 from utils.constants import (ENTRANCE, YARD)
 
 
-# Mediator
 class Mediator:
     """
     Central communication hub for game objects.
@@ -39,7 +38,7 @@ class Mediator:
         if self.current_scene == ENTRANCE:
             return
 
-        # Set and change current scene and background
+        # Set and change current scene and background to entrance
         self.current_scene = ENTRANCE
         self.background.change_background(ENTRANCE)
 
@@ -51,7 +50,7 @@ class Mediator:
         if self.current_scene == YARD:
             return
         
-        # Set and change current scene and background
+        # Set and change current scene and background to yard
         self.current_scene = YARD
         self.background.change_background(YARD)
 
@@ -63,7 +62,7 @@ class Mediator:
             command (Command): Enum key for _commands dictionary.
         
         Attributes:
-            action: _commands dictionary value that contains a player method.
+            action: _commands dictionary value that is a player method.
         """
         # Handle unknown command
         if command is None:

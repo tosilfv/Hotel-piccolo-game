@@ -5,7 +5,6 @@ import pygame
 from utils.commands import Command
 
 
-# Input handler
 class InputHandler:
     """
     Handles user input and translates it into mediator commands.
@@ -27,15 +26,15 @@ class InputHandler:
         # Returns a list of boolean values whether each key is pressed or not
         keys = pygame.key.get_pressed()
 
-        # Command to left
+        # Left
         if keys[pygame.K_LEFT]:
             self.mediator.handle_command(Command.MOVE_LEFT)
 
-        # Command to right
+        # Right
         elif keys[pygame.K_RIGHT]:
             self.mediator.handle_command(Command.MOVE_RIGHT)
 
-        # Command to jump
+        # Jump
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(Command.JUMP)
         

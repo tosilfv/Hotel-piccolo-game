@@ -7,7 +7,6 @@ from utils.constants import (DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              WHITE)
 
-# Load image
 def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFAULT_SURFACE_SIZE) -> pygame.Surface:
     """
     Load an image file with error handling and placeholder fallback.
@@ -34,11 +33,11 @@ def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFA
     except pygame.error as e:
         # Handle Pygame-specific errors
         error_message = f"Error loading image from '{path}': {e}"
-        logging.error(error_message)  # Log the error
+        logging.error(error_message)
     except FileNotFoundError:
         # Handle case where the file is not found
         error_message = f"File not found: '{path}'."
-        logging.error(error_message)  # Log the error
+        logging.error(error_message)
 
     # If loading fails, return a placeholder surface
     placeholder = pygame.Surface(default_size)

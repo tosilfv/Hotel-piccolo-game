@@ -5,7 +5,6 @@ import pygame
 from utils.constants import (CAPTION, DISPLAY_SIZE, FRAMERATE)
 
 
-# Screen
 class Screen:
     """
     Manages the game window and display settings and sets screen caption.
@@ -16,7 +15,7 @@ class Screen:
         framerate (int): Target grames per second.
     """
     
-    def __init__(self) -> None:
+    def __init__(self):
         self.screen = pygame.display.set_mode(DISPLAY_SIZE)
         self.clock = pygame.time.Clock()
         self.framerate = FRAMERATE
