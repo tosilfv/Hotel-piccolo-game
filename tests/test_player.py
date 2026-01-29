@@ -11,9 +11,16 @@ class TestPlayer:
         """Setup tests"""
         self.screen = Mock()
         self.screen.screen = Mock()
+
+        # Create mediator mock
         self.mediator = Mock()
-        self.mediator.running = Mock()
-        self.player = Player(self.screen)
+
+        # This can be used in update-method
+        self.mediator.running = False
+
+        # Create player now with mediator
+        self.player = Player(self.screen, self.mediator)
+
 
     def test_player_initialization(self):
         """Test player initialization"""

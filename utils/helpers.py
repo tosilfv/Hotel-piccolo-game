@@ -23,7 +23,7 @@ def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFA
     with a default color and size will be returned instead.
 
     Note:
-        Assumes that pygame and pygame.font have been initialized
+        Assumes that Pygame and pygame.font have been initialized
         before this function is called.
     """
     try:

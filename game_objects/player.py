@@ -2,7 +2,9 @@
 Player character implementation for the Piccolo game.
 """
 import os
+from control.mediator import Mediator
 from game_objects.screen import Screen
+from utils.commands import Command
 from utils.constants import (FIVE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
                              JUMP_CEILING_Y, JUMP_HEIGHT, PLAYER_X, ZERO)
 from utils.helpers import load_image
@@ -11,6 +13,13 @@ from utils.helpers import load_image
 class Player:
     """
     Represents the player character (piccolo) in the game.
+
+    Responsibilities:
+        - Handle player movement (left, right, jump) within the game world
+        - Apply physics, like gravity and jump ceilings
+        - Update internal state based on movement and game rules
+        - Draw itself on the screen at the correct position
+        - Provide an interface for Mediator to control player actions
 
     Attributes:
         screen: Screen instance for drawing operations.
@@ -26,9 +35,10 @@ class Player:
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
         rect.y: Pygame rect object's Y position.
     """
-    
-    def __init__(self, screen: Screen):
+
+    def __init__(self, screen: Screen, mediator: Mediator | None):
         self.screen = screen
+        self.mediator = mediator
         self.is_jumping = False
         self.gravity = GRAVITY
         self.jump_height = JUMP_HEIGHT
@@ -84,6 +94,10 @@ class Player:
 
             # Start jump
             self.velocity_y = self.jump_height
+
+            # Request mediator to play jump sound, only if mediator exists
+            if self.mediator is not None:
+                self.mediator.handle_command(Command.PLAY_JUMP_SOUND)
 
     def update(self, running: bool) -> None:
         """

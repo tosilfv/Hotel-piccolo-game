@@ -9,6 +9,12 @@ class InputHandler:
     """
     Handles user input and translates it into mediator commands.
 
+    Responsibilities:
+        - Capture keyboard input from the user
+        - Map key presses to high-level game commands
+        - Forward commands to the mediator for game object coordination
+        - Decouple input handling from game object logic
+
     Attributes:
         mediator: Mediator instance for game internal communication.
     """

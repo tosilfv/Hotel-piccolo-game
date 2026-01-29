@@ -19,6 +19,12 @@ See the `LICENCE` file in this directory for licensing information.
 
 ## Directory Structure
 
+### `audio/`
+
+Contains all audio assets:
+- `music_yard.wav` - Music for yard scene
+- `sound_jump.wav` - Sound effect for yard scene
+
 ### `graphics/`
 
 Contains all visual assets organized by category:

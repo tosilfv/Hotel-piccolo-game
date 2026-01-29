@@ -5,8 +5,9 @@ from utils.constants import (CAPTION,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              ENTRANCE, DISPLAY_SIZE, FIVE, FRAMERATE,
                              GRAPHICS_PATH, GRAVITY, GROUND_LEVEL, GROUND_X,
-                             GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y, PLAYER_X,
-                             SCREEN_HEIGHT, SCREEN_LEFT, SCREEN_WIDTH, SKY_X,
+                             GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y, MUSIC_YARD,
+                             PLAYER_X, SCREEN_HEIGHT, SCREEN_LEFT,
+                             SCREEN_WIDTH, SOUND_JUMP, SOUNDS_PATH, SKY_X,
                              SKY_Y, TEN, WHITE, YARD, ZERO)
 
 
@@ -36,10 +37,18 @@ class TestConstants:
         assert GROUND_Y == 320
         assert SKY_X == 0
         assert SKY_Y == -120
+        assert SOUNDS_PATH == os.path.join(
+                    os.path.dirname(
+                        os.path.dirname(
+                            __file__)),
+                                "media",
+                                    "audio")
         assert YARD == "yard"
 
     def test_configuration_constants(self):
         """Test configuration constants"""
+        assert MUSIC_YARD == "music_yard.wav"
+        assert SOUND_JUMP == "sound_jump.wav"
         assert WHITE == (255, 255, 255)
 
     def test_default_constants(self):

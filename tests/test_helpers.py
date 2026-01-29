@@ -7,7 +7,6 @@ class TestHelpers:
 
     def test_load_image_successful(self, tmp_path):
         """Test loading a valid image"""
-        import pygame
         from utils.helpers import load_image
 
         # Ensure Pygame is initialized

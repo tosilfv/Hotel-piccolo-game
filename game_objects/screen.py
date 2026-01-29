@@ -9,6 +9,12 @@ class Screen:
     """
     Manages the game window and display settings and sets screen caption.
 
+    Responsibilities:
+        - Initialize and manage the Pygame display surface
+        - Control framerate using Pygame Clock
+        - Set and maintain the game window caption
+        - Serve as the rendering target for game objects
+
     Attributes:
         screen: Pygame screen display surface (the game window).
         clock: Pygame Clock object for framerate control.

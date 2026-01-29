@@ -12,6 +12,12 @@ class Background:
     """
     Represents the background of the game.
 
+    Responsibilities:
+        - Manage and draw the current background on the screen
+        - Provide a method to change scenes (entrance, yard, etc.)
+        - Serve as a communication point for Mediator to update visuals
+        - Keep track of current scene state to prevent unnecessary redraws
+
     Attributes:
         screen: Screen instance for drawing operations.
         entrance_ground_surf: Ground surface for entrance scene.

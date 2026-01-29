@@ -2,32 +2,42 @@
 Mediator pattern implementation for game object communication.
 """
 from utils.commands import Command
-from utils.constants import (ENTRANCE, YARD)
+from utils.constants import (ENTRANCE, MUSIC_YARD, SOUND_JUMP, YARD)
 
 
 class Mediator:
     """
     Central communication hub for game objects.
 
+    Responsibilities:
+        - Route player input commands to the appropriate game object methods
+        - Manage scene transitions and update the current scene
+        - Updata running state of the player
+        - Communicate with AudioManager to play or stop music when scenes change
+        - Ensure decoupling of input handling from game object behavior
+
     Attributes:
         background: Background instance.
         running (bool): Whether player (piccolo) is running.
         current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
+        audio_manager: AudioManager instance for audio management.
         _commands (dict): Dictionary for player methods.
     """
 
-    def __init__(self, background, player):
+    def __init__(self, background, player, audio_manager):
         self.background = background
         self.running = False
         self.current_scene = ENTRANCE
         self.player = player
+        self.audio_manager = audio_manager
         self._commands = {
             Command.CHANGE_TO_ENTRANCE: self.change_to_entrance,
             Command.CHANGE_TO_YARD: self.change_to_yard,
             Command.JUMP: self.player.jump,
             Command.MOVE_LEFT: self.player.move_left,
-            Command.MOVE_RIGHT: self.player.move_right
+            Command.MOVE_RIGHT: self.player.move_right,
+            Command.PLAY_JUMP_SOUND: self.play_jump_sound
         }
 
     def change_to_entrance(self) -> None:
@@ -41,6 +51,7 @@ class Mediator:
         # Set and change current scene and background to entrance
         self.current_scene = ENTRANCE
         self.background.change_background(ENTRANCE)
+        self.audio_manager.stop_music()
 
     def change_to_yard(self) -> None:
         """
@@ -53,6 +64,13 @@ class Mediator:
         # Set and change current scene and background to yard
         self.current_scene = YARD
         self.background.change_background(YARD)
+        self.audio_manager.play_music(MUSIC_YARD)
+
+    def play_jump_sound(self) -> None:
+        """
+        Plays jump sound.
+        """
+        self.audio_manager.play_sound(SOUND_JUMP)
 
     def handle_command(self, command: Command | None) -> None:
         """

@@ -10,6 +10,14 @@ class Game:
     """
     Manages game loop.
 
+    Responsibilities:
+        - Execute the main game loop frame-by-frame
+        - Coordinate input handling, rendering, and game state updates
+        - Update player, background, and mediator states
+        - Handle scene transitions when player reaches screen edges
+        - Maintain framerate via screen clock
+        - Serve as the central point connecting screen, background, player, mediator, and input handler
+
     Attributes:
         screen: Screen instance for display operations.
         background: Background instance for scene rendering.
@@ -35,7 +43,7 @@ class Game:
         3. Draw player
         4. Update player
         5. Handle edge transition
-        6. Update pygame display
+        6. Update Pygame display
         7. Tick the game clock to maintain framerate
 
         Should be called continuously in the main.py game loop.

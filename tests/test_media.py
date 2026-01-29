@@ -27,7 +27,7 @@ class TestMediaFiles:
         # Check that file exists
         assert file_path.exists(), f"{file_path} is missing"
 
-        # Check that pygame can load the image
+        # Check that Pygame can load the image
         pygame.init()
         surface = pygame.image.load(str(file_path))
         assert surface.get_width() > 0 and surface.get_height() > 0
