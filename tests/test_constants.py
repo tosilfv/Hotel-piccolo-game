@@ -7,8 +7,9 @@ from utils.constants import (CAPTION,
                              GRAPHICS_PATH, GRAVITY, GROUND_LEVEL, GROUND_X,
                              GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y, MUSIC_YARD,
                              PLAYER_X, SCREEN_HEIGHT, SCREEN_LEFT,
-                             SCREEN_WIDTH, SOUND_JUMP, SOUNDS_PATH, SKY_X,
-                             SKY_Y, TEN, WHITE, YARD, ZERO)
+                             SCREEN_WIDTH, SOUND_JUMP, SOUNDS_PATH,
+                             SOUND_VOLUME, SKY_X, SKY_Y, TEN, WHITE, YARD,
+                             ZERO)
 
 
 class TestConstants:
@@ -49,6 +50,7 @@ class TestConstants:
         """Test configuration constants"""
         assert MUSIC_YARD == "music_yard.wav"
         assert SOUND_JUMP == "sound_jump.wav"
+        assert SOUND_VOLUME == 0.3
         assert WHITE == (255, 255, 255)
 
     def test_default_constants(self):

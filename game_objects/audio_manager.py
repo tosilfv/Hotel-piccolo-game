@@ -3,7 +3,7 @@ Music and sound effects for the game.
 """
 import os
 import pygame
-from utils.constants import (SOUNDS_PATH)
+from utils.constants import (SOUNDS_PATH, SOUND_VOLUME)
 
 
 class AudioManager:
@@ -21,10 +21,12 @@ class AudioManager:
         currently_playing (str | None): Path to currently playing sound file
     """
 
-    def __init__(self):
+    def __init__(self, sound_volume: float = SOUND_VOLUME):
         # Initialize Pygame mixer
         pygame.mixer.init()
+
         self.currently_playing = None
+        self.sound_volume = sound_volume
 
     def play_music(self, filename: str, loops=-1) -> None:
         """
@@ -56,6 +58,6 @@ class AudioManager:
             filename (str): Name of the sound file.
         """
         sound_file = os.path.join(SOUNDS_PATH, filename)
-
         sound = pygame.mixer.Sound(sound_file)
+        sound.set_volume(self.sound_volume)
         sound.play()

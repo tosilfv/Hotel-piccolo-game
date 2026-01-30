@@ -39,6 +39,9 @@ Background images for different hotel scenes:
 #### `player/`
 
 Player character sprites for different states and directions:
+- `piccolo_left_run1_normal.png` - Running frame 1 (left-facing)
+- `piccolo_left_run2_normal.png` - Running frame 2 (left-facing)
+- `piccolo_left_stand_normal.png` - Standing (left-facing)
 - `piccolo_run1_normal.png` - Running frame 1 (right-facing)
 - `piccolo_run2_normal.png` - Running frame 2 (right-facing)
 - `piccolo_stand_normal.png` - Standing (right-facing)

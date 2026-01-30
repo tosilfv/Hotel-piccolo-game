@@ -12,12 +12,15 @@ class TestMediaFiles:
     GRAPHICS_DIR = MEDIA_DIR / "graphics"
     HOTEL_DIR = GRAPHICS_DIR / "hotel"
     PLAYER_DIR = GRAPHICS_DIR / "player"
-    VIDEO_FILE = ROOT_DIR / "video_1.gif"
+    VIDEO_FILE = ROOT_DIR / "video_2.gif"
 
     @pytest.mark.parametrize("file_path", [
         HOTEL_DIR / "entrance_normal.png",
         HOTEL_DIR / "outdoor_ground_normal.png",
         HOTEL_DIR / "yard_normal.png",
+        PLAYER_DIR / "piccolo_left_run1_normal.png",
+        PLAYER_DIR / "piccolo_left_run2_normal.png",
+        PLAYER_DIR / "piccolo_left_stand_normal.png",
         PLAYER_DIR / "piccolo_run1_normal.png",
         PLAYER_DIR / "piccolo_run2_normal.png",
         PLAYER_DIR / "piccolo_stand_normal.png",

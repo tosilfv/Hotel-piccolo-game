@@ -10,7 +10,7 @@ Tervetuloa Piccolon maailmaan - hotellin pikkoloon, jonka tavaramerkki on legend
 
 ## Video
 
-![Gameplay preview](video_1.gif)
+![Gameplay preview](video_2.gif)
 
 ## Description
 
@@ -86,6 +86,12 @@ pytest -v
 
 **[0.0.9] - Jan 20, 2026:**
 - Added boing. “Hetki jolloin Piccolo oppi muinaisemman taidon: Tasajalka-Boing™.” 🐸
+
+**[0.0.10] - Jan 28, 2026:**
+- Added music to yard scene and sound effect to boing.
+
+**[0.0.11] - Jan 29, 2026:**
+- Added left running and left standing images.
 
 ## License
 
