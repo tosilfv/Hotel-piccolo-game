@@ -8,12 +8,17 @@ class TestLoggingConfig:
 
     @pytest.fixture(autouse=True)
     def setup_logger(self, tmp_path):
-        """Alternative file handler for a temp file"""
+        """Setup a temporary log file for testing and cleanup after test"""
+        # Create a temporary path for the log file
         self.log_file = tmp_path / "piccolo_game_errors.log"
-        # Check that file exists
+
+        # Yield control back to the test; everything before this is setup
         yield
-        # Empty logging after test
+
+        # Shut down all loggers and flush any remaining log messages
         logging.shutdown()
+
+        # Remove all existing handlers from the root logger to prevent interference with other tests
         for handler in logging.root.handlers[:]:
             logging.root.removeHandler(handler)
 

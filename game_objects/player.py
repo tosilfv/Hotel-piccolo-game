@@ -37,7 +37,6 @@ class Player:
         running_frame (int): The frame which is either 0 or 1 for running_images list.
         image: Currently active image surface.
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
-        rect.y: Pygame rect object's Y position.
     """
 
     def __init__(self, screen: Screen, mediator: Mediator | None):
