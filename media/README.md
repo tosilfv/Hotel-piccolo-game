@@ -36,6 +36,12 @@ Background images for different hotel scenes:
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
 - `yard_normal.png` - Sky surface for yard scene
 
+#### `items/`
+
+Item images for different actions
+- `trolley_empty_normal.png` - Empty trolley (right-facing)
+- `trolley_left_empty_normal.png` - Empty trolley (left-facing)
+
 #### `player/`
 
 Player character sprites for different states and directions:
