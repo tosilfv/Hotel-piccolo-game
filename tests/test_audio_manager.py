@@ -1,40 +1,62 @@
+"""Unit tests for AudioManager game object"""
 import os
-import pytest
 from unittest.mock import patch, MagicMock
 from game_objects.audio_manager import AudioManager
 
+
 class TestAudioManager:
-    @patch("pygame.mixer.music")
-    @patch("pygame.mixer.init")
-    def test_play_music_loads_and_plays(self, mock_init, mock_music):
+    """Test AudioManager class"""
+
+    @patch("game_objects.audio_manager.pygame.mixer.init")
+    @patch("game_objects.audio_manager.pygame.mixer.music")
+    def test_play_music_loads_and_plays(self, mock_music, mock_init):
+        # Setup
         audio_manager = AudioManager()
-        
-        # Alkuperäisenä ei soiteta mitään
         assert audio_manager.currently_playing is None
 
-        # Kutsu play_music
+        # Action
         audio_manager.play_music("music_yard.wav", loops=2)
 
-        # Tarkista, että music.load ja music.play kutsuttiin oikein
+        # Assert
         mock_music.load.assert_called_once()
         mock_music.play.assert_called_once_with(2)
-        # currently_playing päivittyi
         assert audio_manager.currently_playing is not None
         assert os.path.basename(audio_manager.currently_playing) == "music_yard.wav"
 
-        # Jos kutsutaan uudestaan samalla tiedostolla, load ei pitäisi tapahtua uudestaan
+        # Action: call again with same file
         mock_music.reset_mock()
         audio_manager.play_music("music_yard.wav")
-        mock_music.load.assert_not_called()
-        mock_music.play.assert_not_called()  # Jos haluat, voit päättää soittako uudestaan vai ei
 
-    @patch("pygame.mixer.music")
-    @patch("pygame.mixer.init")
-    def test_stop_music(self, mock_init, mock_music):
+        # Assert: load and play not called again
+        mock_music.load.assert_not_called()
+        mock_music.play.assert_not_called()
+
+    @patch("game_objects.audio_manager.pygame.mixer.init")
+    @patch("game_objects.audio_manager.pygame.mixer.music")
+    def test_stop_music(self, mock_music, mock_init):
+        # Setup
         audio_manager = AudioManager()
         audio_manager.currently_playing = "somefile.wav"
 
+        # Action
         audio_manager.stop_music()
 
+        # Assert
         mock_music.stop.assert_called_once()
         assert audio_manager.currently_playing is None
+
+    @patch("game_objects.audio_manager.pygame.mixer.init")
+    @patch("game_objects.audio_manager.pygame.mixer.Sound")
+    def test_play_sound_plays_with_volume(self, mock_sound_class, mock_init):
+        # Setup
+        mock_sound = MagicMock()
+        mock_sound_class.return_value = mock_sound
+        audio_manager = AudioManager(sound_volume=0.5)
+
+        # Action
+        audio_manager.play_sound("click.wav")
+
+        # Assert
+        mock_sound_class.assert_called_once()
+        mock_sound.set_volume.assert_called_once_with(0.5)
+        mock_sound.play.assert_called_once()

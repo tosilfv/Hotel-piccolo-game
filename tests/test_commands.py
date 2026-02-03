@@ -3,27 +3,34 @@ from utils.commands import Command
 
 
 class TestCommandEnum:
-    """Tests for Commands class"""
+    """Tests Commands class"""
 
     def test_commands_exist(self):
-        """Test that all commands exist in Command enum"""
+        # Assert that all commands exist
         assert hasattr(Command, "MOVE_LEFT")
         assert hasattr(Command, "MOVE_RIGHT")
         assert hasattr(Command, "JUMP")
         assert hasattr(Command, "STOP")
         assert hasattr(Command, "CHANGE_TO_ENTRANCE")
         assert hasattr(Command, "CHANGE_TO_YARD")
+        assert hasattr(Command, "PLAY_JUMP_SOUND")
 
     def test_command_names(self):
-        """Test that command names are correct"""
+        # Assert that all names are correct
         assert Command.MOVE_LEFT.name == "MOVE_LEFT"
         assert Command.MOVE_RIGHT.name == "MOVE_RIGHT"
         assert Command.JUMP.name == "JUMP"
         assert Command.STOP.name == "STOP"
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
+        assert Command.PLAY_JUMP_SOUND.name == "PLAY_JUMP_SOUND"
 
     def test_command_types(self):
-        """Test that each command is a Command enum"""
+        # Assert that each command is of Command type
         for cmd in Command:
             assert isinstance(cmd, Command)
+
+    def test_command_values_unique(self):
+        # Assert that all enum values are unique
+        values = [cmd.value for cmd in Command]
+        assert len(values) == len(set(values)), "Enum values are not unique"

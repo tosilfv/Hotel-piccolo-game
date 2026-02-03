@@ -13,16 +13,19 @@ from utils.constants import (CAPTION,
 
 
 class TestConstants:
-    """Test constants class"""
+    """Test constants in the game"""
 
     def test_numeric_constants(self):
-        """Test numeric constants"""
-        assert FIVE == 5
-        assert TEN == 10
-        assert ZERO == 0
+        numeric_constants = {
+            FIVE: 5,
+            TEN: 10,
+            ZERO: 0
+        }
+        for const, value in numeric_constants.items():
+            assert const == value, f"{const} should be {value}"
 
     def test_background_constants(self):
-        """Test background constants"""
+        # Assert that enum names and background constants are correct
         import os
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
@@ -47,21 +50,18 @@ class TestConstants:
         assert YARD == "yard"
 
     def test_configuration_constants(self):
-        """Test configuration constants"""
         assert MUSIC_YARD == "music_yard.wav"
         assert SOUND_JUMP == "sound_jump.wav"
         assert SOUND_VOLUME == 0.3
         assert WHITE == (255, 255, 255)
 
     def test_default_constants(self):
-        """Test default constants"""
         assert DEFAULT_FONT_SIZE == 14
         assert DEFAULT_SURFACE_COLOR == (255, 0, 0)
         assert DEFAULT_SURFACE_SIZE == (100, 100)
         assert DEFAULT_TEXT_SURFACE_SIZE == (10, 10)
 
     def test_display_constants(self):
-        """Test display constants"""
         assert SCREEN_HEIGHT == 400
         assert SCREEN_WIDTH == 800
         assert CAPTION == "Piccolo"
@@ -70,7 +70,6 @@ class TestConstants:
         assert SCREEN_LEFT == 0
 
     def test_player_constants(self):
-        """Test player constants"""
         assert GRAVITY == 1
         assert JUMP_HEIGHT == -10
         assert JUMP_CEILING_Y == 200

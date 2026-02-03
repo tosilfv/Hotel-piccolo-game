@@ -1,56 +1,63 @@
 """Unit tests for helpers.py"""
 import pygame
+from utils.helpers import load_image
 
 
 class TestHelpers:
     """Test helpers class"""
 
     def test_load_image_successful(self, tmp_path):
-        """Test loading a valid image"""
-        from utils.helpers import load_image
-
-        # Ensure Pygame is initialized
         pygame.init()
+        try:
+            # Setup: create temporary image
+            test_image = pygame.Surface((50, 50))
+            test_image.fill((0, 0, 255))
+            image_path = tmp_path / "test_img.png"
+            pygame.image.save(test_image, str(image_path))
 
-        # Create a temporary image file
-        test_image = pygame.Surface((50, 50))
-        test_image.fill((0, 0, 255))
-        image_path = tmp_path / "test_img.png"
+            # Action
+            loaded = load_image(str(image_path))
 
-        # Save image to temp path
-        pygame.image.save(test_image, str(image_path))
-
-        # Test the loading
-        loaded = load_image(str(image_path))
-
-        # Check that it's a surface
-        assert isinstance(loaded, pygame.Surface)
-
-        # Check that size is correct
-        assert loaded.get_size() == (50, 50)
+            # Assert
+            assert isinstance(loaded, pygame.Surface)
+            assert loaded.get_size() == (50, 50)
+        finally:
+            pygame.quit()
 
     def test_load_image_not_found(self):
-        """Test load_image when file doesn't exist"""
-        from utils.helpers import load_image
+        pygame.init()
+        try:
+            # Action: try to load a non-existent file
+            res = load_image("non_existent_file.png")
 
-        # Try to load a non-existent file
-        res = load_image("non_existent_file.png")
+            # Assert: return placeholder surface
+            assert isinstance(res, pygame.Surface)
+            assert res.get_size() == (100, 100)
 
-        # Should return a placeholder surface
-        assert isinstance(res, pygame.Surface)
-        assert res.get_size() == (100, 100)  # Default size
+            # Check that placeholder text is actually drawn
+            # Convert to array and check that not all pixels are the same color
+            pixel_array = pygame.surfarray.array3d(res)
+            assert pixel_array.min() != pixel_array.max()
+        finally:
+            pygame.quit()
 
     def test_load_image_pygame_error(self, monkeypatch):
-        """Test load_image when pygame raises an error"""
-        from utils.helpers import load_image
+        pygame.init()
+        try:
+            # Setup: force pygame.image.load to raise an error
+            def mock_load(path):
+                raise pygame.error("Test error.")
+            monkeypatch.setattr(pygame.image, "load", mock_load)
 
-        # Mock pygame.image.load to raise an error
-        def mock_load(path):
-            raise pygame.error("Test error.")
+            # Action
+            res = load_image("test.png")
 
-        monkeypatch.setattr(pygame.image, "load", mock_load)
+            # Assert: return placeholder surface
+            assert isinstance(res, pygame.Surface)
+            assert res.get_size() == (100, 100)
 
-        # Should return a placeholder surface
-        res = load_image("test.png")
-        assert isinstance(res, pygame.Surface)
-        assert res.get_size() == (100, 100)
+            # Check that placeholder text is actually drawn
+            pixel_array = pygame.surfarray.array3d(res)
+            assert pixel_array.min() != pixel_array.max()
+        finally:
+            pygame.quit()

@@ -1,14 +1,14 @@
 """Unit tests for Screen class"""
-from game_objects.screen import Screen
-from utils.constants import (CAPTION, FRAMERATE)
 from unittest.mock import Mock
+from game_objects.screen import Screen
+from utils.constants import CAPTION, FRAMERATE
 
 
 class TestScreen:
     """Test Screen class"""
 
     def test_screen_initialization(self, monkeypatch):
-        """Test screen initialization"""
+        # Setup: create mocks
         mock_display = Mock()
         mock_clock = Mock()
         mock_clock.tick = Mock()
@@ -17,14 +17,16 @@ class TestScreen:
         monkeypatch.setattr('pygame.display.set_caption', Mock())
         monkeypatch.setattr('pygame.time.Clock', lambda: mock_clock)
 
+        # Action: create Screen instance
         screen = Screen()
 
+        # Assert: attributes set correctly
         assert screen.screen == mock_display
         assert screen.clock == mock_clock
         assert screen.framerate == FRAMERATE
 
     def test_screen_set_caption(self, monkeypatch):
-        """Test that screen sets caption correctly"""
+        # Setup: track caption calls
         set_caption_called = []
 
         def mock_set_caption(caption):
@@ -34,6 +36,8 @@ class TestScreen:
         monkeypatch.setattr('pygame.display.set_caption', mock_set_caption)
         monkeypatch.setattr('pygame.time.Clock', lambda: Mock())
 
+        # Action: create Screen instance
         Screen()
 
+        # Assert: caption set correctly
         assert CAPTION in set_caption_called

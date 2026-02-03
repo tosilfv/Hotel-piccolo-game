@@ -1,19 +1,20 @@
 """Unit tests for Game class"""
-from control.game import Game
 from unittest.mock import Mock, patch
+from control.game import Game
+from utils.commands import Command
+from utils.constants import ENTRANCE, YARD, SCREEN_WIDTH, EDGE_MARGIN
 
 
 class TestGame:
-    """Test Game class"""
-
     def setup_method(self):
-        """Setup tests"""
+        # Setup mocks
         self.screen = Mock()
         self.screen.clock = Mock()
         self.screen.framerate = 60
 
         self.background = Mock()
         self.player = Mock()
+        self.player.rect = Mock()
         self.mediator = Mock()
         self.input_handler = Mock()
 
@@ -25,38 +26,75 @@ class TestGame:
             input_handler=self.input_handler
         )
 
-    def test_run_calls_input_handler(self):
-        """Test input handler process_input method"""
-        with patch('pygame.display.update'):
-            self.game.run()
-
-        self.input_handler.process_input.assert_called_once()
-
-    def test_run_calls_draw_methods(self):
-        """Test background and player draw methods"""
-        with patch('pygame.display.update'):
-            self.game.run()
-
-        self.background.draw.assert_called_once()
-        self.player.draw.assert_called_once()
-
-    def test_run_updates_player(self):
-        """Test player update method"""
-        with patch('pygame.display.update'):
-            self.game.run()
-        
-        self.player.update.assert_called_once()
-
-    def test_run_updates_display(self):
-        """Test display update method"""
+    def test_run_calls_all_methods(self):
+        # Action
         with patch('pygame.display.update') as mock_update:
             self.game.run()
 
+        # Assert
+        self.input_handler.process_input.assert_called_once()
+        self.background.draw.assert_called_once()
+        self.player.draw.assert_called_once()
+        self.player.update.assert_called_once_with(self.mediator.running)
         mock_update.assert_called_once()
-
-    def test_run_ticks_clock(self):
-        """Test screen clock tick method"""
-        with patch('pygame.display.update'):
-            self.game.run()
-
         self.screen.clock.tick.assert_called_once_with(self.screen.framerate)
+
+    def test_handle_edge_transition_left(self):
+        # Setup
+        self.player.rect.left = EDGE_MARGIN - 1
+        self.player.rect.right = 50
+        self.mediator.current_scene = ENTRANCE
+
+        # Action
+        self.game._handle_edge_transition()
+
+        # Assert
+        self.mediator.handle_command.assert_called_once_with(Command.CHANGE_TO_YARD)
+        assert self.player.rect.right == SCREEN_WIDTH - EDGE_MARGIN
+
+    def test_handle_edge_transition_right(self):
+        # Setup
+        self.player.rect.left = SCREEN_WIDTH - EDGE_MARGIN + 1
+        self.player.rect.right = SCREEN_WIDTH
+        self.mediator.current_scene = YARD
+
+        # Action
+        self.game._handle_edge_transition()
+
+        # Assert
+        self.mediator.handle_command.assert_called_once_with(Command.CHANGE_TO_ENTRANCE)
+        assert self.player.rect.left == EDGE_MARGIN
+
+    def test_handle_edge_transition_middle_no_change(self):
+        # Setup
+        self.player.rect.left = 100
+        self.player.rect.right = 150
+        self.mediator.current_scene = ENTRANCE
+
+        # Action
+        self.game._handle_edge_transition()
+
+        # Assert
+        self.mediator.handle_command.assert_not_called()
+
+    def test_scene_transition_spawn_left(self):
+        # Setup
+        self.mediator.current_scene = YARD
+
+        # Action
+        self.game._scene_transition(spawn_on_left=True, screen_width=SCREEN_WIDTH, margin=EDGE_MARGIN)
+
+        # Assert
+        self.mediator.handle_command.assert_called_once_with(Command.CHANGE_TO_ENTRANCE)
+        assert self.player.rect.left == EDGE_MARGIN
+
+    def test_scene_transition_spawn_right(self):
+        # Setup
+        self.mediator.current_scene = ENTRANCE
+
+        # Action
+        self.game._scene_transition(spawn_on_left=False, screen_width=SCREEN_WIDTH, margin=EDGE_MARGIN)
+
+        # Assert
+        self.mediator.handle_command.assert_called_once_with(Command.CHANGE_TO_YARD)
+        assert self.player.rect.right == SCREEN_WIDTH - EDGE_MARGIN

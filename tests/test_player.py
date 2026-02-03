@@ -1,29 +1,24 @@
 """Unit tests for Player class"""
-from game_objects.player import Player
 from unittest.mock import Mock
-from utils.constants import (GROUND_LEVEL)
+from game_objects.player import Player
+from utils.constants import GROUND_LEVEL
 
 
 class TestPlayer:
     """Test Player class"""
 
     def setup_method(self):
-        """Setup tests"""
+        # Setup: create mock screen and mediator
         self.screen = Mock()
         self.screen.screen = Mock()
-
-        # Create mediator mock
         self.mediator = Mock()
-
-        # This can be used in update-method
         self.mediator.running = False
 
-        # Create player now with mediator
+        # Action: create Player instance
         self.player = Player(self.screen, self.mediator)
 
-
     def test_player_initialization(self):
-        """Test player initialization"""
+        # Assert initial state
         assert self.player.screen == self.screen
         assert self.player.is_jumping is False
         assert self.player.gravity == 1
@@ -35,94 +30,97 @@ class TestPlayer:
         assert self.player.rect.y == 240
 
     def test_player_move_left(self):
-        """Test player move_left method"""
+        # Setup: record initial x
         start_x = self.player.rect.x
+        # Action
         self.player.move_left()
-
+        # Assert
         assert self.player.rect.x == start_x - 5
+        assert self.player.is_left is True
 
     def test_player_move_right(self):
-        """Test player move_right method"""
+        # Setup: record initial x
         start_x = self.player.rect.x
+        # Action
         self.player.move_right()
-
+        # Assert
         assert self.player.rect.x == start_x + 5
+        assert self.player.is_left is False
 
     def test_player_jump_sets_state(self):
-        """Test player jump method"""
+        # Setup
         self.player.is_jumping = False
         self.player.velocity_y = 0
-
+        # Action
         self.player.jump()
-
+        # Assert
         assert self.player.is_jumping is True
         assert self.player.velocity_y == self.player.jump_height
 
     def test_update_applies_gravity_when_jumping(self):
-        """Test player update method gravity"""
+        # Setup
         start_y = 220
         self.player.is_jumping = True
         self.player.gravity = 1
         self.player.velocity_y = -5
         self.player.rect.y = start_y
         self.player.jump_ceiling_y = 100
-
+        # Action
         self.player.update(self.mediator.running)
-
+        # Assert
         assert self.player.velocity_y == -4
         assert self.player.rect.y == start_y - 4
 
     def test_update_caps_at_jump_ceiling_y(self):
-        """Test player update method jump ceiling y"""
+        # Setup
         self.player.is_jumping = True
         self.player.gravity = 1
         self.player.velocity_y = -10
         self.player.rect.y = 190
         self.player.jump_ceiling_y = 200
-
+        # Action
         self.player.update(self.mediator.running)
-
+        # Assert
         assert self.player.velocity_y == 0
         assert self.player.rect.y == 200
 
     def test_update_resets_state_on_ground(self):
-        """Test player update method reset"""
+        # Setup
         self.player.is_jumping = True
         self.player.velocity_y = 5
         self.player.rect.y = 250
-
+        # Action
         self.player.update(self.mediator.running)
-
+        # Assert
         assert self.player.rect.y == GROUND_LEVEL
         assert self.player.is_jumping is False
         assert self.player.velocity_y == 0
 
     def test_update_does_nothing_when_not_jumping(self):
-        """Test player update method no action"""
+        # Setup
         self.player.is_jumping = False
         self.player.velocity_y = 0
         self.player.rect.y = GROUND_LEVEL
-
+        # Action
         self.player.update(self.mediator.running)
-
+        # Assert
         assert self.player.rect.y == GROUND_LEVEL
         assert self.player.is_jumping is False
         assert self.player.velocity_y == 0
 
     def test_jump_then_update_moves_player_up(self):
-        """Test player update method that after jump moves player up"""
+        # Setup
         start_y = self.player.rect.y
-
         self.player.jump()
+        # Action
         self.player.update(self.mediator.running)
-
+        # Assert
         assert self.player.rect.y < start_y
 
     def test_player_draw(self):
-        """Test player draw method"""
+        # Action
         self.player.draw()
-
-        # Verify blit was called
+        # Assert
         self.screen.screen.blit.assert_called_once_with(
             self.player.image,
             self.player.rect

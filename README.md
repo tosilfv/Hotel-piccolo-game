@@ -93,6 +93,9 @@ pytest -v
 **[0.0.11] - Jan 29, 2026:**
 - Added left running and left standing images.
 
+**[0.0.12] - Feb 2, 2026:**
+- Refactored tests.
+
 ## License
 
 This project is licensed under the MIT License.

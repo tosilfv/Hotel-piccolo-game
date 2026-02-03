@@ -1,55 +1,40 @@
 """Unit tests for main.py"""
-import main
 import pygame
+import main
 from unittest.mock import patch, MagicMock
 
 
 class TestMain:
-    """Test Main class"""
+    """Tests for main.py run_game function"""
 
-    def setup_method(self, method):
-        """Setup before each test"""
-        # main is already imported at top level
+    def setup_method(self):
+        # Setup: reference to main module
         self.main = main
 
     def test_main_import(self):
-        """Test that main.py is imported"""
+        # Setup: nothing to prepare
+        # Action & Assert
         assert self.main is not None
 
-    def test_main_creates_game(self):
-        """Test that main.py creates and runs a game"""
-        # Create a fake game object with a mocked run method
+    def test_main_creates_game_and_runs_loop_once(self):
+        # Setup
         fake_game = MagicMock()
         fake_game.run = MagicMock()
 
-        # Prepare a QUIT event to exit the game loop immediately
+        # Prepare a QUIT event to exit the loop immediately
         quit_event = pygame.event.Event(pygame.QUIT)
 
-        # Create patches for all external calls to isolate the test
-        patch_create_game = patch.object(
-            self.main,
-            "create_game",
-            return_value=fake_game,
-        )
-        patch_events = patch(
-            "pygame.event.get",
-            return_value=[quit_event],
-        )
-        patch_quit = patch("pygame.quit")
-        patch_exit = patch("sys.exit")
+        # Patch external calls
+        with patch.object(self.main, "create_game", return_value=fake_game) as mock_create_game, \
+             patch("pygame.event.get", return_value=[quit_event]), \
+             patch("pygame.quit") as mock_quit, \
+             patch("sys.exit") as mock_exit:
 
-        # Apply patches in a context manager
-        with (
-            patch_create_game as mock_create_game,
-            patch_events,
-            patch_quit,
-            patch_exit,
-        ):
-            # Run the main game function (loop will exit immediately due to QUIT event)
+            # Action: run the game
             self.main.run_game()
 
-        # Verify that the game was created exactly once
-        mock_create_game.assert_called_once()
-
-        # Verify that the game's run method was called exactly once
-        fake_game.run.assert_called_once()
+            # Assert: game created and run called
+            mock_create_game.assert_called_once()
+            fake_game.run.assert_called_once()
+            mock_quit.assert_called_once()
+            mock_exit.assert_called_once()

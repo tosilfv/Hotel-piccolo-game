@@ -1,46 +1,58 @@
 """Unit tests for InputHandler class"""
 import pygame
+from unittest.mock import Mock, patch
 from control.input_handler import InputHandler
 from utils.commands import Command
-from unittest.mock import Mock, patch
 
 
 class TestInputHandler:
     """Test InputHandler class"""
 
     def setup_method(self):
-        """Setup tests"""
+        # Setup mediator and InputHandler
         self.mediator = Mock()
         self.input_handler = InputHandler(self.mediator)
 
     def test_left_key_triggers_left_command(self):
-        """Test left key triggers left command method"""
+        # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
             mock_keys.return_value = {pygame.K_LEFT: True, pygame.K_RIGHT: False, pygame.K_SPACE: False}
+
+            # Action
             self.input_handler.process_input()
 
-        self.mediator.handle_command.assert_called_once_with(Command.MOVE_LEFT)
+            # Assert
+            self.mediator.handle_command.assert_called_once_with(Command.MOVE_LEFT)
 
-    def test_right_key_triggers_left_command(self):
-        """Test right key triggers right command method"""
+    def test_right_key_triggers_right_command(self):
+        # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
             mock_keys.return_value = {pygame.K_LEFT: False, pygame.K_RIGHT: True, pygame.K_SPACE: False}
+
+            # Action
             self.input_handler.process_input()
-        
-        self.mediator.handle_command.assert_called_once_with(Command.MOVE_RIGHT)
+
+            # Assert
+            self.mediator.handle_command.assert_called_once_with(Command.MOVE_RIGHT)
 
     def test_space_key_triggers_jump_command(self):
-        """Test space key triggers jump command"""
+        # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
             mock_keys.return_value = {pygame.K_LEFT: False, pygame.K_RIGHT: False, pygame.K_SPACE: True}
+
+            # Action
             self.input_handler.process_input()
-        
-        self.mediator.handle_command.assert_called_once_with(Command.JUMP)
+
+            # Assert
+            self.mediator.handle_command.assert_called_once_with(Command.JUMP)
 
     def test_no_keys_triggers_no_command(self):
-        """Test no keys triggers no command method"""
+        # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
             mock_keys.return_value = {pygame.K_LEFT: False, pygame.K_RIGHT: False, pygame.K_SPACE: False}
+
+            # Action
             self.input_handler.process_input()
-        
-        self.mediator.handle_command.assert_not_called()
+
+            # Assert
+            self.mediator.handle_command.assert_not_called()
