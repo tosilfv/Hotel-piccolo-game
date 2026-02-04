@@ -18,14 +18,17 @@ class Background:
         - Serve as a communication point for Mediator to update visuals
         - Keep track of current scene state to prevent unnecessary redraws
 
-    Attributes:
+    Args:
         screen: Screen instance for drawing operations.
+
+    Attributes:
         entrance_ground_surf: Ground surface for entrance scene.
         entrance_sky_surf: Sky surface for entrance scene.
+        yard_sky_surf: Sky surface for yard scene.
         ground_surf: Currently active ground surface.
         sky_surf: Currently active sky surface.
     """
-    
+
     def __init__(self, screen: Screen):
         self.screen = screen
 

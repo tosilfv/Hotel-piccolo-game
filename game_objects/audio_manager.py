@@ -17,6 +17,9 @@ class AudioManager:
         - Avoid reloading the same track unnecessarily
         - Maintain currently playing track state
 
+    Args:
+        sound_volume (float): The volume level of the sound
+
     Attributes:
         currently_playing (str | None): Path to currently playing sound file
     """
