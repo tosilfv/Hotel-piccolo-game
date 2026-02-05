@@ -7,9 +7,8 @@ from game_objects.audio_manager import AudioManager
 class TestAudioManager:
     """Test AudioManager class"""
 
-    @patch("game_objects.audio_manager.pygame.mixer.init")
     @patch("game_objects.audio_manager.pygame.mixer.music")
-    def test_play_music_loads_and_plays(self, mock_music, mock_init):
+    def test_play_music_loads_and_plays(self, mock_music):
         # Setup
         audio_manager = AudioManager()
         assert audio_manager.currently_playing is None
@@ -31,9 +30,8 @@ class TestAudioManager:
         mock_music.load.assert_not_called()
         mock_music.play.assert_not_called()
 
-    @patch("game_objects.audio_manager.pygame.mixer.init")
     @patch("game_objects.audio_manager.pygame.mixer.music")
-    def test_stop_music(self, mock_music, mock_init):
+    def test_stop_music(self, mock_music):
         # Setup
         audio_manager = AudioManager()
         audio_manager.currently_playing = "somefile.wav"
@@ -45,9 +43,8 @@ class TestAudioManager:
         mock_music.stop.assert_called_once()
         assert audio_manager.currently_playing is None
 
-    @patch("game_objects.audio_manager.pygame.mixer.init")
     @patch("game_objects.audio_manager.pygame.mixer.Sound")
-    def test_play_sound_plays_with_volume(self, mock_sound_class, mock_init):
+    def test_play_sound_plays_with_volume(self, mock_sound_class):
         # Setup
         mock_sound = MagicMock()
         mock_sound_class.return_value = mock_sound

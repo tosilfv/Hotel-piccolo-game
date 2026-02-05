@@ -1,58 +1,74 @@
 """Unit tests for Background class"""
 from unittest.mock import Mock, patch
 from game_objects.background import Background
-from utils.constants import ENTRANCE, YARD
+from utils.constants import (GROUND_X, GROUND_Y, ENTRANCE, SKY_X, SKY_Y, YARD)
 
 
+@patch("game_objects.background.load_image")
 class TestBackground:
     """Test Background class"""
 
-    def setup_method(self, method):
-        # Setup mock screen with a screen.blit method
-        self.mock_screen_inner = Mock()
+    def setup_method(self):
+        # Setup mock screen object to record blit calls
+        self.mock_screen = Mock()
         self.screen = Mock()
-        self.screen.screen = self.mock_screen_inner
+        self.screen.screen = self.mock_screen
 
-    @patch("game_objects.background.load_image", return_value=Mock())
-    def test_background_initialization(self, mock_load):
-        # Create Background instance with mocked load_image
+    def test_background_initialization(self, _):
+        """
+        Test that Background initializes correctly with mocked load_image.
+
+        Args:
+            _: @patch gives mock as parameter for test-function (not used here)
+        """
         background = Background(self.screen)
 
-        # Assert that background is created correctly
+        # Assert: attributes should be set correctly
         assert background.screen == self.screen
         assert background.ground_surf is not None
         assert background.sky_surf is not None
 
-    @patch("game_objects.background.load_image", return_value=Mock())
-    def test_background_draw(self, mock_load):
-        # Create Background instance with mocked load_image
+    def test_background_draw(self, _):
+        """
+        Test that draw() calls blit for ground and sky surfaces.
+
+        Args:
+            _: @patch gives mock as parameter for test-function (not used here)
+        """
         background = Background(self.screen)
 
-        # Action: call draw method
+        # Action
         background.draw()
 
-        # Assert: blit was called twice (once for ground and once for sky)
-        assert self.mock_screen_inner.blit.call_count == 2
+        # Assert: blit called twice (ground + sky)
+        assert self.mock_screen.blit.call_count == 2
 
-    @patch("game_objects.background.load_image")
+        # Assert: blit called with correct coordinates
+        self.mock_screen.blit.assert_any_call(background.ground_surf, (GROUND_X, GROUND_Y))
+        self.mock_screen.blit.assert_any_call(background.sky_surf, (SKY_X, SKY_Y))
+
+
     def test_change_background(self, mock_load):
-        # Setup: return different mocks for each load_image call
-        entrance_ground_mock = Mock()
-        entrance_sky_mock = Mock()
-        yard_sky_mock = Mock()
-        mock_load.side_effect = [entrance_ground_mock, entrance_sky_mock, yard_sky_mock]
+        """
+        Test that change_background correctly swaps ground and sky surfaces.
 
-        # Create Background instance
+        Args:
+            mock_load: patched load_image mock
+        """
+        # Setup: simple mock objects for surfaces
+        entrance_ground = object()
+        entrance_sky = object()
+        yard_sky = object()
+        mock_load.side_effect = [entrance_ground, entrance_sky, yard_sky]
+
         background = Background(self.screen)
 
-        # Change to YARD scene
+        # Action & assert: change to YARD scene
         background.change_background(YARD)
-        # Assert: ground stays entrance, sky changes to yard
-        assert background.ground_surf == entrance_ground_mock
-        assert background.sky_surf == yard_sky_mock
+        assert background.ground_surf == entrance_ground
+        assert background.sky_surf == yard_sky
 
-        # Change back to ENTRANCE scene
+        # Action & assert: change back to ENTRANCE scene
         background.change_background(ENTRANCE)
-        # Assert: both ground and sky reset to entrance surfaces
-        assert background.ground_surf == entrance_ground_mock
-        assert background.sky_surf == entrance_sky_mock
+        assert background.ground_surf == entrance_ground
+        assert background.sky_surf == entrance_sky

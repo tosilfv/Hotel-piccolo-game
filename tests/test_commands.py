@@ -7,23 +7,23 @@ class TestCommandEnum:
 
     def test_commands_exist(self):
         # Assert that all commands exist
-        assert hasattr(Command, "MOVE_LEFT")
-        assert hasattr(Command, "MOVE_RIGHT")
-        assert hasattr(Command, "JUMP")
-        assert hasattr(Command, "STOP")
         assert hasattr(Command, "CHANGE_TO_ENTRANCE")
         assert hasattr(Command, "CHANGE_TO_YARD")
+        assert hasattr(Command, "JUMP")
+        assert hasattr(Command, "MOVE_LEFT")
+        assert hasattr(Command, "MOVE_RIGHT")
         assert hasattr(Command, "PLAY_JUMP_SOUND")
+        assert hasattr(Command, "STOP")
 
     def test_command_names(self):
         # Assert that all names are correct
-        assert Command.MOVE_LEFT.name == "MOVE_LEFT"
-        assert Command.MOVE_RIGHT.name == "MOVE_RIGHT"
-        assert Command.JUMP.name == "JUMP"
-        assert Command.STOP.name == "STOP"
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
+        assert Command.JUMP.name == "JUMP"
+        assert Command.MOVE_LEFT.name == "MOVE_LEFT"
+        assert Command.MOVE_RIGHT.name == "MOVE_RIGHT"
         assert Command.PLAY_JUMP_SOUND.name == "PLAY_JUMP_SOUND"
+        assert Command.STOP.name == "STOP"
 
     def test_command_types(self):
         # Assert that each command is of Command type
