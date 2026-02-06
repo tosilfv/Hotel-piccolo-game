@@ -14,6 +14,7 @@ class Command(Enum):
     Each command represents an abstract player action or scene change,
     independent of concrete input devices or key bindings.
     """
+
     CHANGE_TO_ENTRANCE = auto()
     CHANGE_TO_YARD = auto()
     JUMP = auto()

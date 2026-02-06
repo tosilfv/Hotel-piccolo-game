@@ -63,14 +63,14 @@ class Game:
         # 6. Render current frame
         pygame.display.update()
 
-        # 7. Clock
-        self.screen.clock.tick(self.screen.framerate)  # slows the game to framerate speed
+        # 7. Clock slows the game to framerate speed
+        self.screen.clock.tick(self.screen.framerate)
 
     def _handle_edge_transition(self) -> None:
         """
         Handle transition when player reaches screen edge.
         """
-        # For tests player object can be a Mock object
+        # For tests player object can be a Mock object that doesn't have a rect attribute
         try:
             left = self.player.rect.left
             right = self.player.rect.right
@@ -100,7 +100,7 @@ class Game:
         """
         Handle scene transition and player spawning and call mediator for scene change.
 
-        Attributes:
+        Args:
             *: Forces following attributes to be called with their name included.
             spawn_on_left (bool): Whether player is going to spawn to left.
             screen_width (int): The screen width.

@@ -18,14 +18,14 @@ class InputHandler:
     Attributes:
         mediator: Mediator instance for game internal communication.
     """
-    
+
     def __init__(self, mediator):
         self.mediator = mediator
 
     def process_input(self) -> None:
         """
         Process user input for mediator commands.
-        
+
         Attributes:
             keys: Pygame key method.
         """
@@ -43,7 +43,7 @@ class InputHandler:
         # Jump
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(Command.JUMP)
-        
+
         # Not moving reset command
         if not any(keys):
             self.mediator.handle_command(Command.STOP)

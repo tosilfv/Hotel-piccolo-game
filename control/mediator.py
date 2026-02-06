@@ -13,7 +13,7 @@ class Mediator:
         - Route player input commands to the appropriate game object methods
         - Manage scene transitions and update the current scene
         - Updata running state of the player
-        - Communicate with AudioManager to play or stop music when scenes change
+        - Communicate with AudioManager to play or stop music or sound
         - Ensure decoupling of input handling from game object behavior
 
     Attributes:
@@ -60,7 +60,7 @@ class Mediator:
         # If player is already at yard scene then return
         if self.current_scene == YARD:
             return
-        
+
         # Set and change current scene and background to yard
         self.current_scene = YARD
         self.background.change_background(YARD)
@@ -78,7 +78,7 @@ class Mediator:
 
         Args:
             command (Command): Enum key for _commands dictionary.
-        
+
         Attributes:
             action: _commands dictionary value that is a player method.
         """
@@ -93,12 +93,12 @@ class Mediator:
         # Call the method
         if action:
             action()
-        
+
         # Player stops
         if command == Command.STOP:
             self.running = False
             return
-        
+
         # Player is running
         if command == Command.MOVE_LEFT or command == Command.MOVE_RIGHT:
             self.running = True

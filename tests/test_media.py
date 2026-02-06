@@ -38,15 +38,15 @@ class TestMediaFiles:
         ]
 
         for file_path in files:
-            # Assert file exists
+            # Assert: file exists
             assert file_path.exists(), f"{file_path} is missing"
 
             # Action: load image
             surface = pygame.image.load(str(file_path))
 
-            # Assert image is valid
+            # Assert: image is valid
             assert surface.get_width() > 0 and surface.get_height() > 0
 
     def test_video_exists(self):
-        # Assert video exists
+        # Assert: video exists
         assert self.VIDEO_FILE.exists(), f"{self.VIDEO_FILE} is missing"

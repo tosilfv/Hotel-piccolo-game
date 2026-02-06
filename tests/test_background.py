@@ -9,7 +9,7 @@ class TestBackground:
     """Test Background class"""
 
     def setup_method(self):
-        # Setup mock screen object to record blit calls
+        # Setup: mock screen object to record blit calls
         self.mock_screen = Mock()
         self.screen = Mock()
         self.screen.screen = self.mock_screen
@@ -46,7 +46,6 @@ class TestBackground:
         # Assert: blit called with correct coordinates
         self.mock_screen.blit.assert_any_call(background.ground_surf, (GROUND_X, GROUND_Y))
         self.mock_screen.blit.assert_any_call(background.sky_surf, (SKY_X, SKY_Y))
-
 
     def test_change_background(self, mock_load):
         """

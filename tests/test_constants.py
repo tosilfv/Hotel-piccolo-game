@@ -3,13 +3,13 @@ from utils.commands import Command
 from utils.constants import (CAPTION, 
                              DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
-                             ENTRANCE, DISPLAY_SIZE, FIVE, FRAMERATE,
-                             GRAPHICS_PATH, GRAVITY, GROUND_LEVEL, GROUND_X,
-                             GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y, MUSIC_YARD,
-                             PLAYER_X, SCREEN_HEIGHT, SCREEN_LEFT,
-                             SCREEN_WIDTH, SOUND_JUMP, SOUNDS_PATH,
-                             SOUND_VOLUME, SKY_X, SKY_Y, TEN, WHITE, YARD,
-                             ZERO)
+                             EDGE_MARGIN, ENTRANCE, DISPLAY_SIZE, FIVE,
+                             FRAMERATE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
+                             GROUND_X, GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y,
+                             MUSIC_YARD, PLAYER_X, RUN_ANIM_SPEED,
+                             SCREEN_HEIGHT, SCREEN_LEFT, SCREEN_WIDTH,
+                             SOUND_JUMP, SOUNDS_PATH, SOUND_VOLUME, SKY_X,
+                             SKY_Y, TEN, WHITE, YARD, ZERO)
 
 
 class TestConstants:
@@ -25,7 +25,7 @@ class TestConstants:
             assert const == value, f"{const} should be {value}"
 
     def test_background_constants(self):
-        # Assert that enum names and background constants are correct
+        # Assert: enum names and background constants are correct
         import os
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
@@ -51,6 +51,7 @@ class TestConstants:
 
     def test_configuration_constants(self):
         assert MUSIC_YARD == "music_yard.wav"
+        assert RUN_ANIM_SPEED == 10
         assert SOUND_JUMP == "sound_jump.wav"
         assert SOUND_VOLUME == 0.3
         assert WHITE == (255, 255, 255)
@@ -66,6 +67,7 @@ class TestConstants:
         assert SCREEN_WIDTH == 800
         assert CAPTION == "Piccolo"
         assert DISPLAY_SIZE == (800, 400)
+        assert EDGE_MARGIN == 10
         assert FRAMERATE == 60
         assert SCREEN_LEFT == 0
 

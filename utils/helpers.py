@@ -10,15 +10,15 @@ from utils.constants import (DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
 def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFAULT_SURFACE_SIZE) -> pygame.Surface:
     """
     Load an image file with error handling and placeholder fallback.
-    
+
     Args:
         path (str): File path to the image file.
         default_color (tuple): RGB color tuple for placeholder.
         default_size (tuple): Width and height for placeholder surface.
-    
+
     Returns:
         pygame.Surface: Loaded image surface or placeholder surface if loading fails.
-    
+
     If an image fails to load (e.g. file not found, invalid format), a placeholder image
     with a default color and size will be returned instead.
 
@@ -35,7 +35,6 @@ def load_image(path: str, default_color=DEFAULT_SURFACE_COLOR, default_size=DEFA
         error_message = f"Error loading image from '{path}': {e}"
         logging.error(error_message)
     except FileNotFoundError:
-        # Handle case where the file is not found
         error_message = f"File not found: '{path}'."
         logging.error(error_message)
 

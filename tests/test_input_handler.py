@@ -9,7 +9,7 @@ class TestInputHandler:
     """Test InputHandler class"""
 
     def setup_method(self):
-        # Setup mediator and InputHandler
+        # Setup
         self.mediator = Mock()
         self.input_handler = InputHandler(self.mediator)
 

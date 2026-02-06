@@ -45,7 +45,7 @@ class TestHelpers:
         pygame.init()
         try:
             # Setup: force pygame.image.load to raise an error
-            def mock_load(path):
+            def mock_load(*args, **kwargs):
                 raise pygame.error("Test error.")
             monkeypatch.setattr(pygame.image, "load", mock_load)
 

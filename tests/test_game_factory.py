@@ -11,7 +11,7 @@ from control.mediator import Mediator
 
 class TestGameFactory:
     def setup_method(self):
-        # Setup mock instances
+        # Setup: mock instances
         self.screen_instance = MagicMock()
         self.audio_manager_instance = MagicMock()
         self.background_instance = MagicMock()
@@ -77,7 +77,7 @@ class TestGameFactory:
         # Action
         game = create_game()
 
-        # Assert constructor calls
+        # Assert: constructor calls
         mock_screen.assert_called_once()
         mock_audio_manager.assert_called_once()
         mock_background.assert_called_once_with(self.screen_instance)
@@ -89,12 +89,12 @@ class TestGameFactory:
         )
         mock_input.assert_called_once_with(self.mediator_instance)
 
-        # Assert returned game has correct mocked components
+        # Assert: returned game has correct mocked components
         assert game.screen == self.screen_instance
         assert game.background == self.background_instance
         assert game.player == self.player_instance
         assert game.mediator == self.mediator_instance
         assert game.input_handler == self.input_handler_instance
 
-        # Assert that player.mediator is correctly linked
+        # Assert: player.mediator is correctly linked
         assert self.player_instance.mediator == self.mediator_instance

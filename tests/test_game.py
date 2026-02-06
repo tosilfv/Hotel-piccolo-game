@@ -2,12 +2,12 @@
 from unittest.mock import Mock, patch
 from control.game import Game
 from utils.commands import Command
-from utils.constants import ENTRANCE, YARD, SCREEN_WIDTH, EDGE_MARGIN
+from utils.constants import (ENTRANCE, YARD, SCREEN_WIDTH, EDGE_MARGIN)
 
 
 class TestGame:
     def setup_method(self):
-        # Setup mocks
+        # Setup
         self.screen = Mock()
         self.screen.clock = Mock()
         self.screen.framerate = 60

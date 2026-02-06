@@ -24,6 +24,7 @@ class Player:
 
     Attributes:
         screen: Screen instance for drawing operations.
+        mediator: Mediator instance for game internal communication.
         is_jumping (bool): Whether the player is jumping.
         is_left (bool): Whether the player is facing left.
         gravity (int): Current gravity of the game.
@@ -147,14 +148,15 @@ class Player:
         if running:
             # Update running frame
             self.running_frame += 1
-            # If left
+            # If facing left
             if self.is_left:
-                # Slow down image change frequency by multiplying
+                # Slow down image change frequency by multiplying running image list length
                 if self.running_frame >= len(self.left_running_images) * RUN_ANIM_SPEED:
                     # Reset running frame when all images have been cycled through
                     self.running_frame = 0
                 # Avoid list index out of range by dividing the frame index
                 self.image = self.left_running_images[self.running_frame // RUN_ANIM_SPEED]
+            # If facing right
             else:
                 if self.running_frame >= len(self.running_images) * RUN_ANIM_SPEED:
                     self.running_frame = 0
@@ -162,10 +164,11 @@ class Player:
 
         # Standing
         else:
-            # If left
+            # If facing left
             if self.is_left:
                 # Use standing image when not running
                 self.image = self.left_stand_image_normal
+            # If facing right
             else:
                 self.image = self.stand_image_normal
 

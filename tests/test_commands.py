@@ -6,7 +6,7 @@ class TestCommandEnum:
     """Tests Commands class"""
 
     def test_commands_exist(self):
-        # Assert that all commands exist
+        # Assert: all commands exist
         assert hasattr(Command, "CHANGE_TO_ENTRANCE")
         assert hasattr(Command, "CHANGE_TO_YARD")
         assert hasattr(Command, "JUMP")
@@ -16,7 +16,7 @@ class TestCommandEnum:
         assert hasattr(Command, "STOP")
 
     def test_command_names(self):
-        # Assert that all names are correct
+        # Assert: all names are correct
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
         assert Command.JUMP.name == "JUMP"
@@ -26,11 +26,11 @@ class TestCommandEnum:
         assert Command.STOP.name == "STOP"
 
     def test_command_types(self):
-        # Assert that each command is of Command type
+        # Assert: each command is of Command type
         for cmd in Command:
             assert isinstance(cmd, Command)
 
     def test_command_values_unique(self):
-        # Assert that all enum values are unique
+        # Assert: all enum values are unique
         values = [cmd.value for cmd in Command]
         assert len(values) == len(set(values)), "Enum values are not unique"

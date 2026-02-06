@@ -2,14 +2,14 @@
 from unittest.mock import MagicMock
 from control.mediator import Mediator
 from utils.commands import Command
-from utils.constants import ENTRANCE, YARD
+from utils.constants import (ENTRANCE, SOUND_JUMP, YARD)
 
 
 class TestMediator:
     """Tests for Mediator class"""
 
     def setup_method(self):
-        # Setup: create mocks for player, background, and audio manager
+        # Setup: create mocks
         self.mock_audio_manager = MagicMock()
         self.mock_player = MagicMock()
         self.mock_player.jump = MagicMock()
@@ -24,6 +24,37 @@ class TestMediator:
             self.mock_player,
             self.mock_audio_manager
         )
+
+    def test_change_background_calls_background(self):
+        # Setup & Action: CHANGE_TO_ENTRANCE
+        self.mediator.current_scene = YARD
+        self.mediator.handle_command(Command.CHANGE_TO_ENTRANCE)
+
+        # Assert
+        assert self.mediator.current_scene == ENTRANCE
+        self.mock_background.change_background.assert_called_with(ENTRANCE)
+        self.mock_audio_manager.stop_music.assert_called_once()
+        self.mock_background.change_background.reset_mock()
+        self.mock_audio_manager.stop_music.reset_mock()
+
+        # Setup & Action: CHANGE_TO_YARD
+        self.mediator.current_scene = ENTRANCE
+        self.mediator.handle_command(Command.CHANGE_TO_YARD)
+
+        # Assert
+        assert self.mediator.current_scene == YARD
+        self.mock_background.change_background.assert_called_with(YARD)
+        self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
+        self.mock_background.change_background.reset_mock()
+        self.mock_audio_manager.play_music.reset_mock()
+
+    def test_play_jump_sound_direct(self):
+        # Action
+        self.mediator.play_jump_sound()
+
+        # Assert
+        self.mock_audio_manager.play_sound.assert_called_once_with(SOUND_JUMP)
+        self.mock_audio_manager.play_sound.reset_mock()
 
     def test_move_commands_call_player(self):
         # Action & Assert: MOVE_LEFT
@@ -43,27 +74,6 @@ class TestMediator:
         assert self.mediator.running is False
         self.mock_player.jump.assert_called_once()
         self.mock_player.jump.reset_mock()
-
-    def test_change_background_calls_background(self):
-        # Setup & Action: CHANGE_TO_ENTRANCE
-        self.mediator.current_scene = YARD
-        self.mediator.handle_command(Command.CHANGE_TO_ENTRANCE)
-        # Assert
-        assert self.mediator.current_scene == ENTRANCE
-        self.mock_background.change_background.assert_called_with(ENTRANCE)
-        self.mock_audio_manager.stop_music.assert_called_once()
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.stop_music.reset_mock()
-
-        # Setup & Action: CHANGE_TO_YARD
-        self.mediator.current_scene = ENTRANCE
-        self.mediator.handle_command(Command.CHANGE_TO_YARD)
-        # Assert
-        assert self.mediator.current_scene == YARD
-        self.mock_background.change_background.assert_called_with(YARD)
-        self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.play_music.reset_mock()
 
     def test_running_state(self):
         # Action & Assert: MOVE_LEFT sets running
@@ -90,6 +100,7 @@ class TestMediator:
         # Setup & Action: already in ENTRANCE
         self.mediator.current_scene = ENTRANCE
         self.mediator.handle_command(Command.CHANGE_TO_ENTRANCE)
+
         # Assert
         self.mock_background.change_background.assert_not_called()
         self.mock_audio_manager.stop_music.assert_not_called()
@@ -97,6 +108,64 @@ class TestMediator:
         # Setup & Action: already in YARD
         self.mediator.current_scene = YARD
         self.mediator.handle_command(Command.CHANGE_TO_YARD)
+
         # Assert
         self.mock_background.change_background.assert_not_called()
         self.mock_audio_manager.play_music.assert_not_called()
+
+    def test_change_to_entrance_direct(self):
+        # Setup: set current scene to YARD
+        self.mediator.current_scene = YARD
+
+        # Action
+        self.mediator.change_to_entrance()
+
+        # Assert
+        assert self.mediator.current_scene == ENTRANCE
+        self.mock_background.change_background.assert_called_once_with(ENTRANCE)
+        self.mock_audio_manager.stop_music.assert_called_once()
+        self.mock_background.change_background.reset_mock()
+        self.mock_audio_manager.stop_music.reset_mock()
+
+    def test_change_to_entrance_no_change_if_already_in_scene(self):
+        # Setup: set current scene to ENTRANCE
+        self.mediator.current_scene = ENTRANCE
+
+        # Action
+        self.mediator.change_to_entrance()
+
+        # Assert
+        self.mock_background.change_background.assert_not_called()
+        self.mock_audio_manager.stop_music.assert_not_called()
+
+    def test_change_to_yard_direct(self):
+        # Setup: set current scene to ENTRANCE
+        self.mediator.current_scene = ENTRANCE
+
+        # Action
+        self.mediator.change_to_yard()
+
+        # Assert
+        assert self.mediator.current_scene == YARD
+        self.mock_background.change_background.assert_called_once_with(YARD)
+        self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
+        self.mock_background.change_background.reset_mock()
+        self.mock_audio_manager.play_music.reset_mock()
+
+    def test_change_to_yard_no_change_if_already_in_scene(self):
+        # Setup: set current scene to YARD
+        self.mediator.current_scene = YARD
+
+        # Action
+        self.mediator.change_to_yard()
+
+        # Assert
+        self.mock_background.change_background.assert_not_called()
+        self.mock_audio_manager.play_music.assert_not_called()
+
+    def test_handle_command_unknown_command_sets_running_false(self):
+        # Setup & Action: pass None as unknown command
+        self.mediator.handle_command(None)
+
+        # Assert
+        assert self.mediator.running is False

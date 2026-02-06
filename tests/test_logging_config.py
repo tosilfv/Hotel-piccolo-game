@@ -11,7 +11,7 @@ class TestLoggingConfig:
     def setup_logger(self, tmp_path):
         # Setup: temporary log file path
         self.log_file = tmp_path / "piccolo_game_errors.log"
-        yield
+
         # Cleanup: reset logging
         logging.shutdown()
         for handler in logging.root.handlers[:]:
@@ -20,7 +20,9 @@ class TestLoggingConfig:
     def test_configure_logging_sets_error_level(self):
         # Setup: get logger
         logger = logging.getLogger("piccolo")
-        logger.setLevel(logging.INFO)  # start with different level
+
+        # Set initial level different from ERROR for the test
+        logger.setLevel(logging.INFO)
 
         # Action: configure logging
         configure_logging()

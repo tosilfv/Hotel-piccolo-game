@@ -9,7 +9,6 @@ from control.game import Game
 from control.input_handler import InputHandler
 from control.mediator import Mediator
 
-
 def create_game() -> Game:
     """
     Build a Game class instance.
