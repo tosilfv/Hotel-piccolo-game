@@ -9,7 +9,8 @@ from utils.constants import (CAPTION,
                              MUSIC_YARD, PLAYER_X, RUN_ANIM_SPEED,
                              SCREEN_HEIGHT, SCREEN_LEFT, SCREEN_WIDTH,
                              SOUND_JUMP, SOUNDS_PATH, SOUND_VOLUME, SKY_X,
-                             SKY_Y, TEN, WHITE, YARD, ZERO)
+                             SKY_Y, TEN, TROLLEY_X, WHITE, YARD, ZERO)
+import os
 
 
 class TestConstants:
@@ -26,7 +27,6 @@ class TestConstants:
 
     def test_background_constants(self):
         # Assert: enum names and background constants are correct
-        import os
         assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
         assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
         assert ENTRANCE == "entrance"
@@ -36,7 +36,7 @@ class TestConstants:
                             __file__)),
                                 "media",
                                     "graphics")
-        assert GROUND_LEVEL == 240
+        assert GROUND_LEVEL == 324
         assert GROUND_X == 0
         assert GROUND_Y == 320
         assert SKY_X == 0
@@ -76,3 +76,6 @@ class TestConstants:
         assert JUMP_HEIGHT == -10
         assert JUMP_CEILING_Y == 200
         assert PLAYER_X == 100
+
+    def test_trolley_constants(self):
+        assert TROLLEY_X == 50

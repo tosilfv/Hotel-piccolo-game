@@ -2,7 +2,7 @@
 from unittest.mock import Mock, patch
 from control.game import Game
 from utils.commands import Command
-from utils.constants import (ENTRANCE, YARD, SCREEN_WIDTH, EDGE_MARGIN)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, SCREEN_WIDTH, YARD)
 
 
 class TestGame:
@@ -15,6 +15,7 @@ class TestGame:
         self.background = Mock()
         self.player = Mock()
         self.player.rect = Mock()
+        self.trolley = Mock()
         self.mediator = Mock()
         self.input_handler = Mock()
 
@@ -22,6 +23,7 @@ class TestGame:
             screen=self.screen,
             background=self.background,
             player=self.player,
+            trolley=self.trolley,
             mediator=self.mediator,
             input_handler=self.input_handler
         )
@@ -35,6 +37,7 @@ class TestGame:
         self.input_handler.process_input.assert_called_once()
         self.background.draw.assert_called_once()
         self.player.draw.assert_called_once()
+        self.trolley.draw.assert_called_once()
         self.player.update.assert_called_once_with(self.mediator.running)
         mock_update.assert_called_once()
         self.screen.clock.tick.assert_called_once_with(self.screen.framerate)

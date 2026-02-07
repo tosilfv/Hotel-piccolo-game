@@ -31,9 +31,9 @@ class Player:
         jump_height (int): Current Y jump height of the player.
         jump_ceiling_y (int): Maximum height of the player jump.
         velocity_y (int): Current Y velocity of the player.
-        left_stand_image_normal: Surface for standing animation (left-facing) normal size.
+        left_stand_image_normal: Surface for standing (left-facing) normal size.
         left_running_images (list): List of piccolo running images for animation (left-facing) normal size.
-        stand_image_normal: Surface for standing animation (right-facing) normal size.
+        stand_image_normal: Surface for standing (right-facing) normal size.
         running_images (list): List of piccolo running images for animation (right-facing) normal size.
         running_frame (int): The frame which is either 0 or 1 for running_images list.
         image: Currently active image surface.
@@ -43,6 +43,7 @@ class Player:
     def __init__(self, screen: Screen, mediator: Mediator | None):
         self.screen = screen
         self.mediator = mediator
+        self.has_trolley = "TODO"
         self.is_jumping = False
         self.is_left = False
         self.gravity = GRAVITY
@@ -91,9 +92,6 @@ class Player:
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom = (PLAYER_X, GROUND_LEVEL))
 
-        # Make sure piccolo stands initially at ground level
-        self.rect.y = GROUND_LEVEL
-
     def move_left(self) -> None:
         """
         Set is_left to True.
@@ -139,8 +137,8 @@ class Player:
                 self.velocity_y = 0
 
         # Descending
-        if self.rect.y >= GROUND_LEVEL:
-            self.rect.y = GROUND_LEVEL
+        if self.rect.bottom >= GROUND_LEVEL:
+            self.rect.bottom = GROUND_LEVEL
             self.is_jumping = False
             self.velocity_y = 0
 
@@ -174,6 +172,7 @@ class Player:
 
         # DEBUG
         # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")
+        # print(f"Foot Y: {self.rect.bottom}")
 
     def draw(self) -> None:
         """

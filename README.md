@@ -96,6 +96,9 @@ pytest -v
 **[0.0.12] - Feb 2, 2026:**
 - Refactored tests.
 
+**[0.0.13] - Feb 6, 2026:**
+- Added trolley game_object.
+
 ## License
 
 This project is licensed under the MIT License.

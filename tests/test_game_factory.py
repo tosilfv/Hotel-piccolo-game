@@ -3,6 +3,7 @@ from unittest.mock import patch, MagicMock
 from game_objects.background import Background
 from game_objects.player import Player
 from game_objects.screen import Screen
+from game_objects.trolley import Trolley
 from control.game import Game
 from control.game_factory import create_game
 from control.input_handler import InputHandler
@@ -18,6 +19,7 @@ class TestGameFactory:
         self.player_instance = MagicMock()
         self.mediator_instance = MagicMock()
         self.input_handler_instance = MagicMock()
+        self.trolley_instance = MagicMock()
 
     def test_create_game_returns_game_instance(self):
         # Action
@@ -34,6 +36,7 @@ class TestGameFactory:
         assert hasattr(game, "screen")
         assert hasattr(game, "background")
         assert hasattr(game, "player")
+        assert hasattr(game, "trolley")
         assert hasattr(game, "mediator")
         assert hasattr(game, "input_handler")
 
@@ -45,12 +48,14 @@ class TestGameFactory:
         assert isinstance(game.screen, Screen)
         assert isinstance(game.background, Background)
         assert isinstance(game.player, Player)
+        assert isinstance(game.trolley, Trolley)
         assert isinstance(game.mediator, Mediator)
         assert isinstance(game.input_handler, InputHandler)
 
     @patch("control.game_factory.InputHandler")
     @patch("control.game_factory.Mediator")
     @patch("control.game_factory.Player")
+    @patch("control.game_factory.Trolley")
     @patch("control.game_factory.Background")
     @patch("control.game_factory.AudioManager")
     @patch("control.game_factory.Screen")
@@ -59,6 +64,7 @@ class TestGameFactory:
         mock_screen,
         mock_audio_manager,
         mock_background,
+        mock_trolley,
         mock_player,
         mock_mediator,
         mock_input
@@ -70,6 +76,7 @@ class TestGameFactory:
         mock_player.return_value = self.player_instance
         mock_mediator.return_value = self.mediator_instance
         mock_input.return_value = self.input_handler_instance
+        mock_trolley.return_value = self.trolley_instance
 
         # Player needs mediator argument
         self.player_instance.mediator = None
@@ -82,6 +89,7 @@ class TestGameFactory:
         mock_audio_manager.assert_called_once()
         mock_background.assert_called_once_with(self.screen_instance)
         mock_player.assert_called_once_with(self.screen_instance, mediator=None)
+        mock_trolley.assert_called_once_with(self.screen_instance)
         mock_mediator.assert_called_once_with(
             self.background_instance,
             self.player_instance,
@@ -93,6 +101,7 @@ class TestGameFactory:
         assert game.screen == self.screen_instance
         assert game.background == self.background_instance
         assert game.player == self.player_instance
+        assert game.trolley == self.trolley_instance
         assert game.mediator == self.mediator_instance
         assert game.input_handler == self.input_handler_instance
 

@@ -22,14 +22,16 @@ class Game:
         screen: Screen instance for display operations.
         background: Background instance for scene rendering.
         player: Player instance for character management.
+        trolley: Trolley instance for trolley item management.
         mediator: Mediator instance for game internal communication.
         input_handler: InputHandler instance for separating user input.
     """
 
-    def __init__(self, screen, background, player, mediator, input_handler):
+    def __init__(self, screen, background, player, trolley, mediator, input_handler):
         self.screen = screen
         self.background = background
         self.player = player
+        self.trolley = trolley
         self.mediator = mediator
         self.input_handler = input_handler
 
@@ -41,29 +43,31 @@ class Game:
         1. Transform input to handler
         2. Draw background
         3. Draw player
-        4. Update player
-        5. Handle edge transition
-        6. Update Pygame display
-        7. Tick the game clock to maintain framerate
+        4. Draw trolley
+        5. Update player
+        6. Handle edge transition
+        7. Update Pygame display
+        8. Tick the game clock to maintain framerate
 
         Should be called continuously in the main.py game loop.
         """
         # 1. Input
         self.input_handler.process_input()
 
-        # 2.-3. Draw
+        # 2.-4. Draw
         self.background.draw()
         self.player.draw()
+        self.trolley.draw()
 
-        # 4.-5. Update game state before rendering
+        # 5.-6. Update game state before rendering
         running = self.mediator.running
         self.player.update(running)
         self._handle_edge_transition()
 
-        # 6. Render current frame
+        # 7. Render current frame
         pygame.display.update()
 
-        # 7. Clock slows the game to framerate speed
+        # 8. Clock slows the game to framerate speed
         self.screen.clock.tick(self.screen.framerate)
 
     def _handle_edge_transition(self) -> None:

@@ -27,7 +27,7 @@ class TestPlayer:
         assert self.player.velocity_y == 0
         assert self.player.image is not None
         assert self.player.rect is not None
-        assert self.player.rect.y == 240
+        assert self.player.rect.bottom == GROUND_LEVEL
 
     def test_player_move_left(self):
         # Setup: record initial x
@@ -98,13 +98,13 @@ class TestPlayer:
         # Setup
         self.player.is_jumping = True
         self.player.velocity_y = 5
-        self.player.rect.y = 250
+        self.player.rect.y = GROUND_LEVEL - self.player.rect.height
 
         # Action
         self.player.update(self.mediator.running)
 
         # Assert
-        assert self.player.rect.y == GROUND_LEVEL
+        assert self.player.rect.bottom == GROUND_LEVEL
         assert self.player.is_jumping is False
         assert self.player.velocity_y == 0
 
@@ -112,26 +112,26 @@ class TestPlayer:
         # Setup
         self.player.is_jumping = False
         self.player.velocity_y = 0
-        self.player.rect.y = GROUND_LEVEL
+        self.player.rect.bottom = GROUND_LEVEL
 
         # Action
         self.player.update(self.mediator.running)
 
         # Assert
-        assert self.player.rect.y == GROUND_LEVEL
+        assert self.player.rect.bottom == GROUND_LEVEL
         assert self.player.is_jumping is False
         assert self.player.velocity_y == 0
 
     def test_jump_then_update_moves_player_up(self):
         # Setup
-        start_y = self.player.rect.y
+        start_y = self.player.rect.bottom
         self.player.jump()
 
         # Action
         self.player.update(self.mediator.running)
 
         # Assert
-        assert self.player.rect.y < start_y
+        assert self.player.rect.bottom < start_y
 
     def test_player_draw(self):
         # Action

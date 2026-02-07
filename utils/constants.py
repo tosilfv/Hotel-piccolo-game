@@ -16,9 +16,9 @@ GRAPHICS_PATH = os.path.join(
                             __file__)),
                                 "media",
                                     "graphics")
-GROUND_LEVEL = 240
+GROUND_LEVEL = 324
 GROUND_X = ZERO
-GROUND_Y = 320
+GROUND_Y = GROUND_LEVEL - 4
 SKY_X = ZERO
 SKY_Y = -120
 SOUNDS_PATH = os.path.join(
@@ -56,3 +56,6 @@ GRAVITY = 1
 JUMP_HEIGHT = -TEN
 JUMP_CEILING_Y = 200
 PLAYER_X = 100
+
+# Trolley
+TROLLEY_X = 50
