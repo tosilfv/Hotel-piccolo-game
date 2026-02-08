@@ -25,6 +25,7 @@ class Player:
     Attributes:
         screen: Screen instance for drawing operations.
         mediator: Mediator instance for game internal communication.
+        has_trolley (bool): Whether the player has the trolley.
         is_jumping (bool): Whether the player is jumping.
         is_left (bool): Whether the player is facing left.
         gravity (int): Current gravity of the game.

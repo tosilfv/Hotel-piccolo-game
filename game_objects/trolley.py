@@ -3,7 +3,7 @@ Trolley item implementation for the Piccolo game.
 """
 import os
 from game_objects.screen import Screen
-from utils.constants import (FIVE, GRAPHICS_PATH, GROUND_LEVEL, TROLLEY_X)
+from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL, TROLLEY_X)
 from utils.helpers import load_image
 
 
@@ -16,7 +16,9 @@ class Trolley:
 
     Attributes:
         screen: Screen instance for drawing.
-        speed: movement speed, used with player input.
+        scene_name (str): Name of background where trolley currently is.
+        speed (int): Movement speed, used with player input.
+        taken (bool): Whether trolley is taken by the player.
         left_trolley_image_normal: Surface for trolley (left-facing) normal size.
         trolley_image_normal: Surface for trolley (right-facing) normal size.
         image: Currently active image surface.
