@@ -2,7 +2,8 @@
 Mediator pattern implementation for game object communication.
 """
 from utils.commands import Command
-from utils.constants import (ENTRANCE, MUSIC_YARD, SOUND_JUMP, YARD)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, MUSIC_YARD, SCREEN_WIDTH,
+                             SOUND_JUMP, YARD)
 
 
 class Mediator:
@@ -106,3 +107,57 @@ class Mediator:
         # Signature move: Piccolo's legendary two-foot boing 🐸
         else:
             self.running = False
+
+    def handle_edge_transition(self) -> None:
+        """
+        Handle transition when player reaches screen edge.
+        """
+        # For tests player object can be a Mock object that doesn't have a rect attribute
+        try:
+            left = self.player.rect.left
+            right = self.player.rect.right
+        except AttributeError:
+            return
+
+        # Prevent exploding in weird circumstances
+        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
+            return
+        
+        # Set constants
+        screen_width = SCREEN_WIDTH
+
+        # Set left and right edge values and save current scene
+        at_left_edge = (left <= EDGE_MARGIN)
+        at_right_edge = (right >= screen_width - EDGE_MARGIN)
+
+        # Handle the transition when player exits scene to left
+        if at_left_edge:
+            self._scene_transition(spawn_on_left=False, screen_width=screen_width, margin=EDGE_MARGIN)
+
+        # Handle the transition when player exits scene to right
+        elif at_right_edge:
+            self._scene_transition(spawn_on_left=True, screen_width=screen_width, margin=EDGE_MARGIN)
+
+    def _scene_transition(self, *, spawn_on_left: bool, screen_width: int, margin: int) -> None:
+        """
+        Handle scene transition and player spawning and call mediator for scene change.
+
+        Args:
+            *: Forces following attributes to be called with their name included.
+            spawn_on_left (bool): Whether player is going to spawn to left.
+            screen_width (int): The screen width.
+            margin (int): The margin between player and screen edge.
+        """
+        # Change scene using mediator commands
+        if self.current_scene == ENTRANCE:
+            self.handle_command(Command.CHANGE_TO_YARD)
+        elif self.current_scene == YARD:
+            self.handle_command(Command.CHANGE_TO_ENTRANCE)
+        else:
+            return
+
+        # Spawn player
+        if spawn_on_left:
+            self.player.rect.left = margin
+        else:
+            self.player.rect.right = screen_width - margin

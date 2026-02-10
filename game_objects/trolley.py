@@ -27,7 +27,7 @@ class Trolley:
 
     def __init__(self, screen: Screen):
         self.screen = screen
-        self.scene_name = "TODO"
+        self.scene_name = ENTRANCE
         self.speed = FIVE
         self.taken = "TODO"
 
