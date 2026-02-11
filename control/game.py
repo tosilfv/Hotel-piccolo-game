@@ -43,9 +43,10 @@ class Game:
         3. Draw player
         4. Draw trolley
         5. Update player
-        6. Handle edge transition
-        7. Update Pygame display
-        8. Tick the game clock to maintain framerate
+        6. Update trolley
+        7. Handle edge transition
+        8. Update Pygame display
+        9. Tick the game clock to maintain framerate
 
         Should be called continuously in the main.py game loop.
         """
@@ -55,15 +56,16 @@ class Game:
         # 2.-4. Draw
         self.background.draw()
         self.player.draw()
-        self.trolley.draw()
+        self.trolley.draw(self.mediator.current_scene)
 
-        # 5.-6. Update game state before rendering
+        # 5.-7. Update game state before rendering
         running = self.mediator.running
         self.player.update(running)
+        self.trolley.update(self.player)
         self.mediator.handle_edge_transition()
 
-        # 7. Render current frame
+        # 8. Render current frame
         pygame.display.update()
 
-        # 8. Clock slows the game to framerate speed
+        # 9. Clock slows the game to framerate speed
         self.screen.clock.tick(self.screen.framerate)

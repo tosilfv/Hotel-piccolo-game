@@ -93,6 +93,7 @@ class TestGameFactory:
         mock_mediator.assert_called_once_with(
             self.background_instance,
             self.player_instance,
+            self.trolley_instance,
             self.audio_manager_instance
         )
         mock_input.assert_called_once_with(self.mediator_instance)

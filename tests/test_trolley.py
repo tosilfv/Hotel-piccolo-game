@@ -1,7 +1,7 @@
 """Unit tests for Trolley class"""
 from unittest.mock import Mock
 from game_objects.trolley import Trolley
-from utils.constants import GROUND_LEVEL, FIVE
+from utils.constants import GROUND_LEVEL, ENTRANCE, FIVE
 
 
 class TestTrolley:
@@ -11,6 +11,8 @@ class TestTrolley:
         # Setup
         self.screen = Mock()
         self.screen.screen = Mock()
+        self.mediator = Mock()
+        self.mediator.current_scene = ENTRANCE
 
         # Action: create Trolley instance
         self.trolley = Trolley(self.screen)
@@ -30,7 +32,7 @@ class TestTrolley:
 
     def test_trolley_draw(self):
         # Action
-        self.trolley.draw()
+        self.trolley.draw(self.mediator.current_scene)
 
         # Assert
         self.screen.screen.blit.assert_called_once_with(

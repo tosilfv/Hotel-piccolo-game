@@ -14,6 +14,7 @@ class TestCommandEnum:
         assert hasattr(Command, "MOVE_RIGHT")
         assert hasattr(Command, "PLAY_JUMP_SOUND")
         assert hasattr(Command, "STOP")
+        assert hasattr(Command, "TAKE_TROLLEY")
 
     def test_command_names(self):
         # Assert: all names are correct
@@ -24,6 +25,7 @@ class TestCommandEnum:
         assert Command.MOVE_RIGHT.name == "MOVE_RIGHT"
         assert Command.PLAY_JUMP_SOUND.name == "PLAY_JUMP_SOUND"
         assert Command.STOP.name == "STOP"
+        assert Command.TAKE_TROLLEY.name == "TAKE_TROLLEY"
 
     def test_command_types(self):
         # Assert: each command is of Command type

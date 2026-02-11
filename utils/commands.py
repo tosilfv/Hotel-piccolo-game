@@ -22,3 +22,4 @@ class Command(Enum):
     MOVE_RIGHT = auto()
     PLAY_JUMP_SOUND = auto()
     STOP = auto()
+    TAKE_TROLLEY = auto()

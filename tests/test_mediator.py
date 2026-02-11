@@ -18,6 +18,7 @@ class TestMediator:
         self.mock_player.move_left = MagicMock()
         self.mock_player.move_right = MagicMock()
         self.mock_player.rect = Mock()
+        self.mock_trolley = Mock()
         self.mock_background = MagicMock()
         self.mock_background.change_background = MagicMock()
         self.screen = Mock()
@@ -25,7 +26,6 @@ class TestMediator:
         self.screen.framerate = 60
         self.player = Mock()
         self.player.rect = Mock()
-        self.trolley = Mock()
         self.mediator = Mock()
         self.input_handler = Mock()
 
@@ -33,6 +33,7 @@ class TestMediator:
         self.mediator = Mediator(
             self.mock_background,
             self.mock_player,
+            self.mock_trolley,
             self.mock_audio_manager
         )
 
@@ -40,7 +41,7 @@ class TestMediator:
             screen=self.screen,
             background=self.mock_background,
             player=self.mock_player,
-            trolley=self.trolley,
+            trolley=self.mock_trolley,
             mediator=self.mediator,
             input_handler=self.input_handler
         )

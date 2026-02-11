@@ -26,11 +26,12 @@ class Mediator:
         _commands (dict): Dictionary for player methods.
     """
 
-    def __init__(self, background, player, audio_manager):
+    def __init__(self, background, player, trolley, audio_manager):
         self.background = background
         self.running = False
         self.current_scene = ENTRANCE
         self.player = player
+        self.trolley = trolley
         self.audio_manager = audio_manager
         self._commands = {
             Command.CHANGE_TO_ENTRANCE: self.change_to_entrance,
@@ -38,7 +39,8 @@ class Mediator:
             Command.JUMP: self.player.jump,
             Command.MOVE_LEFT: self.player.move_left,
             Command.MOVE_RIGHT: self.player.move_right,
-            Command.PLAY_JUMP_SOUND: self.play_jump_sound
+            Command.PLAY_JUMP_SOUND: self.play_jump_sound,
+            Command.TAKE_TROLLEY: self.take_trolley
         }
 
     def change_to_entrance(self) -> None:
@@ -161,3 +163,12 @@ class Mediator:
             self.player.rect.left = margin
         else:
             self.player.rect.right = screen_width - margin
+
+    def take_trolley(self) -> None:
+        """
+        Handle player taking the trolley.
+        """
+        # When player has trolley and trolley is taken
+        if self.trolley and self.player.rect.colliderect(self.trolley.rect):
+            self.player.has_trolley = True
+            self.trolley.taken = True

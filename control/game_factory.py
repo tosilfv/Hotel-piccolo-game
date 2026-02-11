@@ -39,7 +39,7 @@ def create_game() -> Game:
     player = Player(screen, mediator=None)
 
     # 2. Then create the mediator
-    mediator = Mediator(background, player, audio_manager)
+    mediator = Mediator(background, player, trolley, audio_manager)
 
     # 3. Lastly attach mediator to player
     player.mediator = mediator

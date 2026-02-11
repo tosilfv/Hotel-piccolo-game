@@ -44,6 +44,10 @@ class InputHandler:
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(Command.JUMP)
 
+        # Trolley
+        if keys[pygame.K_RETURN]:
+            self.mediator.handle_command(Command.TAKE_TROLLEY)
+
         # Not moving reset command
         if not any(keys):
             self.mediator.handle_command(Command.STOP)

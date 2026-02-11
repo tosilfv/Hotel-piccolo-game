@@ -2,8 +2,10 @@
 Trolley item implementation for the Piccolo game.
 """
 import os
+from game_objects.player import Player
 from game_objects.screen import Screen
-from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL, TROLLEY_X)
+from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL,
+                             TROLLEY_X, ZERO)
 from utils.helpers import load_image
 
 
@@ -12,7 +14,8 @@ class Trolley:
     Represents a trolley item in the game.
 
     Responsibilities:
-        - Draw itself on the screen
+        - Update internal state based on location and scene name
+        - Draw itself on the screen at the correct position
 
     Attributes:
         screen: Screen instance for drawing.
@@ -29,7 +32,8 @@ class Trolley:
         self.screen = screen
         self.scene_name = ENTRANCE
         self.speed = FIVE
-        self.taken = "TODO"
+        self.num_of_bags = "TODO"
+        self.taken = False
 
         # Normal (left-facing) images
         self.left_trolley_image_normal = load_image(
@@ -49,8 +53,18 @@ class Trolley:
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom=(TROLLEY_X, GROUND_LEVEL))
 
-    def draw(self) -> None:
+    def update(self, player: Player) -> None:
+        """
+        Update trolley position on every frame.
+        """
+        # Trolley is taken
+        if self.taken:
+            self.rect.midbottom = (player.rect.centerx, player.rect.bottom)
+
+    def draw(self, current_scene: str) -> None:
         """
         Draw the trolley to the screen.
         """
-        self.screen.screen.blit(self.image, self.rect)
+        # Draw the trolley only if it's in the current scene or if player is taking it
+        if self.taken or self.scene_name == current_scene:
+            self.screen.screen.blit(self.image, self.rect)
