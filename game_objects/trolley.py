@@ -5,7 +5,7 @@ import os
 from game_objects.player import Player
 from game_objects.screen import Screen
 from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL,
-                             TROLLEY_X, ZERO)
+                             TROLLEY_X)
 from utils.helpers import load_image
 
 
@@ -59,7 +59,7 @@ class Trolley:
         """
         # Trolley is taken
         if self.taken:
-            self.rect.midbottom = (player.rect.centerx, player.rect.bottom)
+            self.rect.midbottom = (player.rect.centerx + TROLLEY_X, player.rect.bottom)
 
     def draw(self, current_scene: str) -> None:
         """
