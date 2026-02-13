@@ -2,7 +2,8 @@
 Trolley item implementation for the Piccolo game.
 """
 import os
-from game_objects.player import Player
+from typing import Tuple
+from control.mediator import Mediator
 from game_objects.screen import Screen
 from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL,
                              TROLLEY_X)
@@ -28,18 +29,13 @@ class Trolley:
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
     """
 
-    def __init__(self, screen: Screen):
+    def __init__(self, screen: Screen, mediator: Mediator | None):
         self.screen = screen
+        self.mediator = mediator
         self.scene_name = ENTRANCE
         self.speed = FIVE
         self.num_of_bags = "TODO"
         self.taken = False
-
-        # Normal (left-facing) images
-        self.left_trolley_image_normal = load_image(
-            os.path.join(GRAPHICS_PATH,
-                "items",
-                "trolley_left_empty_normal.png"))
 
         # Normal (right-facing) images
         self.trolley_image_normal = load_image(
@@ -53,18 +49,18 @@ class Trolley:
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom=(TROLLEY_X, GROUND_LEVEL))
 
-    def update(self, player: Player) -> None:
+    def update(self, player_pos: Tuple[int, int] | None) -> None:
         """
         Update trolley position on every frame.
         """
         # Trolley is taken
-        if self.taken:
-            self.rect.midbottom = (player.rect.centerx + TROLLEY_X, player.rect.bottom)
+        if player_pos is not None:
+            self.rect.midbottom = player_pos
 
-    def draw(self, current_scene: str) -> None:
+    def draw(self) -> None:
         """
         Draw the trolley to the screen.
         """
         # Draw the trolley only if it's in the current scene or if player is taking it
-        if self.taken or self.scene_name == current_scene:
+        if self.mediator and (self.taken or self.scene_name == self.mediator.current_scene):
             self.screen.screen.blit(self.image, self.rect)

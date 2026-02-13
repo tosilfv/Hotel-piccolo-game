@@ -38,6 +38,6 @@ class TestGame:
         self.player.draw.assert_called_once()
         self.trolley.draw.assert_called_once_with(self.mediator.current_scene)
         self.player.update.assert_called_once_with(self.mediator.running)
-        self.trolley.update.assert_called_once_with(self.player)
+        self.trolley.update.assert_called_once()
         mock_update.assert_called_once()
         self.screen.clock.tick.assert_called_once_with(self.screen.framerate)

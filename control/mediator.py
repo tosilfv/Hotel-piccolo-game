@@ -1,9 +1,10 @@
 """
 Mediator pattern implementation for game object communication.
 """
+from typing import Tuple
 from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, ENTRANCE, MUSIC_YARD, SCREEN_WIDTH,
-                             SOUND_JUMP, YARD)
+                             SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -168,7 +169,13 @@ class Mediator:
         """
         Handle player taking the trolley.
         """
-        # When player has trolley and trolley is taken
+        # When trolley is taken
         if self.trolley and self.player.rect.colliderect(self.trolley.rect):
-            self.player.has_trolley = True
             self.trolley.taken = True
+
+    def move_trolley(self) -> Tuple[int, int] | None:
+        """
+        Handle player moving the trolley.
+        """
+        if self.trolley.taken:
+            return (self.player.rect.centerx + TROLLEY_X, self.player.rect.bottom)

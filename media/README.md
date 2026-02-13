@@ -40,7 +40,6 @@ Background images for different hotel scenes:
 
 Item images for different actions
 - `trolley_empty_normal.png` - Empty trolley (right-facing)
-- `trolley_left_empty_normal.png` - Empty trolley (left-facing)
 
 #### `player/`
 
@@ -48,10 +47,6 @@ Player character sprites for different states and directions:
 - `piccolo_left_run1_normal.png` - Running frame 1 (left-facing)
 - `piccolo_left_run2_normal.png` - Running frame 2 (left-facing)
 - `piccolo_left_stand_normal.png` - Standing (left-facing)
-- `piccolo_left_trolley1_empty_normal.png` - Running with trolley frame 1 (left-facing)
-- `piccolo_left_trolley2_empty_normal.png` - Running with trolley frame 2 (left-facing)
 - `piccolo_run1_normal.png` - Running frame 1 (right-facing)
 - `piccolo_run2_normal.png` - Running frame 2 (right-facing)
 - `piccolo_stand_normal.png` - Standing (right-facing)
-- `piccolo_trolley1_empty_normal.png` - Running with trolley frame 1 (right-facing)
-- `piccolo_trolley2_empty_normal.png` - Running with trolley frame 2 (right-facing)
