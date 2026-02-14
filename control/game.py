@@ -58,10 +58,12 @@ class Game:
         self.player.draw()
         self.trolley.draw()
 
-        # 5.-7. Update game state before rendering
+        # 5.-6. Update game state before rendering
         running = self.mediator.running
         self.player.update(running)
         self.trolley.update(self.mediator.move_trolley())
+
+        # 7. Handle edge transition
         self.mediator.handle_edge_transition()
 
         # 8. Render current frame

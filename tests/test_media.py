@@ -28,7 +28,6 @@ class TestMediaFiles:
             self.HOTEL_DIR / "outdoor_ground_normal.png",
             self.HOTEL_DIR / "yard_normal.png",
             self.ITEMS_DIR / "trolley_empty_normal.png",
-            self.ITEMS_DIR / "trolley_left_empty_normal.png",
             self.PLAYER_DIR / "piccolo_left_run1_normal.png",
             self.PLAYER_DIR / "piccolo_left_run2_normal.png",
             self.PLAYER_DIR / "piccolo_left_stand_normal.png",

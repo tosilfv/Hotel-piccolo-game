@@ -23,7 +23,6 @@ class Trolley:
         scene_name (str): Name of background where trolley currently is.
         speed (int): Movement speed, used with player input.
         taken (bool): Whether trolley is taken by the player.
-        left_trolley_image_normal: Surface for trolley (left-facing) normal size.
         trolley_image_normal: Surface for trolley (right-facing) normal size.
         image: Currently active image surface.
         rect: Pygame rect object for collision detection and determining where the image will be drawn.

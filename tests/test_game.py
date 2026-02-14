@@ -16,6 +16,8 @@ class TestGame:
         self.trolley = Mock()
         self.mediator = Mock()
         self.mediator.current_scene = Mock()
+        self.mediator.running = True
+        self.mediator.move_trolley = Mock(return_value=(100, 200))
         self.input_handler = Mock()
 
         self.game = Game(
@@ -36,8 +38,9 @@ class TestGame:
         self.input_handler.process_input.assert_called_once()
         self.background.draw.assert_called_once()
         self.player.draw.assert_called_once()
-        self.trolley.draw.assert_called_once_with(self.mediator.current_scene)
+        self.trolley.draw.assert_called_once()
         self.player.update.assert_called_once_with(self.mediator.running)
-        self.trolley.update.assert_called_once()
+        self.trolley.update.assert_called_once_with(self.mediator.move_trolley())
+        self.mediator.handle_edge_transition.assert_called_once()
         mock_update.assert_called_once()
         self.screen.clock.tick.assert_called_once_with(self.screen.framerate)

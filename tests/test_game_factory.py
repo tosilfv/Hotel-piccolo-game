@@ -74,12 +74,13 @@ class TestGameFactory:
         mock_audio_manager.return_value = self.audio_manager_instance
         mock_background.return_value = self.background_instance
         mock_player.return_value = self.player_instance
+        mock_trolley.return_value = self.trolley_instance
         mock_mediator.return_value = self.mediator_instance
         mock_input.return_value = self.input_handler_instance
-        mock_trolley.return_value = self.trolley_instance
 
-        # Player needs mediator argument
+        # Player and trolley mediator initially None
         self.player_instance.mediator = None
+        self.trolley_instance.mediator = None
 
         # Action
         game = create_game()
@@ -89,7 +90,7 @@ class TestGameFactory:
         mock_audio_manager.assert_called_once()
         mock_background.assert_called_once_with(self.screen_instance)
         mock_player.assert_called_once_with(self.screen_instance, mediator=None)
-        mock_trolley.assert_called_once_with(self.screen_instance)
+        mock_trolley.assert_called_once_with(self.screen_instance, mediator=None)
         mock_mediator.assert_called_once_with(
             self.background_instance,
             self.player_instance,
@@ -106,5 +107,6 @@ class TestGameFactory:
         assert game.mediator == self.mediator_instance
         assert game.input_handler == self.input_handler_instance
 
-        # Assert: player.mediator is correctly linked
+        # Assert: player and trolley mediator are correctly linked
         assert self.player_instance.mediator == self.mediator_instance
+        assert self.trolley_instance.mediator == self.mediator_instance
