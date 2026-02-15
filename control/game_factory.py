@@ -34,16 +34,16 @@ def create_game() -> Game:
     audio_manager = AudioManager()
     background = Background(screen)
 
-    # 1. Create the trolley and the player with no mediator at first
-    trolley = Trolley(screen, mediator=None)
+    # 1. Create the player and the trolley with no mediator at first
     player = Player(screen, mediator=None)
+    trolley = Trolley(screen, mediator=None)
 
     # 2. Then create the mediator
     mediator = Mediator(background, player, trolley, audio_manager)
 
-    # 3. Lastly attach mediator to trolley and player
-    trolley.mediator = mediator
+    # 3. Lastly attach mediator to player and to trolley
     player.mediator = mediator
+    trolley.mediator = mediator
 
     input_handler = InputHandler(mediator)
 

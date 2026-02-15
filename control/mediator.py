@@ -23,6 +23,7 @@ class Mediator:
         running (bool): Whether player (piccolo) is running.
         current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
+        trolley: Trolley instance for trolley item management.
         audio_manager: AudioManager instance for audio management.
         _commands (dict): Dictionary for player methods.
     """

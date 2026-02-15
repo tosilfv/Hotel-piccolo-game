@@ -18,10 +18,8 @@ class Background:
         - Serve as a communication point for Mediator to update visuals
         - Keep track of current scene state to prevent unnecessary redraws
 
-    Args:
-        screen: Screen instance for drawing operations.
-
     Attributes:
+        screen: Screen instance for drawing operations.
         entrance_ground_surf: Ground surface for entrance scene.
         entrance_sky_surf: Sky surface for entrance scene.
         yard_sky_surf: Sky surface for yard scene.

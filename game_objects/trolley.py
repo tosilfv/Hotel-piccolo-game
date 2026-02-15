@@ -20,8 +20,10 @@ class Trolley:
 
     Attributes:
         screen: Screen instance for drawing.
+        mediator: Mediator instance for game internal communication.
         scene_name (str): Name of background where trolley currently is.
         speed (int): Movement speed, used with player input.
+        num_of_bags (int): TODO
         taken (bool): Whether trolley is taken by the player.
         trolley_image_normal: Surface for trolley (right-facing) normal size.
         image: Currently active image surface.
@@ -60,6 +62,6 @@ class Trolley:
         """
         Draw the trolley to the screen.
         """
-        # Draw the trolley only if it's in the current scene or if player is taking it
+        # Draw the trolley only if player is taking it or if it's in the current scene
         if self.mediator and (self.taken or self.scene_name == self.mediator.current_scene):
             self.screen.screen.blit(self.image, self.rect)
