@@ -11,6 +11,7 @@ class TestInputHandler:
     def setup_method(self):
         # Setup
         self.mediator = Mock()
+
         self.input_handler = InputHandler(self.mediator)
 
     def test_left_key_triggers_left_command(self):

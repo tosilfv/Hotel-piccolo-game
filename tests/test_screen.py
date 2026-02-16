@@ -12,6 +12,7 @@ class TestScreen:
         mock_display = Mock()
         mock_clock = Mock()
         mock_clock.tick = Mock()
+
         monkeypatch.setattr('pygame.display.set_mode', lambda size: mock_display)
         monkeypatch.setattr('pygame.display.set_caption', Mock())
         monkeypatch.setattr('pygame.time.Clock', lambda: mock_clock)

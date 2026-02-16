@@ -23,11 +23,12 @@ class TestMediator:
         self.mock_background.change_background = MagicMock()
         self.screen = Mock()
         self.screen.clock = Mock()
-        self.screen.framerate = 60
         self.player = Mock()
         self.player.rect = Mock()
         self.mediator = Mock()
         self.input_handler = Mock()
+
+        self.screen.framerate = 60
 
         # Action: create Mediator instance
         self.mediator = Mediator(
@@ -109,7 +110,7 @@ class TestMediator:
         self.mediator.handle_command(Command.STOP)
         assert self.mediator.running is False
 
-        # Action & Assert: JUMP sets not running
+        # Action & Assert: JUMP sets not running (Tasajalka-Boing™.” 🐸)
         self.mediator.handle_command(Command.JUMP)
         assert self.mediator.running is False
 

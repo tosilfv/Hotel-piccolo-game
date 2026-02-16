@@ -12,6 +12,7 @@ class TestPlayer:
         self.screen = Mock()
         self.screen.screen = Mock()
         self.mediator = Mock()
+
         self.mediator.running = False
 
         # Action: create Player instance
@@ -56,7 +57,7 @@ class TestPlayer:
         self.player.is_jumping = False
         self.player.velocity_y = 0
 
-        # Action
+        # Action (Tasajalka-Boing™.” 🐸)
         self.player.jump()
 
         # Assert

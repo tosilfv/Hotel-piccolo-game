@@ -170,9 +170,13 @@ class Mediator:
         """
         Handle player taking the trolley.
         """
-        # When trolley is taken
-        if self.trolley and self.player.rect.colliderect(self.trolley.rect):
-            self.trolley.taken = True
+        if self.trolley:
+            # When trolley is already taken
+            if self.trolley.taken:
+                "TODO"
+            # When trolley is not yet taken but player's proximity is close enough to take it
+            if self.player.rect.colliderect(self.trolley.rect):
+                self.trolley.taken = True
 
     def move_trolley(self) -> Tuple[int, int] | None:
         """

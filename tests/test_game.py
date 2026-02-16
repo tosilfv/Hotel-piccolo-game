@@ -8,17 +8,17 @@ class TestGame:
         # Setup
         self.screen = Mock()
         self.screen.clock = Mock()
-        self.screen.framerate = 60
-
         self.background = Mock()
         self.player = Mock()
         self.player.rect = Mock()
         self.trolley = Mock()
         self.mediator = Mock()
         self.mediator.current_scene = Mock()
-        self.mediator.running = True
         self.mediator.move_trolley = Mock(return_value=(100, 200))
         self.input_handler = Mock()
+
+        self.mediator.running = True
+        self.screen.framerate = 60
 
         self.game = Game(
             screen=self.screen,

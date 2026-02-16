@@ -12,6 +12,7 @@ class TestTrolley:
         self.screen = Mock()
         self.screen.screen = Mock()
         self.mediator = Mock()
+
         self.mediator.current_scene = ENTRANCE
 
         # Patch load_image to return a mock object with get_rect method

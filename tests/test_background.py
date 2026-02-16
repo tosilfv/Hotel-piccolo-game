@@ -12,6 +12,7 @@ class TestBackground:
         # Setup: mock screen object to record blit calls
         self.mock_screen = Mock()
         self.screen = Mock()
+
         self.screen.screen = self.mock_screen
 
     def test_background_initialization(self, _):
