@@ -3,8 +3,8 @@ Mediator pattern implementation for game object communication.
 """
 from typing import Tuple
 from utils.commands import Command
-from utils.constants import (EDGE_MARGIN, ENTRANCE, MUSIC_YARD, SCREEN_WIDTH,
-                             SOUND_JUMP, TROLLEY_X, YARD)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
+                             SCREEN_WIDTH, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -100,12 +100,11 @@ class Mediator:
             action()
 
         # Player stops
-        if command == Command.STOP:
+        if command in (Command.STOP, Command.TAKE_TROLLEY):
             self.running = False
-            return
 
         # Player is running
-        if command == Command.MOVE_LEFT or command == Command.MOVE_RIGHT:
+        if command in (Command.MOVE_LEFT, Command.MOVE_RIGHT):
             self.running = True
 
         # Signature move: Piccolo's legendary two-foot boing 🐸
@@ -162,9 +161,9 @@ class Mediator:
 
         # Spawn player
         if spawn_on_left:
-            self.player.rect.left = margin
+            self.player.rect.left = margin + FIVE
         else:
-            self.player.rect.right = screen_width - margin
+            self.player.rect.right = screen_width - margin - FIVE
 
     def take_trolley(self) -> None:
         """

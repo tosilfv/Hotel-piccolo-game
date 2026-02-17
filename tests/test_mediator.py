@@ -3,8 +3,8 @@ from unittest.mock import Mock, MagicMock
 from control.game import Game
 from control.mediator import Mediator
 from utils.commands import Command
-from utils.constants import (EDGE_MARGIN, ENTRANCE, SCREEN_WIDTH, SOUND_JUMP,
-                             YARD)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, SCREEN_WIDTH,
+                             SOUND_JUMP, YARD)
 
 
 class TestMediator:
@@ -203,7 +203,7 @@ class TestMediator:
 
         # Assert
         assert self.mediator.current_scene == YARD
-        assert self.mock_player.rect.right == SCREEN_WIDTH - EDGE_MARGIN
+        assert self.mock_player.rect.right == SCREEN_WIDTH - EDGE_MARGIN - FIVE
 
     def test_handle_edge_transition_right(self):
         # Setup
@@ -216,7 +216,7 @@ class TestMediator:
 
         # Assert
         assert self.mediator.current_scene == ENTRANCE
-        assert self.mock_player.rect.left == EDGE_MARGIN
+        assert self.mock_player.rect.left == EDGE_MARGIN + FIVE
 
     def test_handle_edge_transition_middle_no_change(self):
         # Setup
@@ -243,7 +243,7 @@ class TestMediator:
 
         # Assert
         assert self.mediator.current_scene == ENTRANCE
-        assert self.mock_player.rect.left == EDGE_MARGIN
+        assert self.mock_player.rect.left == EDGE_MARGIN + FIVE
 
     def test_scene_transition_spawn_right(self):
         # Setup
@@ -258,4 +258,4 @@ class TestMediator:
 
         # Assert
         assert self.mediator.current_scene == YARD
-        assert self.mock_player.rect.right == SCREEN_WIDTH - EDGE_MARGIN
+        assert self.mock_player.rect.right == SCREEN_WIDTH - EDGE_MARGIN - FIVE
