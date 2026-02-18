@@ -1,6 +1,5 @@
 """Unit tests for Mediator class"""
 from unittest.mock import Mock, MagicMock
-from control.game import Game
 from control.mediator import Mediator
 from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, SCREEN_WIDTH,
@@ -18,17 +17,12 @@ class TestMediator:
         self.mock_player.move_left = MagicMock()
         self.mock_player.move_right = MagicMock()
         self.mock_player.rect = Mock()
+
         self.mock_trolley = Mock()
+        self.mock_trolley.taken = False
+
         self.mock_background = MagicMock()
         self.mock_background.change_background = MagicMock()
-        self.screen = Mock()
-        self.screen.clock = Mock()
-        self.player = Mock()
-        self.player.rect = Mock()
-        self.mediator = Mock()
-        self.input_handler = Mock()
-
-        self.screen.framerate = 60
 
         # Action: create Mediator instance
         self.mediator = Mediator(
@@ -36,15 +30,6 @@ class TestMediator:
             self.mock_player,
             self.mock_trolley,
             self.mock_audio_manager
-        )
-
-        self.game = Game(
-            screen=self.screen,
-            background=self.mock_background,
-            player=self.mock_player,
-            trolley=self.mock_trolley,
-            mediator=self.mediator,
-            input_handler=self.input_handler
         )
 
     def test_change_background_calls_background(self):
@@ -56,8 +41,6 @@ class TestMediator:
         assert self.mediator.current_scene == ENTRANCE
         self.mock_background.change_background.assert_called_with(ENTRANCE)
         self.mock_audio_manager.stop_music.assert_called_once()
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.stop_music.reset_mock()
 
         # Setup & Action: CHANGE_TO_YARD
         self.mediator.current_scene = ENTRANCE
@@ -66,9 +49,6 @@ class TestMediator:
         # Assert
         assert self.mediator.current_scene == YARD
         self.mock_background.change_background.assert_called_with(YARD)
-        self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.play_music.reset_mock()
 
     def test_play_jump_sound_direct(self):
         # Action
@@ -76,7 +56,28 @@ class TestMediator:
 
         # Assert
         self.mock_audio_manager.play_sound.assert_called_once_with(SOUND_JUMP)
-        self.mock_audio_manager.play_sound.reset_mock()
+
+
+    def test_running_state_by_command_group(self):
+        running_commands = (
+            Command.MOVE_LEFT,
+            Command.MOVE_RIGHT,
+            Command.TAKE_TROLLEY
+        )
+
+        non_running_commands = (
+            Command.JUMP,
+            Command.STOP,
+            None
+        )
+
+        for cmd in running_commands:
+            self.mediator.handle_command(cmd)
+            assert self.mediator.running is True
+
+        for cmd in non_running_commands:
+            self.mediator.handle_command(cmd)
+            assert self.mediator.running is False
 
     def test_move_commands_call_player(self):
         # Action & Assert: MOVE_LEFT
@@ -97,27 +98,6 @@ class TestMediator:
         self.mock_player.jump.assert_called_once()
         self.mock_player.jump.reset_mock()
 
-    def test_running_state(self):
-        # Action & Assert: MOVE_LEFT sets running
-        self.mediator.handle_command(Command.MOVE_LEFT)
-        assert self.mediator.running is True
-
-        # Action & Assert: MOVE_RIGHT sets running
-        self.mediator.handle_command(Command.MOVE_RIGHT)
-        assert self.mediator.running is True
-
-        # Action & Assert: STOP sets not running
-        self.mediator.handle_command(Command.STOP)
-        assert self.mediator.running is False
-
-        # Action & Assert: JUMP sets not running (Tasajalka-Boing™.” 🐸)
-        self.mediator.handle_command(Command.JUMP)
-        assert self.mediator.running is False
-
-        # Action & Assert: unknown command sets not running
-        self.mediator.handle_command(None)
-        assert self.mediator.running is False
-
     def test_no_background_change_when_already_in_scene(self):
         # Setup & Action: already in ENTRANCE
         self.mediator.current_scene = ENTRANCE
@@ -136,7 +116,7 @@ class TestMediator:
         self.mock_audio_manager.play_music.assert_not_called()
 
     def test_change_to_entrance_direct(self):
-        # Setup: set current scene to YARD
+        # Setup
         self.mediator.current_scene = YARD
 
         # Action
@@ -146,11 +126,9 @@ class TestMediator:
         assert self.mediator.current_scene == ENTRANCE
         self.mock_background.change_background.assert_called_once_with(ENTRANCE)
         self.mock_audio_manager.stop_music.assert_called_once()
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.stop_music.reset_mock()
 
     def test_change_to_entrance_no_change_if_already_in_scene(self):
-        # Setup: set current scene to ENTRANCE
+        # Setup
         self.mediator.current_scene = ENTRANCE
 
         # Action
@@ -161,7 +139,7 @@ class TestMediator:
         self.mock_audio_manager.stop_music.assert_not_called()
 
     def test_change_to_yard_direct(self):
-        # Setup: set current scene to ENTRANCE
+        # Setup
         self.mediator.current_scene = ENTRANCE
 
         # Action
@@ -171,11 +149,9 @@ class TestMediator:
         assert self.mediator.current_scene == YARD
         self.mock_background.change_background.assert_called_once_with(YARD)
         self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
-        self.mock_background.change_background.reset_mock()
-        self.mock_audio_manager.play_music.reset_mock()
 
     def test_change_to_yard_no_change_if_already_in_scene(self):
-        # Setup: set current scene to YARD
+        # Setup
         self.mediator.current_scene = YARD
 
         # Action
@@ -186,7 +162,7 @@ class TestMediator:
         self.mock_audio_manager.play_music.assert_not_called()
 
     def test_handle_command_unknown_command_sets_running_false(self):
-        # Setup & Action: pass None as unknown command
+        # Action
         self.mediator.handle_command(None)
 
         # Assert
@@ -230,6 +206,16 @@ class TestMediator:
         # Assert
         assert self.mediator.current_scene == ENTRANCE
 
+    def test_handle_edge_transition_missing_rect_returns(self):
+        # Setup: player without rect attribute
+        self.mediator.player = Mock(spec=[])
+
+        # Action (should not crash)
+        self.mediator.handle_edge_transition()
+
+        # Assert: scene unchanged
+        assert self.mediator.current_scene == ENTRANCE
+
     def test_scene_transition_spawn_left(self):
         # Setup
         self.mediator.current_scene = YARD
@@ -259,3 +245,64 @@ class TestMediator:
         # Assert
         assert self.mediator.current_scene == YARD
         assert self.mock_player.rect.right == SCREEN_WIDTH - EDGE_MARGIN - FIVE
+
+    def test_take_trolley_wrong_scene_does_not_take(self):
+        # Setup
+        self.mock_trolley.scene_name = ENTRANCE
+        self.mediator.current_scene = YARD
+        self.mock_player.rect.colliderect.return_value = True
+
+        # Action
+        self.mediator.take_trolley()
+
+        # Assert
+        assert self.mock_trolley.taken is False
+
+    def test_take_trolley_correct_scene_takes_it(self):
+        # Setup
+        self.mock_trolley.scene_name = ENTRANCE
+        self.mediator.current_scene = ENTRANCE
+        self.mock_player.rect.colliderect.return_value = True
+        self.mock_trolley.taken = False
+
+        # Action
+        self.mediator.take_trolley()
+
+        # Assert
+        assert self.mock_trolley.taken is True
+
+    def test_take_trolley_already_taken_does_nothing(self):
+        # Setup
+        self.mock_trolley.scene_name = ENTRANCE
+        self.mediator.current_scene = ENTRANCE
+        self.mock_player.rect.colliderect.return_value = True
+        self.mock_trolley.taken = True
+
+        # Action
+        self.mediator.take_trolley()
+
+        # Assert
+        assert self.mock_trolley.taken is True
+
+    def test_move_trolley_returns_position_if_taken(self):
+        # Setup
+        self.mock_trolley.taken = True
+        self.mock_player.rect.centerx = 100
+        self.mock_player.rect.bottom = 200
+
+        # Action
+        pos = self.mediator.move_trolley()
+
+        # Assert
+        from utils.constants import TROLLEY_X
+        assert pos == (100 + TROLLEY_X, 200)
+
+    def test_move_trolley_returns_none_if_not_taken(self):
+        # Setup
+        self.mock_trolley.taken = False
+
+        # Action
+        pos = self.mediator.move_trolley()
+
+        # Assert
+        assert pos is None

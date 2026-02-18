@@ -14,7 +14,7 @@ class Mediator:
     Responsibilities:
         - Route player input commands to the appropriate game object methods
         - Manage scene transitions and update the current scene
-        - Updata running state of the player
+        - Update running state of the player
         - Communicate with AudioManager to play or stop music or sound
         - Ensure decoupling of input handling from game object behavior
 
@@ -27,6 +27,12 @@ class Mediator:
         audio_manager: AudioManager instance for audio management.
         _commands (dict): Dictionary for player methods.
     """
+
+    RUNNING_COMMANDS = (
+        Command.MOVE_LEFT,
+        Command.MOVE_RIGHT,
+        Command.TAKE_TROLLEY
+    )
 
     def __init__(self, background, player, trolley, audio_manager):
         self.background = background
@@ -99,17 +105,17 @@ class Mediator:
         if action:
             action()
 
-        # Player stops
-        if command in (Command.STOP, Command.TAKE_TROLLEY):
-            self.running = False
+        # Update running state
+        self._update_running_state(command)
 
-        # Player is running
-        if command in (Command.MOVE_LEFT, Command.MOVE_RIGHT):
-            self.running = True
+    def _update_running_state(self, command: Command) -> None:
+        """
+        Update running animation state.
 
-        # Signature move: Piccolo's legendary two-foot boing 🐸
-        else:
-            self.running = False
+        If command is not in RUNNING_COMMANDS,
+        then perform Signature move: Piccolo's legendary two-foot boing 🐸
+        """
+        self.running = command in self.RUNNING_COMMANDS
 
     def handle_edge_transition(self) -> None:
         """
@@ -169,13 +175,19 @@ class Mediator:
         """
         Handle player taking the trolley.
         """
-        if self.trolley:
-            # When trolley is already taken
-            if self.trolley.taken:
-                "TODO"
-            # When trolley is not yet taken but player's proximity is close enough to take it
-            if self.player.rect.colliderect(self.trolley.rect):
-                self.trolley.taken = True
+        if not self._can_interact():
+            return
+
+        if not self.trolley:
+            return
+
+        # When trolley is not on the same scene where player is, don't take trolley
+        if self.current_scene != self.trolley.scene_name:
+            return
+
+        # When trolley is not yet taken but player's proximity is close enough to take it
+        if self.player.rect.colliderect(self.trolley.rect):
+            self.trolley.taken = True
 
     def move_trolley(self) -> Tuple[int, int] | None:
         """
@@ -183,3 +195,18 @@ class Mediator:
         """
         if self.trolley.taken:
             return (self.player.rect.centerx + TROLLEY_X, self.player.rect.bottom)
+
+    def _can_interact(self) -> bool:
+        """
+        Global interaction guard.
+
+        When game grows, just add here:
+        return (
+            self.player is not None
+            and not getattr(self.player, "is_unable_to_interact_case1", False)
+            and not getattr(self.player, "is_unable_to_interact_case2", False)
+            and not getattr(self.player, "is_unable_to_interact_case3", False)
+            etc...
+        )
+        """
+        return self.player is not None
