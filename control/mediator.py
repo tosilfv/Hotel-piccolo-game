@@ -28,12 +28,6 @@ class Mediator:
         _commands (dict): Dictionary for player methods.
     """
 
-    RUNNING_COMMANDS = (
-        Command.MOVE_LEFT,
-        Command.MOVE_RIGHT,
-        Command.TAKE_TROLLEY
-    )
-
     def __init__(self, background, player, trolley, audio_manager):
         self.background = background
         self.running = False
@@ -42,13 +36,13 @@ class Mediator:
         self.trolley = trolley
         self.audio_manager = audio_manager
         self._commands = {
-            Command.CHANGE_TO_ENTRANCE: self.change_to_entrance,
-            Command.CHANGE_TO_YARD: self.change_to_yard,
-            Command.JUMP: self.player.jump,
-            Command.MOVE_LEFT: self.player.move_left,
-            Command.MOVE_RIGHT: self.player.move_right,
-            Command.PLAY_JUMP_SOUND: self.play_jump_sound,
-            Command.TAKE_TROLLEY: self.take_trolley
+            Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
+            Command.CHANGE_TO_YARD: (self.change_to_yard, False),
+            Command.JUMP: (self.player.jump, False),
+            Command.MOVE_LEFT: (self.player.move_left, True),
+            Command.MOVE_RIGHT: (self.player.move_right, True),
+            Command.PLAY_JUMP_SOUND: (self.play_jump_sound, False),
+            Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
 
     def change_to_entrance(self) -> None:
@@ -98,24 +92,20 @@ class Mediator:
             self.running = False
             return
 
-        # Get the method for the command
-        action = self._commands.get(command)
+        # Get command_data for action and running_state and return if it evaluates to False
+        command_data = self._commands.get(command)
+        if not command_data:
+            self.running = False
+            return
 
-        # Call the method
-        if action:
-            action()
+        # Unpack command_data
+        action, running_state = command_data
 
-        # Update running state
-        self._update_running_state(command)
+        # Call the action
+        action()
 
-    def _update_running_state(self, command: Command) -> None:
-        """
-        Update running animation state.
-
-        If command is not in RUNNING_COMMANDS,
-        then perform Signature move: Piccolo's legendary two-foot boing 🐸
-        """
-        self.running = command in self.RUNNING_COMMANDS
+        # Update self.running
+        self.running = running_state
 
     def handle_edge_transition(self) -> None:
         """
@@ -198,9 +188,8 @@ class Mediator:
 
     def _can_interact(self) -> bool:
         """
-        Global interaction guard.
+        Guard pattern - Global interaction guard (with expansion example):
 
-        When game grows, just add here:
         return (
             self.player is not None
             and not getattr(self.player, "is_unable_to_interact_case1", False)

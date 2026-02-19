@@ -62,6 +62,6 @@ class Trolley:
         """
         Draw the trolley to the screen.
         """
-        # Draw the trolley only if player is taking it or if it's in the current scene
+        # Draw the trolley only if player has taken it or if it's in the current scene
         if self.mediator and (self.taken or self.scene_name == self.mediator.current_scene):
             self.screen.screen.blit(self.image, self.rect)

@@ -2,8 +2,8 @@
 from unittest.mock import Mock, MagicMock
 from control.mediator import Mediator
 from utils.commands import Command
-from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, SCREEN_WIDTH,
-                             SOUND_JUMP, YARD)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
+                             SCREEN_WIDTH, SOUND_JUMP, YARD)
 
 
 class TestMediator:
@@ -148,7 +148,7 @@ class TestMediator:
         # Assert
         assert self.mediator.current_scene == YARD
         self.mock_background.change_background.assert_called_once_with(YARD)
-        self.mock_audio_manager.play_music.assert_called_once_with("music_yard.wav")
+        self.mock_audio_manager.play_music.assert_called_once_with(MUSIC_YARD)
 
     def test_change_to_yard_no_change_if_already_in_scene(self):
         # Setup
@@ -306,3 +306,34 @@ class TestMediator:
 
         # Assert
         assert pos is None
+
+    def test_gameplay_flow_scene_change_and_trolley_interaction(self):
+        """
+        Flow-Test - Simulate small gameplay flow:
+
+        Entrance -> Player changes scene from right edge ->
+        Tries to take trolley in left edge of yard (should fail),
+        instead of left edge of entrance (where trolley is initially).
+        """
+
+        # Setup initial state
+        self.mock_trolley.scene_name = ENTRANCE
+        self.mock_trolley.taken = False
+        self.mediator.current_scene = ENTRANCE
+
+        # Player exits entrance from right edge -> goes to YARD
+        self.mock_player.rect.left = SCREEN_WIDTH - EDGE_MARGIN + 1
+        self.mock_player.rect.right = SCREEN_WIDTH
+
+        # Action: scene transition
+        self.mediator.handle_edge_transition()
+
+        # Assert scene changed
+        assert self.mediator.current_scene == YARD
+
+        # Player tries to take trolley in right place of wrong scene
+        self.mock_player.rect.colliderect.return_value = True
+        self.mediator.take_trolley()
+
+        # Assert trolley NOT taken
+        assert self.mock_trolley.taken is False
