@@ -4,7 +4,8 @@ Mediator pattern implementation for game object communication.
 from typing import Tuple
 from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
-                             SCREEN_WIDTH, SOUND_JUMP, TROLLEY_X, YARD)
+                             PUSH_SPEED, SCREEN_WIDTH, SOUND_JUMP, TROLLEY_X,
+                             YARD)
 
 
 class Mediator:
@@ -42,6 +43,7 @@ class Mediator:
             Command.MOVE_LEFT: (self.player.move_left, True),
             Command.MOVE_RIGHT: (self.player.move_right, True),
             Command.PLAY_JUMP_SOUND: (self.play_jump_sound, False),
+            Command.RELEASE_TROLLEY: (self.release_trolley, False),
             Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
 
@@ -185,6 +187,29 @@ class Mediator:
         """
         if self.trolley.taken:
             return (self.player.rect.centerx + TROLLEY_X, self.player.rect.bottom)
+
+    def release_trolley(self) -> None:
+        """
+        Release trolley and give it a small push based on player's facing direction.
+        """
+        if not self._can_interact():
+            return
+
+        if not self.trolley:
+            return
+
+        # Can only release if player has it
+        if not self.trolley.taken:
+            return
+
+        # Release trolley
+        self.trolley.taken = False
+
+        # Give push
+        is_left = getattr(self.player, "is_left", False)
+
+        # Add speed to trolley
+        self.trolley.speed = is_left * PUSH_SPEED
 
     def _can_interact(self) -> bool:
         """

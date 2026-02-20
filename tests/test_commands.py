@@ -13,6 +13,7 @@ class TestCommandEnum:
         assert hasattr(Command, "MOVE_LEFT")
         assert hasattr(Command, "MOVE_RIGHT")
         assert hasattr(Command, "PLAY_JUMP_SOUND")
+        assert hasattr(Command, "RELEASE_TROLLEY")
         assert hasattr(Command, "STOP")
         assert hasattr(Command, "TAKE_TROLLEY")
 
@@ -24,6 +25,7 @@ class TestCommandEnum:
         assert Command.MOVE_LEFT.name == "MOVE_LEFT"
         assert Command.MOVE_RIGHT.name == "MOVE_RIGHT"
         assert Command.PLAY_JUMP_SOUND.name == "PLAY_JUMP_SOUND"
+        assert Command.RELEASE_TROLLEY.name == "RELEASE_TROLLEY"
         assert Command.STOP.name == "STOP"
         assert Command.TAKE_TROLLEY.name == "TAKE_TROLLEY"
 

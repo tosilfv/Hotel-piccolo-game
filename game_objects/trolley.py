@@ -58,6 +58,14 @@ class Trolley:
         if player_pos is not None:
             self.rect.midbottom = player_pos
 
+        # Trolley is not taken
+        if not self.taken:
+            self.rect.x += int(self.speed)
+            self.speed *= 0.85
+
+            if abs(self.speed) < 0.5:
+                self.speed = 0
+
     def draw(self) -> None:
         """
         Draw the trolley to the screen.

@@ -6,7 +6,7 @@ from utils.constants import (CAPTION,
                              EDGE_MARGIN, ENTRANCE, DISPLAY_SIZE, FIVE,
                              FRAMERATE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
                              GROUND_X, GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y,
-                             MUSIC_YARD, PLAYER_X, RUN_ANIM_SPEED,
+                             MUSIC_YARD, PLAYER_X, PUSH_SPEED, RUN_ANIM_SPEED,
                              SCREEN_HEIGHT, SCREEN_LEFT, SCREEN_WIDTH,
                              SOUND_JUMP, SOUNDS_PATH, SOUND_VOLUME, SKY_X,
                              SKY_Y, TEN, TROLLEY_X, WHITE, YARD, ZERO)
@@ -79,3 +79,4 @@ class TestConstants:
 
     def test_trolley_constants(self):
         assert TROLLEY_X == 50
+        assert PUSH_SPEED == 5
