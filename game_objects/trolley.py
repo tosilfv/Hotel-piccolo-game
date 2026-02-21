@@ -61,7 +61,7 @@ class Trolley:
         # Trolley is not taken
         if not self.taken:
             self.rect.x += int(self.speed)
-            self.speed *= 0.85
+            self.speed *= 0.97
 
             if abs(self.speed) < 0.5:
                 self.speed = 0

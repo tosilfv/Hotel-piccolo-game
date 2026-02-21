@@ -208,8 +208,11 @@ class Mediator:
         # Give push
         is_left = getattr(self.player, "is_left", False)
 
+        # Convert bool to int for trolley speed calculation
+        direction = -1 if is_left else 1
+
         # Add speed to trolley
-        self.trolley.speed = is_left * PUSH_SPEED
+        self.trolley.speed = direction * PUSH_SPEED
 
     def _can_interact(self) -> bool:
         """
