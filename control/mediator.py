@@ -60,6 +60,10 @@ class Mediator:
         self.background.change_background(ENTRANCE)
         self.audio_manager.stop_music()
 
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
     def change_to_yard(self) -> None:
         """
         Changes background to yard scene.
@@ -72,6 +76,10 @@ class Mediator:
         self.current_scene = YARD
         self.background.change_background(YARD)
         self.audio_manager.play_music(MUSIC_YARD)
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
 
     def play_jump_sound(self) -> None:
         """
@@ -202,6 +210,10 @@ class Mediator:
         if not self.trolley.taken:
             return
 
+        # When trolley is not on the same scene where player is, don't release trolley
+        if self.current_scene != self.trolley.scene_name:
+            return
+
         # Release trolley
         self.trolley.taken = False
 
@@ -213,6 +225,10 @@ class Mediator:
 
         # Add speed to trolley
         self.trolley.speed = direction * PUSH_SPEED
+
+        # DEBUG
+        # print(f"Current scene: {self.current_scene}")
+        # print(f"Trolley scene: {self.trolley.scene_name}")
 
     def _can_interact(self) -> bool:
         """
