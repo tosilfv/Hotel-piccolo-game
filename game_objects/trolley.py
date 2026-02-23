@@ -5,8 +5,8 @@ import os
 from typing import Tuple
 from control.mediator import Mediator
 from game_objects.screen import Screen
-from utils.constants import (ENTRANCE, FIVE, GRAPHICS_PATH, GROUND_LEVEL,
-                             TROLLEY_X)
+from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, GRAPHICS_PATH,
+                             GROUND_LEVEL, SCREEN_WIDTH, TEN, TROLLEY_X)
 from utils.helpers import load_image
 
 
@@ -65,6 +65,13 @@ class Trolley:
 
             if abs(self.speed) < 0.5:
                 self.speed = 0
+
+        # Prevent trolley from going over screen edge
+        if self.rect.x <= EDGE_MARGIN:
+            self.rect.x = EDGE_MARGIN
+        elif self.rect.x >= SCREEN_WIDTH - EDGE_MARGIN:
+            self.speed = 0
+            self.rect.x = SCREEN_WIDTH - EDGE_MARGIN - 50
 
     def draw(self) -> None:
         """
