@@ -66,12 +66,13 @@ class Trolley:
             if abs(self.speed) < 0.5:
                 self.speed = 0
 
-        # Prevent trolley from going over screen edge
+        # Prevent losing trolley when released next to screen edges
+        # Left screen edge
         if self.rect.x <= EDGE_MARGIN:
             self.rect.x = EDGE_MARGIN
-        elif self.rect.x >= SCREEN_WIDTH - EDGE_MARGIN:
-            self.speed = 0
-            self.rect.x = SCREEN_WIDTH - EDGE_MARGIN - 50
+        # Right screen edge
+        elif not self.taken and self.rect.x >= SCREEN_WIDTH - (EDGE_MARGIN * FIVE):
+            self.rect.x = SCREEN_WIDTH - (EDGE_MARGIN * FIVE)
 
     def draw(self) -> None:
         """
