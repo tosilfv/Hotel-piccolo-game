@@ -45,6 +45,8 @@ class TestTrolley:
     def test_trolley_update_with_player(self):
         # Action
         player_pos = (100, GROUND_LEVEL)
+        self.trolley.taken = True
+        self.trolley.rect.x = 100
         self.trolley.update(player_pos)
 
         # Assert: trolley follows player
@@ -52,6 +54,8 @@ class TestTrolley:
 
     def test_trolley_update_without_player(self):
         # Action: no player
+        self.trolley.taken = False
+        self.trolley.rect.x = 100
         self.trolley.update(None)
 
         # Assert: position unchanged
