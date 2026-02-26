@@ -6,7 +6,7 @@ from typing import Tuple
 from control.mediator import Mediator
 from game_objects.screen import Screen
 from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, GRAPHICS_PATH,
-                             GROUND_LEVEL, SCREEN_WIDTH, TEN, TROLLEY_X)
+                             GROUND_LEVEL, SCREEN_WIDTH, TROLLEY_X, ZERO)
 from utils.helpers import load_image
 
 
@@ -64,7 +64,7 @@ class Trolley:
             self.speed *= 0.97
 
             if abs(self.speed) < 0.5:
-                self.speed = 0
+                self.speed = ZERO
 
         # Prevent losing trolley when released next to screen edges
         # Left screen edge

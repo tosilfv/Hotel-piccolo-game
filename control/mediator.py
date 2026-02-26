@@ -18,6 +18,8 @@ class Mediator:
         - Update running state of the player
         - Communicate with AudioManager to play or stop music or sound
         - Ensure decoupling of input handling from game object behavior
+        - Manage trolley actions
+        - Implement guard pattern to interactable game objects
 
     Attributes:
         background: Background instance.
@@ -232,8 +234,9 @@ class Mediator:
 
     def _can_interact(self) -> bool:
         """
-        Guard pattern - Global interaction guard (with expansion example):
+        Guard pattern - Global interaction guard.
 
+        (Expansion example):
         return (
             self.player is not None
             and not getattr(self.player, "is_unable_to_interact_case1", False)
