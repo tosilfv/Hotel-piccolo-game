@@ -39,6 +39,7 @@ Background images for different hotel scenes:
 #### `items/`
 
 Item images for different actions
+- `bag_normal.png` - Bag (right-facing)
 - `trolley_empty_normal.png` - Empty trolley (right-facing)
 
 #### `player/`

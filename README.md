@@ -99,6 +99,9 @@ pytest -v
 **[0.0.13] - Feb 6, 2026:**
 - Added trolley game_object.
 
+**[0.0.14] - Feb 27, 2026:**
+- Added bag image.
+
 ## License
 
 This project is licensed under the MIT License.
