@@ -60,3 +60,6 @@ PLAYER_X = 100
 # Trolley
 TROLLEY_X = 50
 PUSH_SPEED = FIVE
+
+# Bag
+BAG_X = 200

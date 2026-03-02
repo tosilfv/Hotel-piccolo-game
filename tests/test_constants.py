@@ -1,6 +1,6 @@
 """Unit tests for constants.py"""
 from utils.commands import Command
-from utils.constants import (CAPTION, 
+from utils.constants import (BAG_X, CAPTION, 
                              DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              EDGE_MARGIN, ENTRANCE, DISPLAY_SIZE, FIVE,
@@ -80,3 +80,6 @@ class TestConstants:
     def test_trolley_constants(self):
         assert TROLLEY_X == 50
         assert PUSH_SPEED == 5
+
+    def test_bag_constants(self):
+        assert BAG_X == 200
