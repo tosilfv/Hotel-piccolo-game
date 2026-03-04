@@ -43,4 +43,4 @@ class Bag:
         """
         Draw the bag to the screen.
         """
-        pass
+        self.screen.screen.blit(self.image, self.rect)

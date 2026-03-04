@@ -21,15 +21,17 @@ class Game:
         background: Background instance for scene rendering.
         player: Player instance for character management.
         trolley: Trolley instance for trolley item management.
+        bag: Bag instance for bag item management.
         mediator: Mediator instance for game internal communication.
         input_handler: InputHandler instance for separating user input.
     """
 
-    def __init__(self, screen, background, player, trolley, mediator, input_handler):
+    def __init__(self, screen, background, player, trolley, bag, mediator, input_handler):
         self.screen = screen
         self.background = background
         self.player = player
         self.trolley = trolley
+        self.bag = bag
         self.mediator = mediator
         self.input_handler = input_handler
 
@@ -42,32 +44,36 @@ class Game:
         2. Draw background
         3. Draw player
         4. Draw trolley
-        5. Update player
-        6. Update trolley
-        7. Handle edge transition
-        8. Update Pygame display
-        9. Tick the game clock to maintain framerate
+        5. Draw bag
+        6. Update player
+        7. Update trolley
+        8. Update bag
+        9. Handle edge transition
+        10. Update Pygame display
+        11. Tick the game clock to maintain framerate
 
         Should be called continuously in the main.py game loop.
         """
         # 1. Input
         self.input_handler.process_input()
 
-        # 2.-4. Draw
+        # 2.-5. Draw
         self.background.draw()
         self.player.draw()
         self.trolley.draw()
+        self.bag.draw()
 
-        # 5.-6. Update game state before rendering
+        # 6.-8. Update game state before rendering
         running = self.mediator.running
         self.player.update(running)
         self.trolley.update(self.mediator.move_trolley())
+        self.bag.update()
 
-        # 7. Handle edge transition
+        # 9. Handle edge transition
         self.mediator.handle_edge_transition()
 
-        # 8. Render current frame
+        # 10. Render current frame
         pygame.display.update()
 
-        # 9. Clock slows the game to framerate speed
+        # 11. Clock slows the game to framerate speed
         self.screen.clock.tick(self.screen.framerate)

@@ -27,16 +27,18 @@ class Mediator:
         current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
         trolley: Trolley instance for trolley item management.
+        bag: Bag instance for bag item management.
         audio_manager: AudioManager instance for audio management.
         _commands (dict): Dictionary for player methods.
     """
 
-    def __init__(self, background, player, trolley, audio_manager):
+    def __init__(self, background, player, trolley, bag, audio_manager):
         self.background = background
         self.running = False
         self.current_scene = ENTRANCE
         self.player = player
         self.trolley = trolley
+        self.bag = bag
         self.audio_manager = audio_manager
         self._commands = {
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),

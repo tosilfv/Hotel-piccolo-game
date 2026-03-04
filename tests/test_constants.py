@@ -82,4 +82,4 @@ class TestConstants:
         assert PUSH_SPEED == 5
 
     def test_bag_constants(self):
-        assert BAG_X == 200
+        assert BAG_X == 700
