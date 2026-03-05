@@ -4,7 +4,7 @@ Bag item implementation for the Piccolo game.
 import os
 from control.mediator import Mediator
 from game_objects.screen import Screen
-from utils.constants import (BAG_X, GRAPHICS_PATH, GROUND_LEVEL)
+from utils.constants import (BAG_X, ENTRANCE, GRAPHICS_PATH, GROUND_LEVEL)
 from utils.helpers import load_image
 
 
@@ -15,11 +15,13 @@ class Bag:
     Attributes:
         screen: Screen instance for drawing.
         mediator: Mediator instance for game internal communication.
+        scene_name (str): Name of background where bag currently is.
     """
 
     def __init__(self, screen: Screen, mediator: Mediator | None):
         self.screen = screen
         self.mediator = mediator
+        self.scene_name = ENTRANCE
 
         # Normal (right-facing) images
         self.bag_image_normal = load_image(
@@ -43,4 +45,6 @@ class Bag:
         """
         Draw the bag to the screen.
         """
-        self.screen.screen.blit(self.image, self.rect)
+        # Draw the bag only if it's in the current scene
+        if self.mediator and self.scene_name == self.mediator.current_scene:
+            self.screen.screen.blit(self.image, self.rect)
