@@ -25,6 +25,7 @@ Contains all audio assets:
 - `elevator.wav` - Sound effect for elevator scene
 - `music_yard.wav` - Music for yard scene
 - `sound_jump.wav` - Sound effect for yard scene
+- `tip.wav` - Sound effect for tip
 
 ### `graphics/`
 
