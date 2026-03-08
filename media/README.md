@@ -31,6 +31,10 @@ Contains all audio assets:
 
 Contains all visual assets organized by category:
 
+#### `font/`
+Contains font file:
+- `Pixeltype.ttf` - Pixel-style font used in the game
+
 #### `hotel/`
 
 Background images for different hotel scenes:
