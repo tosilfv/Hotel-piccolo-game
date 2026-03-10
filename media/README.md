@@ -39,7 +39,7 @@ Contains font file:
 
 Background images for different hotel scenes:
 - `entrance_normal.png` - Sky surface for entrance scene
-- `frontdesk_large.png` - Sky surface for front desk scene
+- `indoor_ground_normal.png` - Ground surface for indoor scenes
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
 - `yard_normal.png` - Sky surface for yard scene
 
