@@ -32,6 +32,7 @@ Contains all audio assets:
 Contains all visual assets organized by category:
 
 #### `font/`
+
 Contains font file:
 - `Pixeltype.ttf` - Pixel-style font used in the game
 
@@ -41,6 +42,7 @@ Background images for different hotel scenes:
 - `entrance_normal.png` - Sky surface for entrance scene
 - `indoor_ground_normal.png` - Ground surface for indoor scenes
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
+- `reception_normal.png` - Sky surface for reception scene
 - `yard_normal.png` - Sky surface for yard scene
 
 #### `items/`
