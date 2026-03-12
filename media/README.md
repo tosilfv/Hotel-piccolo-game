@@ -39,6 +39,10 @@ Contains font file:
 #### `hotel/`
 
 Background images for different hotel scenes:
+- `corridor_elevator_normal.png` - Sky surface for elevator scene
+- `corridor_empty_normal.png` - Sky surface for empty corridor scene
+- `corridor_rooms_normal.png` - Sky surface for rooms corridor scene
+- `corridor_suite_normal.png` - Sky surface for suite scene
 - `entrance_normal.png` - Sky surface for entrance scene
 - `indoor_ground_normal.png` - Ground surface for indoor scenes
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
