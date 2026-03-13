@@ -2,11 +2,6 @@
 
 This directory contains all media assets used in the Piccolo game.
 
-**Naming Convention:**
-
-- `*_normal.png` - Standard resolution images
-- `*_large.png` - Higher resolution images (for indoor scenes)
-
 ## Usage
 
 All images are loaded using the `helpers.load_image()` function from
@@ -39,14 +34,14 @@ Contains font file:
 #### `hotel/`
 
 Background images for different hotel scenes:
-- `corridor_elevator_normal.png` - Sky surface for elevator scene
-- `corridor_empty_normal.png` - Sky surface for empty corridor scene
-- `corridor_rooms_normal.png` - Sky surface for rooms corridor scene
-- `corridor_suite_normal.png` - Sky surface for suite scene
+- `corridor_elevator.png` - Sky surface for elevator scene
+- `corridor_empty.png` - Sky surface for empty corridor scene
+- `corridor_rooms.png` - Sky surface for rooms corridor scene
+- `corridor_suite.png` - Sky surface for suite scene
 - `entrance_normal.png` - Sky surface for entrance scene
-- `indoor_ground_normal.png` - Ground surface for indoor scenes
+- `indoor_ground.png` - Ground surface for indoor scenes
 - `outdoor_ground_normal.png` - Ground surface for outdoor scenes
-- `reception_normal.png` - Sky surface for reception scene
+- `reception.png` - Sky surface for reception scene
 - `yard_normal.png` - Sky surface for yard scene
 
 #### `items/`
