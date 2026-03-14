@@ -17,10 +17,10 @@ See the `LICENCE` file in this directory for licensing information.
 ### `audio/`
 
 Contains all audio assets:
-- `elevator.wav` - Sound effect for elevator scene
 - `music_yard.wav` - Music for yard scene
+- `sound_elevator.wav` - Sound effect for elevator scene
 - `sound_jump.wav` - Sound effect for yard scene
-- `tip.wav` - Sound effect for tip
+- `sound_tip.wav` - Sound effect for tip
 
 ### `graphics/`
 
