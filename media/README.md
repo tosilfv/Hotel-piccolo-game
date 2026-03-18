@@ -58,8 +58,6 @@ Background images for different hotel scenes:
 
 Item images for different actions
 - `bag_normal.png` - Bag (right-facing)
-- `bill_normal.png` - Bill (right-facing)
-- `coin_normal.png` - Coin (right-facing)
 - `trolley_empty_normal.png` - Empty trolley (right-facing)
 Item images for different actions
 - `bag.png` - Bag (right-facing)
