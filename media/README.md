@@ -38,16 +38,6 @@ Background images for different hotel scenes:
 - `corridor_empty.png` - Sky surface for empty corridor scene
 - `corridor_rooms.png` - Sky surface for rooms corridor scene
 - `corridor_suite.png` - Sky surface for suite scene
-- `entrance_normal.png` - Sky surface for entrance scene
-- `indoor_ground.png` - Ground surface for indoor scenes
-- `outdoor_ground_normal.png` - Ground surface for outdoor scenes
-- `reception.png` - Sky surface for reception scene
-- `yard_normal.png` - Sky surface for yard scene
-Background images for different hotel scenes:
-- `corridor_elevator.png` - Sky surface for elevator scene
-- `corridor_empty.png` - Sky surface for empty corridor scene
-- `corridor_rooms.png` - Sky surface for rooms corridor scene
-- `corridor_suite.png` - Sky surface for suite scene
 - `entrance.png` - Sky surface for entrance scene
 - `indoor_ground.png` - Ground surface for indoor scenes
 - `outdoor_ground.png` - Ground surface for outdoor scenes
@@ -57,9 +47,6 @@ Background images for different hotel scenes:
 #### `items/`
 
 Item images for different actions
-- `bag_normal.png` - Bag (right-facing)
-- `trolley_empty_normal.png` - Empty trolley (right-facing)
-Item images for different actions
 - `bag.png` - Bag (right-facing)
 - `bill.png` - Bill (right-facing)
 - `coin.png` - Coin (right-facing)
@@ -67,13 +54,6 @@ Item images for different actions
 
 #### `player/`
 
-Player character sprites for different states and directions:
-- `piccolo_left_run1_normal.png` - Running frame 1 (left-facing)
-- `piccolo_left_run2_normal.png` - Running frame 2 (left-facing)
-- `piccolo_left_stand_normal.png` - Standing (left-facing)
-- `piccolo_run1_normal.png` - Running frame 1 (right-facing)
-- `piccolo_run2_normal.png` - Running frame 2 (right-facing)
-- `piccolo_stand_normal.png` - Standing (right-facing)
 Player character sprites for different states and directions:
 - `piccolo_left_run1.png` - Running frame 1 (left-facing)
 - `piccolo_left_run2.png` - Running frame 2 (left-facing)
