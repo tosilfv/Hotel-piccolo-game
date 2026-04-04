@@ -24,16 +24,16 @@ class TestMediaFiles:
         self._init_pygame()
 
         files = [
-            self.HOTEL_DIR / "entrance_normal.png",
-            self.HOTEL_DIR / "outdoor_ground_normal.png",
-            self.HOTEL_DIR / "yard_normal.png",
-            self.ITEMS_DIR / "trolley_empty_normal.png",
-            self.PLAYER_DIR / "piccolo_left_run1_normal.png",
-            self.PLAYER_DIR / "piccolo_left_run2_normal.png",
-            self.PLAYER_DIR / "piccolo_left_stand_normal.png",
-            self.PLAYER_DIR / "piccolo_run1_normal.png",
-            self.PLAYER_DIR / "piccolo_run2_normal.png",
-            self.PLAYER_DIR / "piccolo_stand_normal.png",
+            self.HOTEL_DIR / "entrance.png",
+            self.HOTEL_DIR / "outdoor_ground.png",
+            self.HOTEL_DIR / "yard.png",
+            self.ITEMS_DIR / "trolley.png",
+            self.PLAYER_DIR / "piccolo_left_run1.png",
+            self.PLAYER_DIR / "piccolo_left_run2.png",
+            self.PLAYER_DIR / "piccolo_left_stand.png",
+            self.PLAYER_DIR / "piccolo_run1.png",
+            self.PLAYER_DIR / "piccolo_run2.png",
+            self.PLAYER_DIR / "piccolo_stand.png",
         ]
 
         for file_path in files:

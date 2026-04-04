@@ -23,14 +23,14 @@ class Bag:
         self.mediator = mediator
         self.scene_name = ENTRANCE
 
-        # Normal (right-facing) images
-        self.bag_image_normal = load_image(
+        # Right-facing images
+        self.bag_image = load_image(
             os.path.join(GRAPHICS_PATH,
                 "items",
-                "bag_normal.png"))
+                "bag.png"))
 
-        # Set initial surface (using normal size by default)
-        self.image = self.bag_image_normal
+        # Set initial surface
+        self.image = self.bag_image
 
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom=(BAG_X, GROUND_LEVEL))

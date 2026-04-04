@@ -102,6 +102,9 @@ pytest -v
 **[0.0.14] - Feb 27, 2026:**
 - Added bag image.
 
+**[0.0.15] - Apr 3, 2026:**
+- Finished game images.
+
 ## License
 
 This project is licensed under the MIT License.

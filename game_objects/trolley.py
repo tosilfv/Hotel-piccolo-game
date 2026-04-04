@@ -25,7 +25,7 @@ class Trolley:
         speed (int): Movement speed, used with player input.
         num_of_bags (int): TODO
         taken (bool): Whether trolley is taken by the player.
-        trolley_image_normal: Surface for trolley (right-facing) normal size.
+        trolley_image: Surface for trolley.
         image: Currently active image surface.
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
     """
@@ -38,14 +38,13 @@ class Trolley:
         self.num_of_bags = "TODO"
         self.taken = False
 
-        # Normal (right-facing) images
-        self.trolley_image_normal = load_image(
+        self.trolley_image = load_image(
             os.path.join(GRAPHICS_PATH,
                 "items",
-                "trolley_empty_normal.png"))
+                "trolley.png"))
 
-        # Set initial surface (using normal size by default)
-        self.image = self.trolley_image_normal
+        # Set initial surface
+        self.image = self.trolley_image
 
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom=(TROLLEY_X, GROUND_LEVEL))

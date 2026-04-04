@@ -20,7 +20,7 @@ GROUND_LEVEL = 324
 GROUND_X = ZERO
 GROUND_Y = GROUND_LEVEL - 4
 SKY_X = ZERO
-SKY_Y = -120
+SKY_Y = -110
 SOUNDS_PATH = os.path.join(
                 os.path.dirname(
                     os.path.dirname(

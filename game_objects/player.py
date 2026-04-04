@@ -31,10 +31,10 @@ class Player:
         jump_height (int): Current Y jump height of the player.
         jump_ceiling_y (int): Maximum height of the player jump.
         velocity_y (int): Current Y velocity of the player.
-        left_stand_image_normal: Surface for standing (left-facing) normal size.
-        left_running_images (list): List of piccolo running images for animation (left-facing) normal size.
-        stand_image_normal: Surface for standing (right-facing) normal size.
-        running_images (list): List of piccolo running images for animation (right-facing) normal size.
+        left_stand_image: Surface for standing (left-facing).
+        left_running_images (list): List of piccolo running images for animation (left-facing).
+        stand_image: Surface for standing (right-facing).
+        running_images (list): List of piccolo running images for animation (right-facing).
         running_frame (int): The frame which is either 0 or 1 for running_images list.
         image: Currently active image surface.
         rect: Pygame rect object for collision detection and determining where the image will be drawn.
@@ -50,43 +50,43 @@ class Player:
         self.jump_ceiling_y = JUMP_CEILING_Y
         self.velocity_y = ZERO
 
-        # Normal (left-facing) images
-        self.left_stand_image_normal = load_image(
+        # Left-facing images
+        self.left_stand_image = load_image(
             os.path.join(GRAPHICS_PATH,
                 "player",
-                "piccolo_left_stand_normal.png"))
+                "piccolo_left_stand.png"))
         self.left_running_images = [
             load_image(
                 os.path.join(GRAPHICS_PATH,
                     "player",
-                    "piccolo_left_run1_normal.png")),
+                    "piccolo_left_run1.png")),
             load_image(
                 os.path.join(GRAPHICS_PATH,
                     "player",
-                    "piccolo_left_run2_normal.png"))
+                    "piccolo_left_run2.png"))
         ]
 
-        # Normal (right-facing) images
-        self.stand_image_normal = load_image(
+        # Rright-facing images
+        self.stand_image = load_image(
             os.path.join(GRAPHICS_PATH,
                 "player",
-                "piccolo_stand_normal.png"))
+                "piccolo_stand.png"))
         self.running_images = [
             load_image(
                 os.path.join(GRAPHICS_PATH,
                     "player",
-                    "piccolo_run1_normal.png")),
+                    "piccolo_run1.png")),
             load_image(
                 os.path.join(GRAPHICS_PATH,
                     "player",
-                    "piccolo_run2_normal.png"))
+                    "piccolo_run2.png"))
         ]
 
         # Set running frame
         self.running_frame = 0
 
-        # Set initial surface (using normal size by default)
-        self.image = self.stand_image_normal
+        # Set initial surface
+        self.image = self.stand_image
 
         # Set initial rectangle object over surface and place it from midbottom
         self.rect = self.image.get_rect(midbottom = (PLAYER_X, GROUND_LEVEL))
@@ -164,10 +164,10 @@ class Player:
             # If facing left
             if self.is_left:
                 # Use standing image when not running
-                self.image = self.left_stand_image_normal
+                self.image = self.left_stand_image
             # If facing right
             else:
-                self.image = self.stand_image_normal
+                self.image = self.stand_image
 
         # DEBUG
         # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")

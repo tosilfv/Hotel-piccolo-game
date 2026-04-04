@@ -47,10 +47,10 @@ Background images for different hotel scenes:
 #### `items/`
 
 Item images for different actions
-- `bag.png` - Bag (right-facing)
-- `bill.png` - Bill (right-facing)
-- `coin.png` - Coin (right-facing)
-- `trolley_empty.png` - Empty trolley (right-facing)
+- `bag.png` - Bag
+- `bill.png` - Bill
+- `coin.png` - Coin
+- `trolley.png` - Trolley
 
 #### `player/`
 

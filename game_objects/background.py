@@ -34,17 +34,17 @@ class Background:
         self.entrance_ground_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
-                "outdoor_ground_normal.png"))
+                "outdoor_ground.png"))
         self.entrance_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
-                "entrance_normal.png"))
+                "entrance.png"))
         
         # Other surfaces
         self.yard_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
-                "yard_normal.png"))
+                "yard.png"))
 
         # Set initial surfaces
         self.ground_surf = self.entrance_ground_surf
