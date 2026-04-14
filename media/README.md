@@ -17,6 +17,7 @@ See the `LICENCE` file in this directory for licensing information.
 ### `audio/`
 
 Contains all audio assets:
+- `music_hotel.wav` - Music for indoor scenes
 - `music_yard.wav` - Music for yard scene
 - `sound_elevator.wav` - Sound effect for elevator scene
 - `sound_jump.wav` - Sound effect for yard scene
@@ -34,14 +35,30 @@ Contains font file:
 #### `hotel/`
 
 Background images for different hotel scenes:
-- `corridor_elevator.png` - Sky surface for elevator scene
+- `ballroom.png` - Sky surface for ballroom scene
+- `bar.png` - Sky surface for bar scene
+- `concierge.png` - Sky surface for concierge scene
+- `corridor_club.png` - Sky surface for corridor club scene
+- `corridor_deluxe.png` - Sky surface for corridor deluxe scene
 - `corridor_empty.png` - Sky surface for empty corridor scene
-- `corridor_rooms.png` - Sky surface for rooms corridor scene
+- `corridor_staff.png` - Sky surface for corridor staff scene
+- `corridor_standard.png` - Sky surface for corridor standard scene
 - `corridor_suite.png` - Sky surface for suite scene
+- `elevator.png` - Sky surface for elevator scene
 - `entrance.png` - Sky surface for entrance scene
+- `garage.png` - Sky surface for garage scene
 - `indoor_ground.png` - Ground surface for indoor scenes
+- `inside_garage.png` - Sky surface for inside garage scene
+- `inside_luggage.png` - Sky surface for inside luggage scene
+- `inside_staff.png` - Sky surface for inside staff scene
+- `luggage.png` - Sky surface for luggage scene
+- `luxusrestaurant.png` - Sky surface for luxusrestaurant scene
 - `outdoor_ground.png` - Ground surface for outdoor scenes
 - `reception.png` - Sky surface for reception scene
+- `restaurant.png` - Sky surface for restaurant scene
+- `sauna.png` - Sky surface for sauna scene
+- `services.png` - Sky surface for services scene
+- `sofas.png` - Sky surface for sofas scene
 - `yard.png` - Sky surface for yard scene
 
 #### `items/`
@@ -49,7 +66,11 @@ Background images for different hotel scenes:
 Item images for different actions
 - `bag.png` - Bag
 - `bill.png` - Bill
+- `carkeys.png` - Car keys
 - `coin.png` - Coin
+- `pillow.png` - Pillow
+- `trash1.png` - Trash version 1
+- `trash2.png` - Trash version 2
 - `trolley.png` - Trolley
 
 #### `player/`
