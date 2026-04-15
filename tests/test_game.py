@@ -12,6 +12,7 @@ class TestGame:
         self.player = Mock()
         self.player.rect = Mock()
         self.trolley = Mock()
+        self.bag = Mock()
         self.mediator = Mock()
         self.mediator.current_scene = Mock()
         self.mediator.move_trolley = Mock(return_value=(100, 200))
@@ -25,6 +26,7 @@ class TestGame:
             background=self.background,
             player=self.player,
             trolley=self.trolley,
+            bag=self.bag,
             mediator=self.mediator,
             input_handler=self.input_handler
         )
