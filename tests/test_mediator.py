@@ -20,6 +20,9 @@ class TestMediator:
 
         self.mock_trolley = Mock()
         self.mock_trolley.taken = False
+        
+        self.mock_bag = Mock()
+        self.mock_bag.taken = False
 
         self.mock_background = MagicMock()
         self.mock_background.change_background = MagicMock()
@@ -29,6 +32,7 @@ class TestMediator:
             self.mock_background,
             self.mock_player,
             self.mock_trolley,
+            self.mock_bag,
             self.mock_audio_manager
         )
 
