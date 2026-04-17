@@ -40,7 +40,7 @@ class TestConstants:
         assert GROUND_X == 0
         assert GROUND_Y == 320
         assert SKY_X == 0
-        assert SKY_Y == -120
+        assert SKY_Y == -110
         assert SOUNDS_PATH == os.path.join(
                     os.path.dirname(
                         os.path.dirname(
