@@ -1,5 +1,5 @@
 """Unit tests for Game factory creation"""
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, ANY
 from game_objects.background import Background
 from game_objects.player import Player
 from game_objects.screen import Screen
@@ -95,6 +95,7 @@ class TestGameFactory:
             self.background_instance,
             self.player_instance,
             self.trolley_instance,
+            ANY,
             self.audio_manager_instance
         )
         mock_input.assert_called_once_with(self.mediator_instance)
