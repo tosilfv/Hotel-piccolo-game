@@ -6,10 +6,11 @@ from utils.constants import (BAG_X, CAPTION,
                              EDGE_MARGIN, ENTRANCE, DISPLAY_SIZE, FIVE,
                              FRAMERATE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
                              GROUND_X, GROUND_Y, JUMP_HEIGHT, JUMP_CEILING_Y,
-                             MUSIC_YARD, PLAYER_X, PUSH_SPEED, RUN_ANIM_SPEED,
-                             SCREEN_HEIGHT, SCREEN_LEFT, SCREEN_WIDTH,
-                             SOUND_JUMP, SOUNDS_PATH, SOUND_VOLUME, SKY_X,
-                             SKY_Y, TEN, TROLLEY_X, WHITE, YARD, ZERO)
+                             MUSIC_YARD, PLAYER_X, PUSH_SPEED, RECEPTION,
+                             RUN_ANIM_SPEED, SCREEN_HEIGHT, SCREEN_LEFT,
+                             SCREEN_WIDTH, SOUND_JUMP, SOUNDS_PATH,
+                             SOUND_VOLUME, SKY_X, SKY_Y, TEN, TROLLEY_X, WHITE,
+                             YARD, ZERO)
 import os
 
 
@@ -27,9 +28,6 @@ class TestConstants:
 
     def test_background_constants(self):
         # Assert: enum names and background constants are correct
-        assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
-        assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
-        assert ENTRANCE == "entrance"
         assert GRAPHICS_PATH == os.path.join(
                     os.path.dirname(
                         os.path.dirname(
@@ -41,18 +39,9 @@ class TestConstants:
         assert GROUND_Y == 320
         assert SKY_X == 0
         assert SKY_Y == -110
-        assert SOUNDS_PATH == os.path.join(
-                    os.path.dirname(
-                        os.path.dirname(
-                            __file__)),
-                                "media",
-                                    "audio")
-        assert YARD == "yard"
 
     def test_configuration_constants(self):
-        assert MUSIC_YARD == "music_yard.wav"
         assert RUN_ANIM_SPEED == 10
-        assert SOUND_JUMP == "sound_jump.wav"
         assert SOUND_VOLUME == 0.3
         assert WHITE == (255, 255, 255)
 
@@ -70,6 +59,23 @@ class TestConstants:
         assert EDGE_MARGIN == 10
         assert FRAMERATE == 60
         assert SCREEN_LEFT == 0
+
+    def test_sound_constants(self):
+        assert MUSIC_YARD == "music_yard.wav"
+        assert SOUND_JUMP == "sound_jump.wav"
+        assert SOUNDS_PATH == os.path.join(
+                    os.path.dirname(
+                        os.path.dirname(
+                            __file__)),
+                                "media",
+                                    "audio")
+
+    def test_scene_constants(self):
+        assert Command.CHANGE_TO_ENTRANCE.name == "CHANGE_TO_ENTRANCE"
+        assert Command.CHANGE_TO_YARD.name == "CHANGE_TO_YARD"
+        assert ENTRANCE == "entrance"
+        assert RECEPTION == "reception"
+        assert YARD == "yard"
 
     def test_player_constants(self):
         assert GRAVITY == 1

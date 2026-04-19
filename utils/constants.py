@@ -9,7 +9,6 @@ TEN = 10
 ZERO = 0
 
 # Background
-ENTRANCE = "entrance"
 GRAPHICS_PATH = os.path.join(
                     os.path.dirname(
                         os.path.dirname(
@@ -21,18 +20,9 @@ GROUND_X = ZERO
 GROUND_Y = GROUND_LEVEL - 4
 SKY_X = ZERO
 SKY_Y = -110
-SOUNDS_PATH = os.path.join(
-                os.path.dirname(
-                    os.path.dirname(
-                        __file__)),
-                            "media",
-                                "audio")
-YARD = "yard"
 
 # Configuration
-MUSIC_YARD = "music_yard.wav"
 RUN_ANIM_SPEED = TEN
-SOUND_JUMP = "sound_jump.wav"
 SOUND_VOLUME = 0.3
 WHITE = (255, 255, 255)
 
@@ -50,6 +40,21 @@ DISPLAY_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 EDGE_MARGIN = TEN
 FRAMERATE = 60
 SCREEN_LEFT = 0
+
+# Sound
+MUSIC_YARD = "music_yard.wav"
+SOUND_JUMP = "sound_jump.wav"
+SOUNDS_PATH = os.path.join(
+                os.path.dirname(
+                    os.path.dirname(
+                        __file__)),
+                            "media",
+                                "audio")
+
+# Scene
+ENTRANCE = "entrance"
+RECEPTION = "reception"
+YARD = "yard"
 
 # Player
 GRAVITY = 1
