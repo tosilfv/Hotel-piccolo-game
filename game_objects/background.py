@@ -4,7 +4,7 @@ Background for the game.
 import os
 from game_objects.screen import Screen
 from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ENTRANCE,
-                             SKY_X, SKY_Y, YARD)
+                             RECEPTION, SKY_X, SKY_Y, YARD)
 from utils.helpers import load_image
 
 
@@ -20,7 +20,7 @@ class Background:
 
     Attributes:
         screen: Screen instance for drawing operations.
-        entrance_ground_surf: Ground surface for entrance scene.
+        outdoor_ground_surf: Ground surface for outdoor scenes.
         entrance_sky_surf: Sky surface for entrance scene.
         yard_sky_surf: Sky surface for yard scene.
         ground_surf: Currently active ground surface.
@@ -31,7 +31,7 @@ class Background:
         self.screen = screen
 
         # Initial background ground and sky surfaces (hotel entrance)
-        self.entrance_ground_surf = load_image(
+        self.outdoor_ground_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "outdoor_ground.png"))
@@ -41,13 +41,21 @@ class Background:
                 "entrance.png"))
         
         # Other surfaces
+        self.indoor_ground_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "indoor_ground.png"))
+        self.reception_sky_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "reception.png"))
         self.yard_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "yard.png"))
 
         # Set initial surfaces
-        self.ground_surf = self.entrance_ground_surf
+        self.ground_surf = self.outdoor_ground_surf
         self.sky_surf = self.entrance_sky_surf
 
     def change_background(self, scene: str) -> None:
@@ -58,10 +66,13 @@ class Background:
             scene (str): Scene string representing background surface.
         """
         if scene == ENTRANCE:
-            self.ground_surf = self.entrance_ground_surf
+            self.ground_surf = self.outdoor_ground_surf
             self.sky_surf = self.entrance_sky_surf
+        elif scene == RECEPTION:
+            self.ground_surf = self.indoor_ground_surf
+            self.sky_surf = self.reception_sky_surf
         elif scene == YARD:
-            self.ground_surf = self.entrance_ground_surf
+            self.ground_surf = self.outdoor_ground_surf
             self.sky_surf = self.yard_sky_surf
 
     def draw(self) -> None:
