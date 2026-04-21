@@ -4,8 +4,8 @@ Mediator pattern implementation for game object communication.
 from typing import Tuple
 from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
-                             PUSH_SPEED, SCREEN_WIDTH, SOUND_JUMP, TROLLEY_X,
-                             YARD)
+                             PUSH_SPEED, RECEPTION, SCREEN_WIDTH, SOUND_JUMP,
+                             TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -42,6 +42,7 @@ class Mediator:
         self.audio_manager = audio_manager
         self._commands = {
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
+            Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
             Command.JUMP: (self.player.jump, False),
             Command.MOVE_LEFT: (self.player.move_left, True),
@@ -62,6 +63,23 @@ class Mediator:
         # Set and change current scene and background to entrance
         self.current_scene = ENTRANCE
         self.background.change_background(ENTRANCE)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_reception(self) -> None:
+        """
+        Changes background to reception scene.
+        """
+        # If player is already at reception scene then return
+        if self.current_scene == RECEPTION:
+            return
+
+        # Set and change current scene and background to reception
+        self.current_scene = RECEPTION
+        self.background.change_background(RECEPTION)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
@@ -139,6 +157,10 @@ class Mediator:
         # Set constants
         screen_width = SCREEN_WIDTH
 
+        # Set front door edge values and save current scene
+        at_front_door_left_edge = (left <= 300)
+        at_front_door_right_edge = (right >= 200)
+
         # Set left and right edge values and save current scene
         at_left_edge = (left <= EDGE_MARGIN)
         at_right_edge = (right >= screen_width - EDGE_MARGIN)
@@ -164,6 +186,8 @@ class Mediator:
         # Change scene using mediator commands
         if self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
+        elif self.current_scene == ENTRANCE:
+            self.handle_command(Command.CHANGE_TO_RECEPTION)
         elif self.current_scene == YARD:
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
         else:

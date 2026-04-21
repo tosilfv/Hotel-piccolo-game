@@ -16,6 +16,7 @@ class Command(Enum):
     """
 
     CHANGE_TO_ENTRANCE = auto()
+    CHANGE_TO_RECEPTION = auto()
     CHANGE_TO_YARD = auto()
     JUMP = auto()
     MOVE_LEFT = auto()
