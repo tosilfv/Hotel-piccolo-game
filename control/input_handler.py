@@ -40,6 +40,10 @@ class InputHandler:
         elif keys[pygame.K_RIGHT]:
             self.mediator.handle_command(Command.MOVE_RIGHT)
 
+        # Up
+        elif keys[pygame.K_UP]:
+            self.mediator.handle_command(Command.MOVE_UP)
+
         # Jump
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(Command.JUMP)
