@@ -158,8 +158,11 @@ class Mediator:
         screen_width = SCREEN_WIDTH
 
         # Set front door edge values and save current scene
-        at_front_door_left_edge = (left <= 300)
-        at_front_door_right_edge = (right >= 200)
+        at_front_door = (left >= 230 and left <= 460)
+
+        # Debug front door edges
+        # if at_front_door:
+        #     print("At FRONT DOOR!")
 
         # Set left and right edge values and save current scene
         at_left_edge = (left <= EDGE_MARGIN)

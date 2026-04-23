@@ -170,7 +170,8 @@ class Player:
                 self.image = self.stand_image
 
         # DEBUG
-        # print(f"Position: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")
+        # print(f"Position X: {self.rect.x}")
+        # print(f"Position Y: {self.rect.y}, Velocity: {self.velocity_y}, Jumping: {self.is_jumping}, , Running: {running}")
         # print(f"Foot Y: {self.rect.bottom}")
 
     def draw(self) -> None:
