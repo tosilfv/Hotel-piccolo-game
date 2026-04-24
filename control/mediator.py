@@ -44,6 +44,7 @@ class Mediator:
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
+            Command.ENTER_DOOR: (self.enter_door, False),
             Command.JUMP: (self.player.jump, False),
             Command.MOVE_LEFT: (self.player.move_left, True),
             Command.MOVE_RIGHT: (self.player.move_right, True),
@@ -157,13 +158,6 @@ class Mediator:
         # Set constants
         screen_width = SCREEN_WIDTH
 
-        # Set front door edge values and save current scene
-        at_front_door = (left >= 230 and left <= 460)
-
-        # Debug front door edges
-        # if at_front_door:
-        #     print("At FRONT DOOR!")
-
         # Set left and right edge values and save current scene
         at_left_edge = (left <= EDGE_MARGIN)
         at_right_edge = (right >= screen_width - EDGE_MARGIN)
@@ -201,6 +195,31 @@ class Mediator:
             self.player.rect.left = margin + FIVE
         else:
             self.player.rect.right = screen_width - margin - FIVE
+
+    def enter_door(self) -> None:
+        """
+        Enter reception when player is at the front door and presses up.
+        """
+        if self.current_scene != ENTRANCE:
+            return
+
+        try:
+            left = self.player.rect.left
+        except AttributeError:
+            return
+
+        if not isinstance(left, (int, float)):
+            return
+
+        at_front_door = (left >= 230 and left <= 460)
+
+        if not at_front_door:
+            return
+
+        self.handle_command(Command.CHANGE_TO_RECEPTION)
+
+        # Spawn player inside reception
+        self.player.rect.left = EDGE_MARGIN + FIVE
 
     def take_trolley(self) -> None:
         """
