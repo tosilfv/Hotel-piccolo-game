@@ -44,6 +44,10 @@ class InputHandler:
         elif keys[pygame.K_UP]:
             self.mediator.handle_command(Command.ENTER_DOOR)
 
+        # Down
+        elif keys[pygame.K_DOWN]:
+            self.mediator.handle_command(Command.EXIT_DOOR)
+
         # Jump
         if keys[pygame.K_SPACE]:
             self.mediator.handle_command(Command.JUMP)
