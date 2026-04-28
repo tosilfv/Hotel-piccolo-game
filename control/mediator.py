@@ -45,6 +45,7 @@ class Mediator:
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
             Command.ENTER_DOOR: (self.enter_door, False),
+            Command.EXIT_DOOR: (self.exit_door, False),
             Command.JUMP: (self.player.jump, False),
             Command.MOVE_LEFT: (self.player.move_left, True),
             Command.MOVE_RIGHT: (self.player.move_right, True),
@@ -218,7 +219,32 @@ class Mediator:
 
         self.handle_command(Command.CHANGE_TO_RECEPTION)
 
-        # Spawn player inside reception
+        # Spawn player into reception
+        self.player.rect.left = EDGE_MARGIN + FIVE
+
+    def exit_door(self) -> None:
+        """
+        Exit reception when player is at the front door and presses down.
+        """
+        if self.current_scene != RECEPTION:
+            return
+
+        try:
+            left = self.player.rect.left
+        except AttributeError:
+            return
+
+        if not isinstance(left, (int, float)):
+            return
+
+        at_front_door = (left >= 230 and left <= 460)
+
+        if not at_front_door:
+            return
+
+        self.handle_command(Command.CHANGE_TO_ENTRANCE)
+
+        # Spawn player into entrance
         self.player.rect.left = EDGE_MARGIN + FIVE
 
     def take_trolley(self) -> None:
