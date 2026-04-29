@@ -220,7 +220,7 @@ class Mediator:
         self.handle_command(Command.CHANGE_TO_RECEPTION)
 
         # Spawn player into reception
-        self.player.rect.left = EDGE_MARGIN + FIVE
+        self.player.rect.left = 400
 
     def exit_door(self) -> None:
         """
@@ -245,7 +245,7 @@ class Mediator:
         self.handle_command(Command.CHANGE_TO_ENTRANCE)
 
         # Spawn player into entrance
-        self.player.rect.left = EDGE_MARGIN + FIVE
+        self.player.rect.left = 400
 
     def take_trolley(self) -> None:
         """
