@@ -57,6 +57,7 @@ RECEPTION = "reception"
 YARD = "yard"
 
 # Player
+CENTER = 400
 GRAVITY = 1
 JUMP_HEIGHT = -TEN
 JUMP_CEILING_Y = 200
