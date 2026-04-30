@@ -3,7 +3,7 @@ Mediator pattern implementation for game object communication.
 """
 from typing import Tuple
 from utils.commands import Command
-from utils.constants import (EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
+from utils.constants import (CENTER, EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
                              PUSH_SPEED, RECEPTION, SCREEN_WIDTH, SOUND_JUMP,
                              TROLLEY_X, YARD)
 
@@ -220,7 +220,7 @@ class Mediator:
         self.handle_command(Command.CHANGE_TO_RECEPTION)
 
         # Spawn player into reception
-        self.player.rect.left = 400
+        self.player.rect.left = CENTER
 
     def exit_door(self) -> None:
         """
@@ -245,7 +245,7 @@ class Mediator:
         self.handle_command(Command.CHANGE_TO_ENTRANCE)
 
         # Spawn player into entrance
-        self.player.rect.left = 400
+        self.player.rect.left = CENTER
 
     def take_trolley(self) -> None:
         """
