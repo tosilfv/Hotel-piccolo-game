@@ -1,6 +1,6 @@
 """Unit tests for constants.py"""
 from utils.commands import Command
-from utils.constants import (BAG_X, CAPTION, 
+from utils.constants import (BAG_X, CAPTION, CENTER,
                              DEFAULT_FONT_SIZE, DEFAULT_SURFACE_COLOR,
                              DEFAULT_SURFACE_SIZE, DEFAULT_TEXT_SURFACE_SIZE,
                              EDGE_MARGIN, ENTRANCE, DISPLAY_SIZE, FIVE,
@@ -78,6 +78,7 @@ class TestConstants:
         assert YARD == "yard"
 
     def test_player_constants(self):
+        assert CENTER == 400
         assert GRAVITY == 1
         assert JUMP_HEIGHT == -10
         assert JUMP_CEILING_Y == 200
