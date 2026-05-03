@@ -47,6 +47,17 @@ class TestInputHandler:
             # Assert
             self.mediator.handle_command.assert_called_once_with(Command.ENTER_DOOR)
 
+    def test_down_key_triggers_exit_door_command(self):
+        # Setup
+        with patch('pygame.key.get_pressed') as mock_keys:
+            mock_keys.return_value = {pygame.K_LEFT: False, pygame.K_RIGHT: False, pygame.K_UP: False, pygame.K_DOWN: True, pygame.K_SPACE: False, pygame.K_RETURN: False, pygame.K_RSHIFT: False}
+
+            # Action
+            self.input_handler.process_input()
+
+            # Assert
+            self.mediator.handle_command.assert_called_once_with(Command.EXIT_DOOR)
+
     def test_space_key_triggers_jump_command(self):
         # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
