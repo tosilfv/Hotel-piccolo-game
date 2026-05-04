@@ -80,6 +80,17 @@ class TestInputHandler:
             # Assert
             self.mediator.handle_command.assert_called_once_with(Command.TAKE_TROLLEY)
 
+    def test_rshift_key_triggers_release_trolley_command(self):
+        # Setup
+        with patch('pygame.key.get_pressed') as mock_keys:
+            mock_keys.return_value = {pygame.K_LEFT: False, pygame.K_RIGHT: False, pygame.K_UP: False, pygame.K_DOWN: False, pygame.K_SPACE: False, pygame.K_RETURN: False, pygame.K_RSHIFT: True}
+
+            # Action
+            self.input_handler.process_input()
+
+            # Assert
+            self.mediator.handle_command.assert_called_once_with(Command.RELEASE_TROLLEY)
+
     def test_no_keys_triggers_no_command(self):
         # Setup
         with patch('pygame.key.get_pressed') as mock_keys:
