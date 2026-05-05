@@ -56,19 +56,27 @@ class TestBackground:
             mock_load: patched load_image mock
         """
         # Setup: simple mock objects for surfaces
-        entrance_ground = object()
+        outdoor_ground = object()
         entrance_sky = object()
+        indoor_ground = object()
+        reception_sky = object()
         yard_sky = object()
-        mock_load.side_effect = [entrance_ground, entrance_sky, yard_sky]
+        mock_load.side_effect = [
+            outdoor_ground,
+            entrance_sky,
+            indoor_ground,
+            reception_sky,
+            yard_sky,
+        ]
 
         background = Background(self.screen)
 
         # Action & assert: change to YARD scene
         background.change_background(YARD)
-        assert background.ground_surf == entrance_ground
+        assert background.ground_surf == outdoor_ground
         assert background.sky_surf == yard_sky
 
         # Action & assert: change back to ENTRANCE scene
         background.change_background(ENTRANCE)
-        assert background.ground_surf == entrance_ground
+        assert background.ground_surf == outdoor_ground
         assert background.sky_surf == entrance_sky
