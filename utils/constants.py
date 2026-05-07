@@ -52,6 +52,7 @@ SOUNDS_PATH = os.path.join(
                                 "audio")
 
 # Scene
+ELEVATOR = "elevator"
 ENTRANCE = "entrance"
 RECEPTION = "reception"
 YARD = "yard"
