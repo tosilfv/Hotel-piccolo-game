@@ -3,8 +3,8 @@ Background for the game.
 """
 import os
 from game_objects.screen import Screen
-from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ENTRANCE,
-                             RECEPTION, SKY_X, SKY_Y, YARD)
+from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ELEVATOR,
+                             ENTRANCE, RECEPTION, SKY_X, SKY_Y, YARD)
 from utils.helpers import load_image
 
 
@@ -69,7 +69,10 @@ class Background:
         Args:
             scene (str): Scene string representing background surface.
         """
-        if scene == ENTRANCE:
+        if scene == ELEVATOR:
+            self.ground_surf = self.indoor_ground_surf
+            self.sky_surf = self.elevator_sky_surf
+        elif scene == ENTRANCE:
             self.ground_surf = self.outdoor_ground_surf
             self.sky_surf = self.entrance_sky_surf
         elif scene == RECEPTION:
