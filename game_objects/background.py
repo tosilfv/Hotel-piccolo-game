@@ -22,6 +22,9 @@ class Background:
         screen: Screen instance for drawing operations.
         outdoor_ground_surf: Ground surface for outdoor scenes.
         entrance_sky_surf: Sky surface for entrance scene.
+        indoor_ground_surf: Ground surface for indoor scenes.
+        elevator_sky_surf: Sky surface for elevator scene.
+        reception_sky_surf: Sky surface for reception scene.
         yard_sky_surf: Sky surface for yard scene.
         ground_surf: Currently active ground surface.
         sky_surf: Currently active sky surface.
