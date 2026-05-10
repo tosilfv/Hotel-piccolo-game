@@ -62,4 +62,4 @@ class InputHandler:
 
         # Not moving reset command
         if not any(keys):
-            self.mediator.handle_command(Command.STOP)
+            self.mediator.handle_command(Command.STOP_MOVING)
