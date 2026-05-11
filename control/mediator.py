@@ -3,9 +3,9 @@ Mediator pattern implementation for game object communication.
 """
 from typing import Tuple
 from utils.commands import Command
-from utils.constants import (CENTER, EDGE_MARGIN, ENTRANCE, FIVE, MUSIC_YARD,
-                             PUSH_SPEED, RECEPTION, SCREEN_WIDTH, SOUND_JUMP,
-                             TROLLEY_X, YARD)
+from utils.constants import (CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE, FIVE,
+                             MUSIC_YARD, PUSH_SPEED, RECEPTION, SCREEN_WIDTH,
+                             SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -53,6 +53,23 @@ class Mediator:
             Command.RELEASE_TROLLEY: (self.release_trolley, False),
             Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
+
+    def change_to_elevator(self) -> None:
+        """
+        Changes background to elevator scene.
+        """
+        # If player is already at elevator scene then return
+        if self.current_scene == ELEVATOR:
+            return
+
+        # Set and change current scene and background to elevator
+        self.current_scene = RECEPTION
+        self.background.change_background(ELEVATOR)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
 
     def change_to_entrance(self) -> None:
         """
