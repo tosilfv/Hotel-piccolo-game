@@ -41,6 +41,7 @@ class Mediator:
         self.bag = bag
         self.audio_manager = audio_manager
         self._commands = {
+            Command.CHANGE_TO_ELEVATOR: (self.change_to_elevator, False),
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
