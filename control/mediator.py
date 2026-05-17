@@ -200,12 +200,12 @@ class Mediator:
             margin (int): The margin between player and screen edge.
         """
         # Change scene using mediator commands
-        # Exit ELEVATOR to Left
+        # Exit ELEVATOR from Left to RECEPTION
         if self.current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
-        # Exit RECEPTION to Right
+        # Exit RECEPTION from Right to ELEVATOR
         elif self.current_scene == RECEPTION and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
         elif self.current_scene == YARD:
