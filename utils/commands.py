@@ -18,6 +18,7 @@ class Command(Enum):
     CHANGE_TO_ELEVATOR = auto()
     CHANGE_TO_ENTRANCE = auto()
     CHANGE_TO_RECEPTION = auto()
+    CHANGE_TO_SOFAS = auto()
     CHANGE_TO_YARD = auto()
     ENTER_DOOR = auto()
     EXIT_DOOR = auto()
