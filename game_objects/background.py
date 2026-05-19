@@ -56,6 +56,10 @@ class Background:
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "reception.png"))
+        self.sofas_sky_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "sofas.png"))
         self.yard_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
