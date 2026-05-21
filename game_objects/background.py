@@ -4,7 +4,7 @@ Background for the game.
 import os
 from game_objects.screen import Screen
 from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ELEVATOR,
-                             ENTRANCE, RECEPTION, SKY_X, SKY_Y, YARD)
+                             ENTRANCE, RECEPTION, SKY_X, SKY_Y, SOFAS, YARD)
 from utils.helpers import load_image
 
 
@@ -85,6 +85,9 @@ class Background:
         elif scene == RECEPTION:
             self.ground_surf = self.indoor_ground_surf
             self.sky_surf = self.reception_sky_surf
+        elif scene == SOFAS:
+            self.ground_surf = self.indoor_ground_surf
+            self.sky_surf = self.sofas_sky_surf
         elif scene == YARD:
             self.ground_surf = self.outdoor_ground_surf
             self.sky_surf = self.yard_sky_surf
