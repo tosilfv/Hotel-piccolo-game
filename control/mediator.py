@@ -5,7 +5,7 @@ from typing import Tuple
 from utils.commands import Command
 from utils.constants import (CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE, FIVE,
                              MUSIC_YARD, PUSH_SPEED, RECEPTION, SCREEN_WIDTH,
-                             SOUND_JUMP, TROLLEY_X, YARD)
+                             SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -44,6 +44,7 @@ class Mediator:
             Command.CHANGE_TO_ELEVATOR: (self.change_to_elevator, False),
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
+            Command.CHANGE_TO_SOFAS: (self.change_to_sofas, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
             Command.ENTER_DOOR: (self.enter_door, False),
             Command.EXIT_DOOR: (self.exit_door, False),
@@ -100,6 +101,23 @@ class Mediator:
         # Set and change current scene and background to reception
         self.current_scene = RECEPTION
         self.background.change_background(RECEPTION)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_sofas(self) -> None:
+        """
+        Changes background to sofas scene.
+        """
+        # If player is already at sofas scene then return
+        if self.current_scene == SOFAS:
+            return
+
+        # Set and change current scene and background to sofas
+        self.current_scene = SOFAS
+        self.background.change_background(SOFAS)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
