@@ -221,11 +221,16 @@ class Mediator:
         # Exit ELEVATOR from Left to RECEPTION
         if self.current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
+        # Exit ENTRANCE from Left or Right to YARD
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
+        # Exit RECEPTION from Left to SOFAS
+        elif self.current_scene == RECEPTION and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_SOFAS)
         # Exit RECEPTION from Right to ELEVATOR
         elif self.current_scene == RECEPTION and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
+        # Exit YARD from Left or Right to ENTRANCE
         elif self.current_scene == YARD:
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
         else:
