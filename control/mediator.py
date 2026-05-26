@@ -4,8 +4,8 @@ Mediator pattern implementation for game object communication.
 from typing import Tuple
 from utils.commands import Command
 from utils.constants import (CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE, FIVE,
-                             MUSIC_YARD, PUSH_SPEED, RECEPTION, SCREEN_WIDTH,
-                             SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
+                             LUGGAGE, MUSIC_YARD, PUSH_SPEED, RECEPTION,
+                             SCREEN_WIDTH, SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -43,6 +43,7 @@ class Mediator:
         self._commands = {
             Command.CHANGE_TO_ELEVATOR: (self.change_to_elevator, False),
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
+            Command.CHANGE_TO_LUGGAGE: (self.change_to_luggage, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_SOFAS: (self.change_to_sofas, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
@@ -84,6 +85,23 @@ class Mediator:
         # Set and change current scene and background to entrance
         self.current_scene = ENTRANCE
         self.background.change_background(ENTRANCE)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_luggage(self) -> None:
+        """
+        Changes background to luggage scene.
+        """
+        # If player is already at luggage scene then return
+        if self.current_scene == LUGGAGE:
+            return
+
+        # Set and change current scene and background to luggage
+        self.current_scene = LUGGAGE
+        self.background.change_background(LUGGAGE)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
@@ -224,12 +242,21 @@ class Mediator:
         # Exit ENTRANCE from Left or Right to YARD
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
+        # Exit LUGGAGE from Right to SOFAS
+        elif self.current_scene == LUGGAGE and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_SOFAS)
         # Exit RECEPTION from Left to SOFAS
         elif self.current_scene == RECEPTION and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_SOFAS)
         # Exit RECEPTION from Right to ELEVATOR
         elif self.current_scene == RECEPTION and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
+        # Exit SOFAS from Left to LUGGAGE
+        elif self.current_scene == SOFAS and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_LUGGAGE)
+        # Exit SOFAS from Right to RECEPTION
+        elif self.current_scene == SOFAS and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_RECEPTION)
         # Exit YARD from Left or Right to ENTRANCE
         elif self.current_scene == YARD:
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
