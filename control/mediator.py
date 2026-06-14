@@ -3,8 +3,8 @@ Mediator pattern implementation for game object communication.
 """
 from typing import Tuple
 from utils.commands import Command
-from utils.constants import (CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE, FIVE,
-                             GARAGE, LUGGAGE, MUSIC_YARD, PUSH_SPEED,
+from utils.constants import (BALLROOM, CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE,
+                             FIVE, GARAGE, LUGGAGE, MUSIC_YARD, PUSH_SPEED,
                              RECEPTION, SCREEN_WIDTH, SOFAS, SOUND_JUMP,
                              TROLLEY_X, YARD)
 
@@ -42,6 +42,7 @@ class Mediator:
         self.bag = bag
         self.audio_manager = audio_manager
         self._commands = {
+            Command.CHANGE_TO_BALLROOM: (self.change_to_ballroom, False),
             Command.CHANGE_TO_ELEVATOR: (self.change_to_elevator, False),
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_GARAGE: (self.change_to_garage, False),
@@ -58,6 +59,23 @@ class Mediator:
             Command.RELEASE_TROLLEY: (self.release_trolley, False),
             Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
+
+    def change_to_ballroom(self) -> None:
+        """
+        Changes background to ballroom scene.
+        """
+        # If player is already at ballroom scene then return
+        if self.current_scene == BALLROOM:
+            return
+
+        # Set and change current scene and background to ballroom
+        self.current_scene = BALLROOM
+        self.background.change_background(BALLROOM)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
 
     def change_to_elevator(self) -> None:
         """
@@ -255,12 +273,18 @@ class Mediator:
             margin (int): The margin between player and screen edge.
         """
         # Change scene using mediator commands
+        # Exit BALLROOM from Right to GARAGE
+        if self.current_scene == BALLROOM and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_GARAGE)
         # Exit ELEVATOR from Left to RECEPTION
-        if self.current_scene == ELEVATOR and not spawn_on_left:
+        elif self.current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
         # Exit ENTRANCE from Left or Right to YARD
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
+        # Exit GARAGE from Left to BALLROOM
+        elif self.current_scene == GARAGE and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_BALLROOM)
         # Exit GARAGE from Right to LUGGAGE
         elif self.current_scene == GARAGE and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
