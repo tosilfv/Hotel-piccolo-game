@@ -15,6 +15,7 @@ class Command(Enum):
     independent of concrete input devices or key bindings.
     """
 
+    CHANGE_TO_BALLROOM = auto()
     CHANGE_TO_ELEVATOR = auto()
     CHANGE_TO_ENTRANCE = auto()
     CHANGE_TO_GARAGE = auto()
