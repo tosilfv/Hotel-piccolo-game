@@ -3,9 +3,9 @@ Background for the game.
 """
 import os
 from game_objects.screen import Screen
-from utils.constants import (GRAPHICS_PATH, GROUND_X, GROUND_Y, ELEVATOR,
-                             ENTRANCE, GARAGE, LUGGAGE, RECEPTION, SKY_X,
-                             SKY_Y, SOFAS, YARD)
+from utils.constants import (BALLROOM, GRAPHICS_PATH, GROUND_X, GROUND_Y,
+                             ELEVATOR, ENTRANCE, GARAGE, LUGGAGE, RECEPTION,
+                             SKY_X, SKY_Y, SOFAS, YARD)
 from utils.helpers import load_image
 
 
@@ -24,6 +24,7 @@ class Background:
         outdoor_ground_surf: Ground surface for outdoor scenes.
         entrance_sky_surf: Sky surface for entrance scene.
         indoor_ground_surf: Ground surface for indoor scenes.
+        ballroom_sky_surf: Sky surface for ballroom scene.
         elevator_sky_surf: Sky surface for elevator scene.
         garage_sky_surf: Sky surface for garage scene.
         luggage_sky_surf: Sky surface for luggage scene.
@@ -52,6 +53,10 @@ class Background:
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "indoor_ground.png"))
+        self.ballroom_sky_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "ballroom.png"))
         self.elevator_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
@@ -88,7 +93,10 @@ class Background:
         Args:
             scene (str): Scene string representing background surface.
         """
-        if scene == ELEVATOR:
+        if scene == BALLROOM:
+            self.ground_surf = self.indoor_ground_surf
+            self.sky_surf = self.ballroom_sky_surf
+        elif scene == ELEVATOR:
             self.ground_surf = self.indoor_ground_surf
             self.sky_surf = self.elevator_sky_surf
         elif scene == ENTRANCE:
