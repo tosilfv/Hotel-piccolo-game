@@ -3,10 +3,10 @@ Mediator pattern implementation for game object communication.
 """
 from typing import Tuple
 from utils.commands import Command
-from utils.constants import (BALLROOM, CENTER, EDGE_MARGIN, ELEVATOR, ENTRANCE,
-                             FIVE, GARAGE, LUGGAGE, MUSIC_YARD, PUSH_SPEED,
-                             RECEPTION, SCREEN_WIDTH, SOFAS, SOUND_JUMP,
-                             TROLLEY_X, YARD)
+from utils.constants import (BALLROOM, BAR, CENTER, EDGE_MARGIN, ELEVATOR,
+                             ENTRANCE, FIVE, GARAGE, LUGGAGE, MUSIC_YARD,
+                             PUSH_SPEED, RECEPTION, SCREEN_WIDTH, SOFAS,
+                             SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -43,6 +43,7 @@ class Mediator:
         self.audio_manager = audio_manager
         self._commands = {
             Command.CHANGE_TO_BALLROOM: (self.change_to_ballroom, False),
+            Command.CHANGE_TO_BAR: (self.change_to_bar, False),
             Command.CHANGE_TO_ELEVATOR: (self.change_to_elevator, False),
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_GARAGE: (self.change_to_garage, False),
@@ -71,6 +72,23 @@ class Mediator:
         # Set and change current scene and background to ballroom
         self.current_scene = BALLROOM
         self.background.change_background(BALLROOM)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_bar(self) -> None:
+        """
+        Changes background to bar scene.
+        """
+        # If player is already at bar scene then return
+        if self.current_scene == BAR:
+            return
+
+        # Set and change current scene and background to bar
+        self.current_scene = BAR
+        self.background.change_background(BAR)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
@@ -279,6 +297,12 @@ class Mediator:
         # Exit ELEVATOR from Left to RECEPTION
         elif self.current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
+        # Exit ELEVATOR from Right to BAR
+        elif self.current_scene == ELEVATOR and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_BAR)
+        # Exit BAR from Left to ELEVATOR
+        elif self.current_scene == BAR and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_ELEVATOR)
         # Exit ENTRANCE from Left or Right to YARD
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
