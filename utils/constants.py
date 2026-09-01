@@ -59,6 +59,7 @@ ENTRANCE = "entrance"
 GARAGE = "garage"
 LUGGAGE = "luggage"
 RECEPTION = "reception"
+RESTAURANT = "restaurant"
 SOFAS = "sofas"
 YARD = "yard"
 
