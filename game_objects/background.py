@@ -5,7 +5,7 @@ import os
 from game_objects.screen import Screen
 from utils.constants import (BALLROOM, BAR, GRAPHICS_PATH, GROUND_X, GROUND_Y,
                              ELEVATOR, ENTRANCE, GARAGE, LUGGAGE, RECEPTION,
-                             SKY_X, SKY_Y, SOFAS, YARD)
+                             RESTAURANT, SKY_X, SKY_Y, SOFAS, YARD)
 from utils.helpers import load_image
 
 
@@ -30,7 +30,8 @@ class Background:
         garage_sky_surf: Sky surface for garage scene.
         luggage_sky_surf: Sky surface for luggage scene.
         reception_sky_surf: Sky surface for reception scene.
-        sofas_sky_surf: Sofas surface for reception scene.
+        restaurant_sky_surf: Sky surface for restaurant scene.
+        sofas_sky_surf: Sky surface for sofas scene.
         yard_sky_surf: Sky surface for yard scene.
         ground_surf: Currently active ground surface.
         sky_surf: Currently active sky surface.
@@ -78,6 +79,10 @@ class Background:
             os.path.join(GRAPHICS_PATH,
                 "hotel",
                 "reception.png"))
+        self.restaurant_sky_surf = load_image(
+            os.path.join(GRAPHICS_PATH,
+                "hotel",
+                "restaurant.png"))
         self.sofas_sky_surf = load_image(
             os.path.join(GRAPHICS_PATH,
                 "hotel",
@@ -119,6 +124,9 @@ class Background:
         elif scene == RECEPTION:
             self.ground_surf = self.indoor_ground_surf
             self.sky_surf = self.reception_sky_surf
+        elif scene == RESTAURANT:
+            self.ground_surf = self.indoor_ground_surf
+            self.sky_surf = self.restaurant_sky_surf
         elif scene == SOFAS:
             self.ground_surf = self.indoor_ground_surf
             self.sky_surf = self.sofas_sky_surf
