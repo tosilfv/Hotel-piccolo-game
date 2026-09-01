@@ -5,8 +5,8 @@ from typing import Tuple
 from utils.commands import Command
 from utils.constants import (BALLROOM, BAR, CENTER, EDGE_MARGIN, ELEVATOR,
                              ENTRANCE, FIVE, GARAGE, LUGGAGE, MUSIC_YARD,
-                             PUSH_SPEED, RECEPTION, SCREEN_WIDTH, SOFAS,
-                             SOUND_JUMP, TROLLEY_X, YARD)
+                             PUSH_SPEED, RECEPTION, RESTAURANT, SCREEN_WIDTH,
+                             SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -49,6 +49,7 @@ class Mediator:
             Command.CHANGE_TO_GARAGE: (self.change_to_garage, False),
             Command.CHANGE_TO_LUGGAGE: (self.change_to_luggage, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
+            Command.CHANGE_TO_RESTAURANT: (self.change_to_restaurant, False),
             Command.CHANGE_TO_SOFAS: (self.change_to_sofas, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
             Command.ENTER_DOOR: (self.enter_door, False),
@@ -180,6 +181,23 @@ class Mediator:
         if self.trolley.taken:
             self.trolley.scene_name = self.current_scene
 
+    def change_to_restaurant(self) -> None:
+        """
+        Changes background to restaurant scene.
+        """
+        # If player is already at restaurant scene then return
+        if self.current_scene == RESTAURANT:
+            return
+
+        # Set and change current scene and background to restaurant
+        self.current_scene = RESTAURANT
+        self.background.change_background(RESTAURANT)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
     def change_to_sofas(self) -> None:
         """
         Changes background to sofas scene.
@@ -303,6 +321,9 @@ class Mediator:
         # Exit BAR from Left to ELEVATOR
         elif self.current_scene == BAR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
+        # Exit BAR from Right to RESTAURANT
+        elif self.current_scene == BAR and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_RESTAURANT)
         # Exit ENTRANCE from Left or Right to YARD
         elif self.current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
@@ -324,6 +345,9 @@ class Mediator:
         # Exit RECEPTION from Right to ELEVATOR
         elif self.current_scene == RECEPTION and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
+        # Exit RESTAURANT from Left to BAR
+        elif self.current_scene == RESTAURANT and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_BAR)
         # Exit SOFAS from Left to LUGGAGE
         elif self.current_scene == SOFAS and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
