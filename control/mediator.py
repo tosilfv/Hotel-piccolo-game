@@ -6,7 +6,8 @@ from utils.commands import Command
 from utils.constants import (BALLROOM, BAR, CENTER, CONCIERGE, EDGE_MARGIN,
                              ELEVATOR, ENTRANCE, FIVE, GARAGE, LUGGAGE,
                              MUSIC_YARD, PUSH_SPEED, RECEPTION, RESTAURANT,
-                             SCREEN_WIDTH, SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
+                             SCREEN_WIDTH, SERVICES, SOFAS, SOUND_JUMP,
+                             TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -51,6 +52,7 @@ class Mediator:
             Command.CHANGE_TO_LUGGAGE: (self.change_to_luggage, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_RESTAURANT: (self.change_to_restaurant, False),
+            Command.CHANGE_TO_SERVICES: (self.change_to_services, False),
             Command.CHANGE_TO_SOFAS: (self.change_to_sofas, False),
             Command.CHANGE_TO_YARD: (self.change_to_yard, False),
             Command.ENTER_DOOR: (self.enter_door, False),
@@ -216,6 +218,23 @@ class Mediator:
         if self.trolley.taken:
             self.trolley.scene_name = self.current_scene
 
+    def change_to_services(self) -> None:
+        """
+        Changes background to services scene.
+        """
+        # If player is already at services scene then return
+        if self.current_scene == SERVICES:
+            return
+
+        # Set and change current scene and background to services
+        self.current_scene = SERVICES
+        self.background.change_background(SERVICES)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
     def change_to_sofas(self) -> None:
         """
         Changes background to sofas scene.
@@ -327,8 +346,11 @@ class Mediator:
             margin (int): The margin between player and screen edge.
         """
         # Change scene using mediator commands
+        # Exit BALLROOM from Left to SERVICES
+        if self.current_scene == BALLROOM and not spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_SERVICES)
         # Exit BALLROOM from Right to GARAGE
-        if self.current_scene == BALLROOM and spawn_on_left:
+        elif self.current_scene == BALLROOM and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_GARAGE)
         # Exit BAR from Left to ELEVATOR
         elif self.current_scene == BAR and not spawn_on_left:
@@ -372,6 +394,9 @@ class Mediator:
         # Exit RESTAURANT from Right to CONCIERGE
         elif self.current_scene == RESTAURANT and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_CONCIERGE)
+        # Exit SERVICES from Right to BALLROOM
+        elif self.current_scene == SERVICES and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_BALLROOM)
         # Exit SOFAS from Left to LUGGAGE
         elif self.current_scene == SOFAS and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
