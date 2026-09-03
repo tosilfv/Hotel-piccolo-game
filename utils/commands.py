@@ -24,6 +24,7 @@ class Command(Enum):
     CHANGE_TO_LUGGAGE = auto()
     CHANGE_TO_RECEPTION = auto()
     CHANGE_TO_RESTAURANT = auto()
+    CHANGE_TO_SERVICES = auto()
     CHANGE_TO_SOFAS = auto()
     CHANGE_TO_YARD = auto()
     ENTER_DOOR = auto()
