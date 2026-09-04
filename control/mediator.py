@@ -361,6 +361,9 @@ class Mediator:
         # Exit CONCIERGE from Left to RESTAURANT
         elif self.current_scene == CONCIERGE and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RESTAURANT)
+        # Exit CONCIERGE from Right to SERVICES
+        elif self.current_scene == CONCIERGE and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_SERVICES)
         # Exit ELEVATOR from Left to RECEPTION
         elif self.current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
@@ -393,6 +396,9 @@ class Mediator:
             self.handle_command(Command.CHANGE_TO_BAR)
         # Exit RESTAURANT from Right to CONCIERGE
         elif self.current_scene == RESTAURANT and spawn_on_left:
+            self.handle_command(Command.CHANGE_TO_CONCIERGE)
+        # Exit SERVICES from Left to CONCIERGE
+        elif self.current_scene == SERVICES and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_CONCIERGE)
         # Exit SERVICES from Right to BALLROOM
         elif self.current_scene == SERVICES and spawn_on_left:
