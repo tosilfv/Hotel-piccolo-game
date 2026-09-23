@@ -21,6 +21,7 @@ class Command(Enum):
     CHANGE_TO_ELEVATOR = auto()
     CHANGE_TO_ENTRANCE = auto()
     CHANGE_TO_GARAGE = auto()
+    CHANGE_TO_INSIDE_GARAGE = auto()
     CHANGE_TO_LUGGAGE = auto()
     CHANGE_TO_RECEPTION = auto()
     CHANGE_TO_RESTAURANT = auto()
