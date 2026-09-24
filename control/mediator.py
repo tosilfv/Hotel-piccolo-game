@@ -5,9 +5,9 @@ from typing import Tuple
 from utils.commands import Command
 from utils.constants import (BALLROOM, BAR, CENTER, CONCIERGE, EDGE_MARGIN,
                              ELEVATOR, ENTRANCE, FIVE, GARAGE, INSIDE_GARAGE,
-                             LUGGAGE, MUSIC_YARD, PUSH_SPEED, RECEPTION,
-                             RESTAURANT, SCREEN_WIDTH, SERVICES, SOFAS,
-                             SOUND_JUMP, TROLLEY_X, YARD)
+                             INSIDE_LUGGAGE, LUGGAGE, MUSIC_YARD, PUSH_SPEED,
+                             RECEPTION, RESTAURANT, SCREEN_WIDTH, SERVICES,
+                             SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -50,6 +50,7 @@ class Mediator:
             Command.CHANGE_TO_ENTRANCE: (self.change_to_entrance, False),
             Command.CHANGE_TO_GARAGE: (self.change_to_garage, False),
             Command.CHANGE_TO_INSIDE_GARAGE: (self.change_to_inside_garage, False),
+            Command.CHANGE_TO_INSIDE_LUGGAGE: (self.change_to_inside_luggage, False),
             Command.CHANGE_TO_LUGGAGE: (self.change_to_luggage, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_RESTAURANT: (self.change_to_restaurant, False),
@@ -179,6 +180,23 @@ class Mediator:
         # Set and change current scene and background to inside garage
         self.current_scene = INSIDE_GARAGE
         self.background.change_background(INSIDE_GARAGE)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_inside_luggage(self) -> None:
+        """
+        Changes background to inside luggage scene.
+        """
+        # If player is already at inside luggage scene then return
+        if self.current_scene == INSIDE_LUGGAGE:
+            return
+
+        # Set and change current scene and background to inside luggage
+        self.current_scene = INSIDE_LUGGAGE
+        self.background.change_background(INSIDE_LUGGAGE)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
@@ -443,7 +461,8 @@ class Mediator:
         """
         Enter the room when player is at the door and presses up.
         """
-        if self.current_scene != GARAGE and self.current_scene != ENTRANCE:
+        if self.current_scene != GARAGE and self.current_scene != ENTRANCE \
+            and self.current_scene != LUGGAGE:
             return
 
         try:
@@ -459,12 +478,15 @@ class Mediator:
         if not at_door:
             return
 
-        if self.current_scene == GARAGE:
-            # Change to room INSIDE_GARAGE
-            self.handle_command(Command.CHANGE_TO_INSIDE_GARAGE)
-        elif self.current_scene == ENTRANCE:
+        if self.current_scene == ENTRANCE:
             # Change to room RECEPTION
             self.handle_command(Command.CHANGE_TO_RECEPTION)
+        elif self.current_scene == GARAGE:
+            # Change to room INSIDE_GARAGE
+            self.handle_command(Command.CHANGE_TO_INSIDE_GARAGE)
+        elif self.current_scene == LUGGAGE:
+            # Change to room INSIDE_LUGGAGE
+            self.handle_command(Command.CHANGE_TO_INSIDE_LUGGAGE)
 
         # Spawn player to room
         self.player.rect.left = CENTER
@@ -473,7 +495,8 @@ class Mediator:
         """
         Exit the room when player is at the door and presses down.
         """
-        if self.current_scene != INSIDE_GARAGE and self.current_scene != RECEPTION:
+        if self.current_scene != INSIDE_GARAGE and self.current_scene != INSIDE_LUGGAGE \
+            and self.current_scene != RECEPTION:
             return
 
         try:
@@ -492,6 +515,9 @@ class Mediator:
         if self.current_scene == INSIDE_GARAGE:
             # Change to room GARAGE
             self.handle_command(Command.CHANGE_TO_GARAGE)
+        elif self.current_scene == INSIDE_LUGGAGE:
+            # Change to room LUGGAGE
+            self.handle_command(Command.CHANGE_TO_LUGGAGE)
         elif self.current_scene == RECEPTION:
             # Change to room ENTRANCE
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
