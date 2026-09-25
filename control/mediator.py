@@ -5,9 +5,9 @@ from typing import Tuple
 from utils.commands import Command
 from utils.constants import (BALLROOM, BAR, CENTER, CONCIERGE, EDGE_MARGIN,
                              ELEVATOR, ENTRANCE, FIVE, GARAGE, INSIDE_GARAGE,
-                             INSIDE_LUGGAGE, LUGGAGE, MUSIC_YARD, PUSH_SPEED,
-                             RECEPTION, RESTAURANT, SCREEN_WIDTH, SERVICES,
-                             SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
+                             INSIDE_LUGGAGE, INSIDE_STAFF, LUGGAGE, MUSIC_YARD,
+                             PUSH_SPEED, RECEPTION, RESTAURANT, SCREEN_WIDTH,
+                             SERVICES, SOFAS, SOUND_JUMP, TROLLEY_X, YARD)
 
 
 class Mediator:
@@ -51,6 +51,7 @@ class Mediator:
             Command.CHANGE_TO_GARAGE: (self.change_to_garage, False),
             Command.CHANGE_TO_INSIDE_GARAGE: (self.change_to_inside_garage, False),
             Command.CHANGE_TO_INSIDE_LUGGAGE: (self.change_to_inside_luggage, False),
+            Command.CHANGE_TO_INSIDE_STAFF: (self.change_to_inside_staff, False),
             Command.CHANGE_TO_LUGGAGE: (self.change_to_luggage, False),
             Command.CHANGE_TO_RECEPTION: (self.change_to_reception, False),
             Command.CHANGE_TO_RESTAURANT: (self.change_to_restaurant, False),
@@ -197,6 +198,23 @@ class Mediator:
         # Set and change current scene and background to inside luggage
         self.current_scene = INSIDE_LUGGAGE
         self.background.change_background(INSIDE_LUGGAGE)
+        self.audio_manager.stop_music()
+
+        # Tell trolley its current scene
+        if self.trolley.taken:
+            self.trolley.scene_name = self.current_scene
+
+    def change_to_inside_staff(self) -> None:
+        """
+        Changes background to inside staff scene.
+        """
+        # If player is already at inside staff scene then return
+        if self.current_scene == INSIDE_STAFF:
+            return
+
+        # Set and change current scene and background to inside staff
+        self.current_scene = INSIDE_STAFF
+        self.background.change_background(INSIDE_STAFF)
         self.audio_manager.stop_music()
 
         # Tell trolley its current scene
@@ -462,7 +480,7 @@ class Mediator:
         Enter the room when player is at the door and presses up.
         """
         if self.current_scene != GARAGE and self.current_scene != ENTRANCE \
-            and self.current_scene != LUGGAGE:
+            and self.current_scene != LUGGAGE: # and self.current_scene != CORRIDOR_STAFF:
             return
 
         try:
