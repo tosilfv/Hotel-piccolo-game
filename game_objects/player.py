@@ -5,9 +5,10 @@ import os
 from control.mediator import Mediator
 from game_objects.screen import Screen
 from utils.commands import Command
-from utils.constants import (FIVE, GRAPHICS_PATH, GRAVITY, GROUND_LEVEL,
-                            JUMP_CEILING_Y, JUMP_HEIGHT, PLAYER_X,
-                            RUN_ANIM_SPEED, ZERO)
+from utils.constants import (EDGE_MARGIN, FIVE, GRAPHICS_PATH, GRAVITY,
+                             GROUND_LEVEL, INSIDE_GARAGE, JUMP_CEILING_Y,
+                             JUMP_HEIGHT, PLAYER_X, RUN_ANIM_SPEED,
+                             SCREEN_WIDTH, ZERO)
 from utils.helpers import load_image
 
 
@@ -168,6 +169,15 @@ class Player:
             # If facing right
             else:
                 self.image = self.stand_image
+
+        # Prevent losing player when moving past screen edges
+        if self.mediator is not None and self.mediator.get_current_scene() == INSIDE_GARAGE:
+            # Left screen edge
+            if self.rect.x <= EDGE_MARGIN:
+                self.rect.x = EDGE_MARGIN
+            # Right screen edge
+            elif self.rect.x >= SCREEN_WIDTH - (EDGE_MARGIN * FIVE):
+                self.rect.x = SCREEN_WIDTH - (EDGE_MARGIN * FIVE)
 
         # DEBUG
         # print(f"Position X: {self.rect.x}")
