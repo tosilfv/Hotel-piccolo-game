@@ -68,6 +68,9 @@ class Mediator:
             Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
 
+    def get_current_scene(self) -> str:
+        return self.current_scene
+
     def change_to_ballroom(self) -> None:
         """
         Changes background to ballroom scene.
