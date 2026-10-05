@@ -6,9 +6,9 @@ from control.mediator import Mediator
 from game_objects.screen import Screen
 from utils.commands import Command
 from utils.constants import (EDGE_MARGIN, FIVE, GRAPHICS_PATH, GRAVITY,
-                             GROUND_LEVEL, INSIDE_GARAGE, JUMP_CEILING_Y,
-                             JUMP_HEIGHT, PLAYER_X, RUN_ANIM_SPEED,
-                             SCREEN_WIDTH, ZERO)
+                             GROUND_LEVEL, INSIDE_GARAGE, INSIDE_LUGGAGE,
+                             JUMP_CEILING_Y, JUMP_HEIGHT, PLAYER_X,
+                             RUN_ANIM_SPEED, SCREEN_WIDTH, ZERO)
 from utils.helpers import load_image
 
 
@@ -171,7 +171,9 @@ class Player:
                 self.image = self.stand_image
 
         # Prevent losing player when moving past screen edges
-        if self.mediator is not None and self.mediator.get_current_scene() == INSIDE_GARAGE:
+        if self.mediator is not None and \
+            (self.mediator.get_current_scene() == INSIDE_GARAGE or \
+            self.mediator.get_current_scene() == INSIDE_LUGGAGE):
             # Left screen edge
             if self.rect.x <= EDGE_MARGIN:
                 self.rect.x = EDGE_MARGIN
