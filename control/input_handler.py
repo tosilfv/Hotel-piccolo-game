@@ -57,8 +57,16 @@ class InputHandler:
             self.mediator.handle_command(Command.TAKE_TROLLEY)
 
         # Release trolley
-        if keys[pygame.K_RSHIFT]:
+        if keys[pygame.K_RCTRL]:
             self.mediator.handle_command(Command.RELEASE_TROLLEY)
+
+        # Load bag
+        if keys[pygame.K_LSHIFT]:
+            self.mediator.handle_command(Command.TAKE_BAG)
+
+        # Unload bag
+        if keys[pygame.K_LCTRL]:
+            self.mediator.handle_command(Command.TAKE_BAG)
 
         # Not moving reset command
         if not any(keys):
