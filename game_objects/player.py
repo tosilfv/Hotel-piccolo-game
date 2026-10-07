@@ -172,8 +172,8 @@ class Player:
 
         # Prevent losing player when moving past screen edges
         if self.mediator is not None and \
-            (self.mediator.get_current_scene() == INSIDE_GARAGE or \
-            self.mediator.get_current_scene() == INSIDE_LUGGAGE):
+            (self.mediator._current_scene == INSIDE_GARAGE or \
+            self.mediator._current_scene == INSIDE_LUGGAGE):
             # Left screen edge
             if self.rect.x <= EDGE_MARGIN:
                 self.rect.x = EDGE_MARGIN
