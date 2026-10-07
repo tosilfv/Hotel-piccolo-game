@@ -53,7 +53,7 @@ class InputHandler:
             self.mediator.handle_command(Command.JUMP)
 
         # Take trolley
-        if keys[pygame.K_RETURN]:
+        if keys[pygame.K_RSHIFT]:
             self.mediator.handle_command(Command.TAKE_TROLLEY)
 
         # Release trolley

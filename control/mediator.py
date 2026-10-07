@@ -1,7 +1,6 @@
 """
 Mediator pattern implementation for game object communication.
 """
-from typing import Tuple
 from utils.commands import Command
 from utils.constants import (BALLROOM, BAR, CENTER, CONCIERGE, EDGE_MARGIN,
                              ELEVATOR, ENTRANCE, FIVE, GARAGE, INSIDE_GARAGE,
@@ -21,23 +20,22 @@ class Mediator:
         - Communicate with AudioManager to play or stop music or sound
         - Ensure decoupling of input handling from game object behavior
         - Manage trolley actions
-        - Implement guard pattern to interactable game objects
 
     Attributes:
+        _current_scene (str): Current scene.
         background: Background instance.
         running (bool): Whether player (piccolo) is running.
-        current_scene (str): Current background that is displayed on screen.
         player: Player instance for character management.
         trolley: Trolley instance for trolley item management.
         bag: Bag instance for bag item management.
         audio_manager: AudioManager instance for audio management.
-        _commands (dict): Dictionary for player methods.
+        _commands (dict): Dictionary for command actions.
     """
 
     def __init__(self, background, player, trolley, bag, audio_manager):
+        self._current_scene = ENTRANCE
         self.background = background
         self.running = False
-        self.current_scene = ENTRANCE
         self.player = player
         self.trolley = trolley
         self.bag = bag
@@ -68,267 +66,122 @@ class Mediator:
             Command.TAKE_TROLLEY: (self.take_trolley, True)
         }
 
-    def get_current_scene(self) -> str:
-        return self.current_scene
+    @property
+    def current_scene(self) -> str:
+        return self._current_scene
+
+    def _change_scene(self, scene: str, music: str | None = None) -> None:
+        # Return if already in the target scene
+        if self._current_scene == scene:
+            return
+
+        # Update current scene and background
+        self._current_scene = scene
+        self.background.change_background(scene)
+
+        # Update scene music
+        if music is not None:
+            self.audio_manager.play_music(music)
+        else:
+            self.audio_manager.stop_music()
+
+        # Update trolley scene if trolley is being pushed
+        if self.trolley.taken:
+            self.trolley.scene_name = scene
 
     def change_to_ballroom(self) -> None:
         """
-        Changes background to ballroom scene.
+        Changes to ballroom scene.
         """
-        # If player is already at ballroom scene then return
-        if self.current_scene == BALLROOM:
-            return
-
-        # Set and change current scene and background to ballroom
-        self.current_scene = BALLROOM
-        self.background.change_background(BALLROOM)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(BALLROOM)
 
     def change_to_bar(self) -> None:
         """
-        Changes background to bar scene.
+        Changes to bar scene.
         """
-        # If player is already at bar scene then return
-        if self.current_scene == BAR:
-            return
-
-        # Set and change current scene and background to bar
-        self.current_scene = BAR
-        self.background.change_background(BAR)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(BAR)
 
     def change_to_concierge(self) -> None:
         """
-        Changes background to concierge scene.
+        Changes to concierge scene.
         """
-        # If player is already at concierge scene then return
-        if self.current_scene == CONCIERGE:
-            return
-
-        # Set and change current scene and background to concierge
-        self.current_scene = CONCIERGE
-        self.background.change_background(CONCIERGE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(CONCIERGE)
 
     def change_to_elevator(self) -> None:
         """
-        Changes background to elevator scene.
+        Changes to elevator scene.
         """
-        # If player is already at elevator scene then return
-        if self.current_scene == ELEVATOR:
-            return
-
-        # Set and change current scene and background to elevator
-        self.current_scene = ELEVATOR
-        self.background.change_background(ELEVATOR)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(ELEVATOR)
 
     def change_to_entrance(self) -> None:
         """
-        Changes background to entrance scene.
+        Changes to entrance scene.
         """
-        # If player is already at entrance scene then return
-        if self.current_scene == ENTRANCE:
-            return
-
-        # Set and change current scene and background to entrance
-        self.current_scene = ENTRANCE
-        self.background.change_background(ENTRANCE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(ENTRANCE)
 
     def change_to_garage(self) -> None:
         """
-        Changes background to garage scene.
+        Changes to garage scene.
         """
-        # If player is already at garage scene then return
-        if self.current_scene == GARAGE:
-            return
-
-        # Set and change current scene and background to garage
-        self.current_scene = GARAGE
-        self.background.change_background(GARAGE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(GARAGE)
 
     def change_to_inside_garage(self) -> None:
         """
-        Changes background to inside garage scene.
+        Changes to inside garage scene.
         """
-        # If player is already at inside garage scene then return
-        if self.current_scene == INSIDE_GARAGE:
-            return
-
-        # Set and change current scene and background to inside garage
-        self.current_scene = INSIDE_GARAGE
-        self.background.change_background(INSIDE_GARAGE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(INSIDE_GARAGE)
 
     def change_to_inside_luggage(self) -> None:
         """
-        Changes background to inside luggage scene.
+        Changes to inside luggage scene.
         """
-        # If player is already at inside luggage scene then return
-        if self.current_scene == INSIDE_LUGGAGE:
-            return
-
-        # Set and change current scene and background to inside luggage
-        self.current_scene = INSIDE_LUGGAGE
-        self.background.change_background(INSIDE_LUGGAGE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(INSIDE_LUGGAGE)
 
     def change_to_inside_staff(self) -> None:
         """
-        Changes background to inside staff scene.
+        Changes to inside staff scene.
         """
-        # If player is already at inside staff scene then return
-        if self.current_scene == INSIDE_STAFF:
-            return
-
-        # Set and change current scene and background to inside staff
-        self.current_scene = INSIDE_STAFF
-        self.background.change_background(INSIDE_STAFF)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(INSIDE_STAFF)
 
     def change_to_luggage(self) -> None:
         """
-        Changes background to luggage scene.
+        Changes to luggage scene.
         """
-        # If player is already at luggage scene then return
-        if self.current_scene == LUGGAGE:
-            return
-
-        # Set and change current scene and background to luggage
-        self.current_scene = LUGGAGE
-        self.background.change_background(LUGGAGE)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(LUGGAGE)
 
     def change_to_reception(self) -> None:
         """
-        Changes background to reception scene.
+        Changes to reception scene.
         """
-        # If player is already at reception scene then return
-        if self.current_scene == RECEPTION:
-            return
-
-        # Set and change current scene and background to reception
-        self.current_scene = RECEPTION
-        self.background.change_background(RECEPTION)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(RECEPTION)
 
     def change_to_restaurant(self) -> None:
         """
-        Changes background to restaurant scene.
+        Changes to restaurant scene.
         """
-        # If player is already at restaurant scene then return
-        if self.current_scene == RESTAURANT:
-            return
-
-        # Set and change current scene and background to restaurant
-        self.current_scene = RESTAURANT
-        self.background.change_background(RESTAURANT)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(RESTAURANT)
 
     def change_to_services(self) -> None:
         """
-        Changes background to services scene.
+        Changes to services scene.
         """
-        # If player is already at services scene then return
-        if self.current_scene == SERVICES:
-            return
-
-        # Set and change current scene and background to services
-        self.current_scene = SERVICES
-        self.background.change_background(SERVICES)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(SERVICES)
 
     def change_to_sofas(self) -> None:
         """
-        Changes background to sofas scene.
+        Changes to sofas scene.
         """
-        # If player is already at sofas scene then return
-        if self.current_scene == SOFAS:
-            return
-
-        # Set and change current scene and background to sofas
-        self.current_scene = SOFAS
-        self.background.change_background(SOFAS)
-        self.audio_manager.stop_music()
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(SOFAS)
 
     def change_to_yard(self) -> None:
         """
-        Changes background to yard scene.
+        Changes to yard scene.
         """
-        # If player is already at yard scene then return
-        if self.current_scene == YARD:
-            return
-
-        # Set and change current scene and background to yard
-        self.current_scene = YARD
-        self.background.change_background(YARD)
-        self.audio_manager.play_music(MUSIC_YARD)
-
-        # Tell trolley its current scene
-        if self.trolley.taken:
-            self.trolley.scene_name = self.current_scene
+        self._change_scene(YARD, MUSIC_YARD)
 
     def play_jump_sound(self) -> None:
         """
-        Plays jump sound.
+        Play jump sound.
         """
         self.audio_manager.play_sound(SOUND_JUMP)
 
@@ -337,285 +190,227 @@ class Mediator:
         Handle command communication of game objects.
 
         Args:
-            command (Command): Enum key for _commands dictionary.
-
-        Attributes:
-            action: _commands dictionary value that is a player method.
+            command (Command | None): Enum key for _commands dictionary.
         """
         # Handle unknown command
         if command is None:
             self.running = False
             return
 
-        # Get command_data for action and running_state and return if it evaluates to False
+        # Get command_data
         command_data = self._commands.get(command)
-        if not command_data:
+        if command_data is None:
             self.running = False
             return
 
-        # Unpack command_data
         action, running_state = command_data
-
-        # Call the action
         action()
-
-        # Update self.running
         self.running = running_state
 
     def handle_edge_transition(self) -> None:
         """
         Handle transition when player reaches screen edge.
         """
-        # For tests player object can be a Mock object that doesn't have a rect attribute
-        try:
-            left = self.player.rect.left
-            right = self.player.rect.right
-        except AttributeError:
-            return
+        # Get player's horizontal position
+        left = self.player.rect.left
+        right = self.player.rect.right
 
-        # Prevent exploding in weird circumstances
-        if not isinstance(left, (int, float)) or not isinstance(right, (int, float)):
-            return
-        
-        # Set constants
-        screen_width = SCREEN_WIDTH
-
-        # Set left and right edge values and save current scene
-        at_left_edge = (left <= EDGE_MARGIN)
-        at_right_edge = (right >= screen_width - EDGE_MARGIN)
+        # Check if player is at the left or right edge
+        at_left_edge = left <= EDGE_MARGIN
+        at_right_edge = right >= SCREEN_WIDTH - EDGE_MARGIN
 
         # Handle the transition when player exits scene to left
         if at_left_edge:
-            self._scene_transition(spawn_on_left=False, screen_width=screen_width, margin=EDGE_MARGIN)
+            self._scene_transition(spawn_on_left=False)
 
         # Handle the transition when player exits scene to right
         elif at_right_edge:
-            self._scene_transition(spawn_on_left=True, screen_width=screen_width, margin=EDGE_MARGIN)
+            self._scene_transition(spawn_on_left=True)
 
-    def _scene_transition(self, *, spawn_on_left: bool, screen_width: int, margin: int) -> None:
+    def _scene_transition(self, *, spawn_on_left: bool) -> None:
         """
-        Handle scene transition and player spawning and call mediator for scene change.
+        Handle scene transition and move player to the opposite edge.
 
         Args:
-            *: Forces following attributes to be called with their name included.
             spawn_on_left (bool): Whether player is going to spawn to left.
-            screen_width (int): The screen width.
-            margin (int): The margin between player and screen edge.
         """
-        # Change scene using mediator commands
         # Exit BALLROOM from Left to SERVICES
-        if self.current_scene == BALLROOM and not spawn_on_left:
+        if self._current_scene == BALLROOM and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_SERVICES)
         # Exit BALLROOM from Right to GARAGE
-        elif self.current_scene == BALLROOM and spawn_on_left:
+        elif self._current_scene == BALLROOM and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_GARAGE)
         # Exit BAR from Left to ELEVATOR
-        elif self.current_scene == BAR and not spawn_on_left:
+        elif self._current_scene == BAR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
         # Exit BAR from Right to RESTAURANT
-        elif self.current_scene == BAR and spawn_on_left:
+        elif self._current_scene == BAR and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RESTAURANT)
         # Exit CONCIERGE from Left to RESTAURANT
-        elif self.current_scene == CONCIERGE and not spawn_on_left:
+        elif self._current_scene == CONCIERGE and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RESTAURANT)
         # Exit CONCIERGE from Right to SERVICES
-        elif self.current_scene == CONCIERGE and spawn_on_left:
+        elif self._current_scene == CONCIERGE and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_SERVICES)
         # Exit ELEVATOR from Left to RECEPTION
-        elif self.current_scene == ELEVATOR and not spawn_on_left:
+        elif self._current_scene == ELEVATOR and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
         # Exit ELEVATOR from Right to BAR
-        elif self.current_scene == ELEVATOR and spawn_on_left:
+        elif self._current_scene == ELEVATOR and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_BAR)
         # Exit ENTRANCE from Left or Right to YARD
-        elif self.current_scene == ENTRANCE:
+        elif self._current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_YARD)
         # Exit GARAGE from Left to BALLROOM
-        elif self.current_scene == GARAGE and not spawn_on_left:
+        elif self._current_scene == GARAGE and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_BALLROOM)
         # Exit GARAGE from Right to LUGGAGE
-        elif self.current_scene == GARAGE and spawn_on_left:
+        elif self._current_scene == GARAGE and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
         # Exit LUGGAGE from Left to GARAGE
-        elif self.current_scene == LUGGAGE and not spawn_on_left:
+        elif self._current_scene == LUGGAGE and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_GARAGE)
         # Exit LUGGAGE from Right to SOFAS
-        elif self.current_scene == LUGGAGE and spawn_on_left:
+        elif self._current_scene == LUGGAGE and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_SOFAS)
         # Exit RECEPTION from Left to SOFAS
-        elif self.current_scene == RECEPTION and not spawn_on_left:
+        elif self._current_scene == RECEPTION and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_SOFAS)
         # Exit RECEPTION from Right to ELEVATOR
-        elif self.current_scene == RECEPTION and spawn_on_left:
+        elif self._current_scene == RECEPTION and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_ELEVATOR)
         # Exit RESTAURANT from Left to BAR
-        elif self.current_scene == RESTAURANT and not spawn_on_left:
+        elif self._current_scene == RESTAURANT and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_BAR)
         # Exit RESTAURANT from Right to CONCIERGE
-        elif self.current_scene == RESTAURANT and spawn_on_left:
+        elif self._current_scene == RESTAURANT and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_CONCIERGE)
         # Exit SERVICES from Left to CONCIERGE
-        elif self.current_scene == SERVICES and not spawn_on_left:
+        elif self._current_scene == SERVICES and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_CONCIERGE)
         # Exit SERVICES from Right to BALLROOM
-        elif self.current_scene == SERVICES and spawn_on_left:
+        elif self._current_scene == SERVICES and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_BALLROOM)
         # Exit SOFAS from Left to LUGGAGE
-        elif self.current_scene == SOFAS and not spawn_on_left:
+        elif self._current_scene == SOFAS and not spawn_on_left:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
         # Exit SOFAS from Right to RECEPTION
-        elif self.current_scene == SOFAS and spawn_on_left:
+        elif self._current_scene == SOFAS and spawn_on_left:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
         # Exit YARD from Left or Right to ENTRANCE
-        elif self.current_scene == YARD:
+        elif self._current_scene == YARD:
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
         else:
             return
 
-        # Spawn player
+        # Move player to the opposite edge
         if spawn_on_left:
-            self.player.rect.left = margin + FIVE
+            self.player.rect.left = EDGE_MARGIN + FIVE
         else:
-            self.player.rect.right = screen_width - margin - FIVE
+            self.player.rect.right = SCREEN_WIDTH - EDGE_MARGIN - FIVE
 
     def enter_door(self) -> None:
         """
         Enter the room when player is at the door and presses up.
         """
-        if self.current_scene != GARAGE and self.current_scene != ENTRANCE \
-            and self.current_scene != LUGGAGE: # and self.current_scene != CORRIDOR_STAFF:
+        if self._current_scene not in (
+            GARAGE,
+            ENTRANCE,
+            LUGGAGE
+        ):
             return
 
-        try:
-            left = self.player.rect.left
-        except AttributeError:
+        # Get player's horizontal position
+        left = self.player.rect.left
+
+        # Check if player is within the door interaction area
+        door_min_x = 230
+        door_max_x = 460
+        within_door_range = door_min_x <= left <= door_max_x
+
+        if not within_door_range:
             return
 
-        if not isinstance(left, (int, float)):
-            return
-
-        at_door = (left >= 230 and left <= 460)
-
-        if not at_door:
-            return
-
-        if self.current_scene == ENTRANCE:
-            # Change to room RECEPTION
+        if self._current_scene == ENTRANCE:
             self.handle_command(Command.CHANGE_TO_RECEPTION)
-        elif self.current_scene == GARAGE:
-            # Change to room INSIDE_GARAGE
+        elif self._current_scene == GARAGE:
             self.handle_command(Command.CHANGE_TO_INSIDE_GARAGE)
-        elif self.current_scene == LUGGAGE:
-            # Change to room INSIDE_LUGGAGE
+        elif self._current_scene == LUGGAGE:
             self.handle_command(Command.CHANGE_TO_INSIDE_LUGGAGE)
 
-        # Spawn player to room
+        # Move player to the center of the room
         self.player.rect.left = CENTER
 
     def exit_door(self) -> None:
         """
         Exit the room when player is at the door and presses down.
         """
-        if self.current_scene != INSIDE_GARAGE and self.current_scene != INSIDE_LUGGAGE \
-            and self.current_scene != RECEPTION:
+        if self._current_scene not in (
+            INSIDE_GARAGE,
+            INSIDE_LUGGAGE,
+            RECEPTION
+        ):
             return
 
-        try:
-            left = self.player.rect.left
-        except AttributeError:
+        # Get player's horizontal position
+        left = self.player.rect.left
+
+        # Check if player is within the door interaction area
+        door_min_x = 230
+        door_max_x = 460
+        within_door_range = door_min_x <= left <= door_max_x
+
+        if not within_door_range:
             return
 
-        if not isinstance(left, (int, float)):
-            return
-
-        at_door = (left >= 230 and left <= 460)
-
-        if not at_door:
-            return
-
-        if self.current_scene == INSIDE_GARAGE:
-            # Change to room GARAGE
+        if self._current_scene == INSIDE_GARAGE:
             self.handle_command(Command.CHANGE_TO_GARAGE)
-        elif self.current_scene == INSIDE_LUGGAGE:
-            # Change to room LUGGAGE
+        elif self._current_scene == INSIDE_LUGGAGE:
             self.handle_command(Command.CHANGE_TO_LUGGAGE)
-        elif self.current_scene == RECEPTION:
-            # Change to room ENTRANCE
+        elif self._current_scene == RECEPTION:
             self.handle_command(Command.CHANGE_TO_ENTRANCE)
 
-        # Spawn player to room
+        # Move player to the center of the room
         self.player.rect.left = CENTER
 
     def take_trolley(self) -> None:
         """
         Handle player taking the trolley.
         """
-        if not self._can_interact():
+        # Trolley must be in the same scene as the player
+        if self._current_scene != self.trolley.scene_name:
             return
 
-        if not self.trolley:
-            return
-
-        # When trolley is not on the same scene where player is, don't take trolley
-        if self.current_scene != self.trolley.scene_name:
-            return
-
-        # When trolley is not yet taken but player's proximity is close enough to take it
+        # Take trolley when player touches it
         if self.player.rect.colliderect(self.trolley.rect):
             self.trolley.taken = True
 
-    def move_trolley(self) -> Tuple[int, int] | None:
+    def move_trolley(self) -> tuple[int, int] | None:
         """
         Handle player moving the trolley.
         """
         if self.trolley.taken:
-            return (self.player.rect.centerx + TROLLEY_X, self.player.rect.bottom)
+            return self.player.rect.centerx + TROLLEY_X, self.player.rect.bottom
 
     def release_trolley(self) -> None:
         """
         Release trolley and give it a small push based on player's facing direction.
         """
-        if not self._can_interact():
-            return
-
-        if not self.trolley:
-            return
-
         # Can only release if player has it
         if not self.trolley.taken:
             return
 
-        # When trolley is not on the same scene where player is, don't release trolley
-        if self.current_scene != self.trolley.scene_name:
+        # Trolley must be in the same scene as the player
+        if self._current_scene != self.trolley.scene_name:
             return
 
         # Release trolley
         self.trolley.taken = False
 
-        # Give push
-        is_left = getattr(self.player, "is_left", False)
+        # Push trolley in the direction the player is facing
+        is_left = self.player.is_left
 
-        # Convert bool to int for trolley speed calculation
+        # Set push direction based on player facing direction
         direction = -1 if is_left else 1
 
-        # Add speed to trolley
         self.trolley.speed = direction * PUSH_SPEED
-
-        # DEBUG
-        # print(f"Current scene: {self.current_scene}")
-        # print(f"Trolley scene: {self.trolley.scene_name}")
-
-    def _can_interact(self) -> bool:
-        """
-        Guard pattern - Global interaction guard.
-
-        (Expansion example):
-        return (
-            self.player is not None
-            and not getattr(self.player, "is_unable_to_interact_case1", False)
-            and not getattr(self.player, "is_unable_to_interact_case2", False)
-            and not getattr(self.player, "is_unable_to_interact_case3", False)
-            etc...
-        )
-        """
-        return self.player is not None
