@@ -9,9 +9,7 @@ from control.game_factory import create_game
 from utils.logging_config import configure_logging
 
 def run_game() -> None:
-    """
-    Initialize and run the main game loop.
-    """
+    """Initialize and run the main game loop."""
     configure_logging()
     pygame.init()
 
